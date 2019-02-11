@@ -1,0 +1,126 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>20d89043-39d3-4e6b-81a4-8018b99248ad</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>bot.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Ekls</Name>
+    <RootNamespace>Ekls</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <InterpreterId>Global|ContinuumAnalytics|Anaconda37-64</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="bot.py" />
+    <Compile Include="config.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\bilibili_update\crawler.py" />
+    <Compile Include="plugins\bilibili_update\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\icarus.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\add.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\music\data_source.py" />
+    <Compile Include="plugins\music\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\repeat\data_box.py" />
+    <Compile Include="plugins\repeat\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\retelling\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\saucenao\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\test\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\time_broadcast\time_word.py" />
+    <Compile Include="plugins\time_broadcast\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\update_check\crawler.py" />
+    <Compile Include="plugins\update_check\data_box.py" />
+    <Compile Include="plugins\update_check\get_update.py" />
+    <Compile Include="plugins\update_check\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\YutO\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="plugins\" />
+    <Folder Include="plugins\bilibili_update\" />
+    <Folder Include="plugins\music\" />
+    <Folder Include="plugins\repeat\" />
+    <Folder Include="plugins\retelling\" />
+    <Folder Include="plugins\saucenao\" />
+    <Folder Include="plugins\test\" />
+    <Folder Include="plugins\time_broadcast\" />
+    <Folder Include="plugins\time_broadcast\time_txt\" />
+    <Folder Include="plugins\update_check\" />
+    <Folder Include="plugins\YutO\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="plugins\time_broadcast\time_txt\台词_Z1.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_伊19.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_初春.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_初霜.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_加贺.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_吹雪.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_夕立.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_大凤.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_妙高.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_川内.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_时雨.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_明石.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_晓.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_最上.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_榛名.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_欧根.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_比睿.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_神通.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_绫波.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_苍龙.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_萨拉托加.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_金刚.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_长门.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_雾岛.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\台词_飞龙.txt" />
+    <Content Include="User.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|ContinuumAnalytics|Anaconda37-64" />
+    <InterpreterReference Include="Global|PythonCore|3.6" />
+    <InterpreterReference Include="Global|PythonCore|3.7" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
