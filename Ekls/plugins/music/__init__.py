@@ -15,8 +15,7 @@ async def music(session: CommandSession):
     # 获取歌曲信息
     mysic_report = await get_url_of_music(music_name)
     # 向用户发送歌曲
-    await session.send("[CQ:at,qq={}]".format(session.ctx["user_id"]))
-    await session.send(mysic_report)
+    await session.send(mysic_report, at_sender=True)
 
 
 @on_command('post_music_to', aliases=("点歌给"), only_to_me=False)

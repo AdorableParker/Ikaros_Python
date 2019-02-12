@@ -94,7 +94,7 @@ def get_trend(uid, flug=True):
         for img_uil in img_src:
             img = img + img_uil["img_src"] + "\n"
 
-        if reto(text1, ["评论接~", "见评论", "见置顶", "置顶"]):
+        if reto(text1, ["评论接", "见评论", "见置顶", "置顶"]):
             oid = content['desc']['rid']
             text1 = text1 + get_upper(oid)
 
