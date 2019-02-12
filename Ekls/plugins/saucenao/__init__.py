@@ -45,6 +45,7 @@ async def _(session: CommandSession):
 async def img_saucenao(session: CommandSession):
     url = session.get('url', prompt='要搜索的图片是哪张呢？')
     # 获取信息
+    print(url)
     success, img_info = await get_img(url)
     if success:
         # 向用户发送结果
