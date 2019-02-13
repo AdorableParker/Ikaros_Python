@@ -97,7 +97,7 @@ async def get_img(url):
     except ConnectionError:
         return False, "访问被拒绝，请联系管理员"
     else:
-        resul_tsimilarity_info, result_title, pixiv_id, pixiv_id_url, painter, painter_url = '未能获取', '未能获取', '未能获取', '未能获取', '未能获取', '未能获取'
+        result_title, pixiv_id, pixiv_id_url, painter, painter_url = '未能获取', '未能获取', '未能获取', '未能获取', '未能获取'
     try:
         # 标题
         result_title = resul_tcontent.select_one("div[class='resulttitle']").get_text()
