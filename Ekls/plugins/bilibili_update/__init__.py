@@ -8,6 +8,17 @@ from nonebot import on_command, CommandSession
 from .crawler import update2out
 
 
+__plugin_name__ = "碧蓝航线动态获取"
+__plugin_usage__ = """
+------update_bilibili------
+关键字："小加加", "B博更新", "b博更新"
+
+效果：锉刀怪又gū了？让我康康
+
+########################
+"""
+
+
 # on_command 装饰器将函数声明为一个命令处理器
 @on_command('update_bilibili', aliases=("小加加", "B博更新", "b博更新"), only_to_me=False)
 async def update_bilibili(session: CommandSession):

@@ -1,6 +1,16 @@
 from nonebot import on_notice, NoticeSession
 
 
+__plugin_name__ = "迎新"
+__plugin_usage__ = """
+########################
+#                      #
+#     大佬又在装萌新了    #
+#                      #
+########################
+"""
+
+
 # 将函数注册为群成员增加通知处理器
 @on_notice('group_increase')
 async def _(session: NoticeSession):

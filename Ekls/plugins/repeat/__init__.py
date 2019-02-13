@@ -10,13 +10,22 @@ from nonebot.helpers import context_id, render_expression
 from .data_box import sql_rewrite, sql_read
 
 
+__plugin_name__ = "复读姬"
+__plugin_usage__ = """
+------repeat------
+
+人类的本质是什么？
+
+########################
+"""
+
+
 # 注册一个仅内部使用的命令，不需要 aliases
 @on_command('repeat')
 async def repeat(session: CommandSession):
     # 获取可选参数，这里如果没有 message 参数，命令不会被中断，message 变量会是 None
     message = session.state.get('message')
 
-    # 通过封装的函数获取图灵机器人的回复
     reply = await get_repeat(session, message)
     if reply:
         # 如果调用

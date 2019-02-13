@@ -4,6 +4,21 @@ import requests
 import base64
 import json
 
+__plugin_name__ = "番剧搜索"
+__plugin_usage__ = """
+------trace_moe------
+命令关键字："以图搜番", "搜番"
+命令输入格式：
+
+以图搜番 <番剧截图>
+
+效果：根据输入的图片，使用trace.moe搜图引擎进行图源搜索，返回相似度高于87%的结果中，相似度最高的。
+
+<注意>：由于运算需求过高，请勿频繁调用该命令！
+
+########################
+"""
+
 
 @on_command('trace_moe', aliases=("以图搜番", "搜番"), only_to_me=False)
 async def trace_moe (session: CommandSession):

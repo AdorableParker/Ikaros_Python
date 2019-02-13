@@ -7,6 +7,16 @@ from aiocqhttp.exceptions import Error as CQHttpError
 
 from .time_word import line
 
+
+__plugin_name__ = "整点报时"
+__plugin_usage__ = """
+########################
+现在是 服务器时间：
+{}
+########################
+""".format(time.asctime(time.localtime(time.time())))
+
+
 @nonebot.scheduler.scheduled_job('cron', hour='*')  # 整点执行
 # @nonebot.scheduler.scheduled_job('interval', minutes=1)    # 间隔一分钟执行
 async def _():

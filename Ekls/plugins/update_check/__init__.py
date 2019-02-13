@@ -6,6 +6,16 @@ from aiocqhttp.exceptions import Error as CQHttpError
 
 from .get_update import update_check
 
+
+__plugin_name__ = "动态更新"
+__plugin_usage__ = """
+########################
+今天有没有被指挥官偷瞄呢(:3_ヽ)_
+\t\t————萨拉托加
+########################
+"""
+
+
 @nonebot.scheduler.scheduled_job('cron', hour='*', minute="0, 30")  # 每半小时执行
 # @nonebot.scheduler.scheduled_job('interval', minutes=1)    # 间隔一分钟执行
 async def _():

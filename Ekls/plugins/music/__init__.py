@@ -9,6 +9,20 @@ from nonebot import on_natural_language, NLPSession, IntentCommand
 from .data_source import get_url_of_music
 
 
+__plugin_name__ = "点歌姬"
+__plugin_usage__ = """
+------music------
+命令关键字："点歌", "来首"
+命令输入格式：
+
+点歌 <歌名>
+
+效果：根据输入的歌名，使用搜索网易云音乐曲库，返回歌单列表第一条。
+
+########################
+"""
+
+
 @on_command('music', aliases=("点歌", "来首"), only_to_me=False)
 async def music(session: CommandSession):
     music_name = session.get('music_name', prompt='你想要听哪首歌呢？')

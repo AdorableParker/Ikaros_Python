@@ -37,6 +37,9 @@
     <Compile Include="plugins\add.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\help.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\music\data_source.py" />
     <Compile Include="plugins\music\__init__.py">
       <SubType>Code</SubType>

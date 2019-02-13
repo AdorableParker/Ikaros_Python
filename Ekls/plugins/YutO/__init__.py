@@ -1,6 +1,27 @@
 from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
 
+__plugin_name__ = "YuToForth"
+__plugin_usage__ = """
+------open_fire------
+关键字："射爆", "社保"
+
+效果：我不是针对某个人，我是说在座的各位，都将被我射爆。
+\t\t\t———YuTo
+
+\t\t<注意>
+\t射爆有风险\t使用需谨慎
+适度发泄放松灵魂\t过度纵欲耗损身体
+
+########################
+
+------i_want------
+关键字："我想"
+
+效果：揣摩你的意图，窥探你的想法
+
+########################
+"""
 
 @on_command('open_fire')
 async def open_fire(session: CommandSession):
