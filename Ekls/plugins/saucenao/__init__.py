@@ -70,7 +70,7 @@ async def img_saucenao(session: CommandSession):
     success, img_info = await get_img(url)
     if success:
         # 向用户发送结果
-        await session.send("相似度：{0[0]}\n作品名称：{0[1]}\n作品ID：{0[2]}\n作品链接：{0[3]}\n画师：{0[4]}\n画师主页：{0[5]}".format(img_info), at_sender=True)
+        await session.send("\n相似度：{0[0]}\n作品名称：{0[1]}\n作品ID：{0[2]}\n作品链接：{0[3]}\n画师：{0[4]}\n画师主页：{0[5]}".format(img_info), at_sender=True)
     else:
         await session.send(img_info, at_sender=True)
 
