@@ -113,7 +113,7 @@ async def get_img(url):
         resul_tcontent = soup.select_one('div[class="resultcontent"]')
         # 相似度
         resul_tsimilarity_info = soup.select_one('div[class="resultsimilarityinfo"]').get_text()
-        if int(resul_tsimilarity_info.rstrip("%")) < 60:
+        if float(resul_tsimilarity_info.rstrip("%")) < 60:
             return False, "未找到相似度达标结果"
     except AttributeError:
         return False, "未找到相似度达标结果"
