@@ -23,8 +23,11 @@ async def _():
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
     try:
         # 碧蓝群
+        time_line = line()
         await bot.send_group_msg(group_id=463222048,
-                                 message=line())
+                                 message=time_line)
+        await bot.send_group_msg(group_id=787211538,
+                                 message=time_line)
         # 咕咕群
         now_time = time.strftime('%H',time.localtime(time.time()))
         await bot.send_group_msg(group_id=670518695,

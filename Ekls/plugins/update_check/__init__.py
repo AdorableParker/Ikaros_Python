@@ -26,9 +26,11 @@ async def _():
         if update_info[0]:
             # 碧蓝群
             await bot.send_group_msg(group_id=463222048, message=update_info[1])
+            await bot.send_group_msg(group_id=787211538, message=update_info[1])
 
     except CQHttpError:
             await bot.send_group_msg(group_id=463222048, message="更新动态失败")
+            await bot.send_group_msg(group_id=787211538, message="更新动态失败")
 
 
 if __name__ == "__main__":
