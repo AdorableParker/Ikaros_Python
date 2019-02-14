@@ -5,7 +5,7 @@ from nonebot import on_command, CommandSession
 __plugin_name__ = "使用说明"
 __plugin_usage__ = """
 ------help------
-命令关键字："使用帮助", "帮助", "使用方法"
+命令关键字："使用说明", "使用帮助", "帮助", "使用方法"
 命令输入格式：
 
 使用帮助 <命令名>
@@ -16,7 +16,7 @@ __plugin_usage__ = """
 """
 
 
-@on_command('help', aliases=['使用帮助', '帮助', '使用方法'], only_to_me=False)
+@on_command('help', aliases=['使用说明', '使用帮助', '帮助', '使用方法'], only_to_me=False)
 async def _(session: CommandSession):
     # 获取设置了名称的插件列表
     plugins = list(filter(lambda p: p.name, nonebot.get_loaded_plugins()))
