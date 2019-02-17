@@ -57,7 +57,7 @@
     <Compile Include="plugins\saucenao\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plugins\test\__init__.py">
+    <Compile Include="plugins\banned\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="plugins\time_broadcast\time_word.py" />
@@ -82,7 +82,7 @@
     <Folder Include="plugins\repeat\" />
     <Folder Include="plugins\retelling\" />
     <Folder Include="plugins\saucenao\" />
-    <Folder Include="plugins\test\" />
+    <Folder Include="plugins\banned\" />
     <Folder Include="plugins\time_broadcast\" />
     <Folder Include="plugins\time_broadcast\time_txt\" />
     <Folder Include="plugins\update_check\" />

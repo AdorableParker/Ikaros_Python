@@ -11,6 +11,9 @@ __plugin_name__ = "自助禁言"
 __plugin_usage__ = """
 ------banned------
 命令关键字："求口", "自助禁言"
+命令输入格式：
+
+求口 <时间秒数>
 
 效果：满足你奇怪的要求
 ########################
@@ -19,13 +22,17 @@ __plugin_usage__ = """
 
 # on_command 装饰器将函数声明为一个命令处理器
 @on_command('banned', aliases=("求口", "自助禁言"), only_to_me=False)
-async def test(session: CommandSession):
+async def banned(session: CommandSession):
     # 向用户发送信息
-    banned_time = session.get('banned_time', prompt='请选择套餐规模\n以秒为单位，不足60秒的部分按一分钟计算\n')
+    banned_time = session.get('banned_time', prompt='请选择套餐规模\n以分钟为单位')
     bot = session.bot
-    await session.send("开门，您外卖到了", at_sender=True)
-    await bot.set_group_ban(group_id=session.ctx['group_id'], user_id=session.ctx['user_id'], duration=banned_time)
-
+    try:
+        banned_time = int(banned_time)*60
+        await bot.set_group_ban(group_id=session.ctx['group_id'],
+                                user_id=session.ctx['user_id'],
+                                duration=banned_time)
+    except CQHttpError:
+        session.send("执行异常，请检查权限，参数")
 
 @banned.args_parser
 async def _(session: CommandSession):
@@ -40,7 +47,7 @@ async def _(session: CommandSession):
     if not stripped_arg:
         # 用户没有发送有效的歌曲名称（而是发送了空白字符），则提示重新输入
         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
-        session.pause('，请重新输入')
+        session.pause('请重新输入')
 
     # 如果当前正在向用户询问更多信息（例如本例中的要点播的歌曲），且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
