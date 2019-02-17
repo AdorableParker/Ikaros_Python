@@ -45,15 +45,20 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
 
     if not text:
         return None
-    old_info, flag = sql_read("User.db", "repeat_info", "groupid", session.ctx["group_id"])[0][:2]
-    if old_info == text:
-        if flag == 1:
-            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 2)
-            return text
-        elif flag == 0:
-            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 1)
-        return False
+    try:
+        old_info, flag = sql_read("User.db", "repeat_info", "groupid", session.ctx["group_id"])[0][:2]
+    except IndexError:
+        # 初步判定为未添加复读
+        pass
     else:
-        sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 0)
-        sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "info", text)
-        return False
+        if old_info == text:
+            if flag == 1:
+                sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 2)
+                return text
+            elif flag == 0:
+                sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 1)
+            return False
+        else:
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 0)
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "info", text)
+            return False

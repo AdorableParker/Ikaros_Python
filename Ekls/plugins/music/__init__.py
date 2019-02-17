@@ -46,6 +46,7 @@ async def post_music_to(session: CommandSession):
         # 向用户发送歌曲
         await session.send("[CQ:at,qq={}],[CQ:at,qq={}]为你送上一首{}".format(music_to,session.ctx["user_id"], music_name))
         await session.send(mysic_report)
+    return 
 
 
 # music.args_parser 装饰器将函数声明为 music 命令的参数解析器
