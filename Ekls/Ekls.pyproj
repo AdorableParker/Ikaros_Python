@@ -44,6 +44,10 @@
     <Compile Include="plugins\music\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\rendering\render.py" />
+    <Compile Include="plugins\rendering\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\trace_moe\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -78,6 +82,7 @@
     <Folder Include="plugins\" />
     <Folder Include="plugins\bilibili_update\" />
     <Folder Include="plugins\music\" />
+    <Folder Include="plugins\rendering\" />
     <Folder Include="plugins\trace_moe\" />
     <Folder Include="plugins\repeat\" />
     <Folder Include="plugins\retelling\" />

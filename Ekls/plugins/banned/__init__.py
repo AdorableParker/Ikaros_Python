@@ -4,7 +4,6 @@
 """
 
 from nonebot import on_command, CommandSession
-from nonebot import on_natural_language, NLPSession, IntentCommand
 
 
 __plugin_name__ = "自助禁言"
