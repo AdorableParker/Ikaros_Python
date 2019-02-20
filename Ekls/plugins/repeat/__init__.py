@@ -58,6 +58,8 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
             elif flag == 0:
                 sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 1)
                 text = False
+            else:
+                text = False
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", user)
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", session.ctx["user_id"])
             return text
