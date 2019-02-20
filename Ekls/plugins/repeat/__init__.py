@@ -16,6 +16,7 @@ __plugin_usage__ = """
 
 人类的本质是什么？
 
+给我把倒数第二个复读机砸了！
 ########################
 """
 
@@ -54,18 +55,26 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
         if old_info == text:
             if flag == 1:
                 sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 2)
-                return text
             elif flag == 0:
                 sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 1)
+                text = False
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", user)
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", session.ctx["user_id"])
-            return False
+            return text
         else:
             if flag == 2:
                 bot = session.bot
-                await bot.set_group_ban(group_id=session.ctx['group_id'], 
-                                        user_id=old_user,
-                                        duration=180)
+                try:
+                    await bot.set_group_ban(group_id=session.ctx['group_id'], 
+                                            user_id=old_user,
+                                            duration=120)
+                    await bot.set_group_ban(group_id=session.ctx['group_id'], 
+                                            user_id=session.ctx['user_id'],
+                                            duration=60)
+                except CQHttpError:
+                    session.send("执行异常，请检查权限，参数")
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 0)
-            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "info", text)
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "info", text)    
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", "")
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", "")
             return False
