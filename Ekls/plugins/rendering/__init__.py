@@ -54,30 +54,3 @@ async def translation(session: CommandSession):
     else:
         echo = render(text, tolanguage)
     await session.send(echo,at_sender=True)
-
-
-#@translation.args_parser
-#async def _(session: CommandSession):
-#    # 去掉消息首尾的空白符
-#    stripped_arg = session.current_arg_text.strip()
-#    if session.is_first_run:
-#        # 该命令第一次运行（第一次进入命令会话）
-#        if stripped_arg:
-#            session.state['text'] = stripped_arg
-#        return
-#    else:
-#        langlist = {'中文': 'zh', '日语': 'jp', '泰语': 'th', '法语': 'fra', '英语': 'en',
-#                    '西班牙语': 'spa', '韩语': 'kor', '越南语': 'vie', '德语': 'de', '俄语': 'ru',
-#                    '阿拉伯语': 'ara', '爱沙尼亚语': 'est', '保加利亚语': 'bul', '波兰语': 'pl', '丹麦语': 'dan',
-#                    '芬兰语': 'fin', '荷兰语': 'nl', '捷克语': 'cs', '罗马尼亚语': 'rom', '葡萄牙语': 'pt',
-#                    '瑞典语': 'swe', '斯洛文尼亚语': 'slo', '希腊语': 'el', '匈牙利语': 'hu', '意大利语': 'it',
-#                    '粤语': 'yue', '文言文': 'wyw', '中文繁体': 'cht'}
-#        try:
-#            session.state['tolanguage'] = langlist[stripped_arg]
-#        except:
-#            stripped_arg = False
-#    if not stripped_arg:
-#        # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
-#        session.pause('请重新输入')
-
-#    session.state[session.current_key] = stripped_arg

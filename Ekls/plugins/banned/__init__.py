@@ -26,7 +26,9 @@ async def banned(session: CommandSession):
     banned_time = session.get('banned_time', prompt='请选择套餐规模\n以分钟为单位')
     bot = session.bot
     try:
-        banned_time = int(banned_time)*60
+        banned_time = int(float(banned_time)*60)
+        if banned_time > 2592000:
+            banned_time = 2592000
         await bot.set_group_ban(group_id=session.ctx['group_id'],
                                 user_id=session.ctx['user_id'],
                                 duration=banned_time)
