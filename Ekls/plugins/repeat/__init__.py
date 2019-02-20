@@ -36,7 +36,7 @@ async def repeat(session: CommandSession):
 @on_natural_language(only_to_me=False)
 async def _(session: NLPSession):
     # 以置信度 60.0 返回 tuling 命令
-    # 确保任何消息都在且仅在其它自然语言处理器无法理解的时候使用 tuling 命令
+    # 确保任何消息都在且仅在其它自然语言处理器无法理解的时候触发命令
     return IntentCommand(60.0, 'repeat', args={'message': session.msg_text})
 
 
@@ -46,7 +46,7 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
     if not text:
         return None
     try:
-        old_info, flag = sql_read("User.db", "repeat_info", "groupid", session.ctx["group_id"])[0][:2]
+        old_info, flag, user, old_user = sql_read("User.db", "repeat_info", "groupid", session.ctx["group_id"])[0][:4]
     except IndexError:
         # 初步判定为未添加复读
         pass
@@ -57,8 +57,15 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
                 return text
             elif flag == 0:
                 sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 1)
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", user)
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", session.ctx["user_id"])
             return False
         else:
+            if flag == 2:
+                bot = session.bot
+                await bot.set_group_ban(group_id=session.ctx['group_id'], 
+                                        user_id=old_user,
+                                        duration=180)
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 0)
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "info", text)
             return False
