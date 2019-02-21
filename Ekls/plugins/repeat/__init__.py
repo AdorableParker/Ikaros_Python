@@ -53,30 +53,31 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
         pass
     else:
         if old_info == text:
-            if flag == 1:
-                sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 2)
-            elif flag == 0:
-                sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 1)
+            if flag > 1 or flag == 0:
                 text = False
-            else:
-                text = False
-            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", user)
-            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", session.ctx["user_id"])
+            flag += 1
+            # 写入数据库
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", flag)  # 复读次数
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", user)  # 更迭在位者id
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", session.ctx["user_id"])  # 记录继位者id
             return text
         else:
             if flag == 2:
                 bot = session.bot
                 try:
+                    # 禁言在位者
                     await bot.set_group_ban(group_id=session.ctx['group_id'], 
                                             user_id=old_user,
-                                            duration=120)
+                                            duration=flag*90)
+                    # 禁言篡位者
                     await bot.set_group_ban(group_id=session.ctx['group_id'], 
                                             user_id=session.ctx['user_id'],
-                                            duration=60)
-                except CQHttpError:
+                                            duration=flag*60)
+                except:
                     session.send("执行异常，请检查权限，参数")
-            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 0)
-            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "info", text)    
-            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", "")
-            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", "")
+            # 写入数据库
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 0)  # 清空次数
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "info", text)  # 更新文本
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", "")  # 清空在位者id
+            sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", "")  # 清空继位者id
             return False
