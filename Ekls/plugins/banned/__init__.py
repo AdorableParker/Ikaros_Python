@@ -32,8 +32,9 @@ async def banned(session: CommandSession):
         await bot.set_group_ban(group_id=session.ctx['group_id'],
                                 user_id=session.ctx['user_id'],
                                 duration=banned_time)
-    except CQHttpError:
-        session.send("执行异常，请检查权限，参数")
+    except:
+        pass
+        # session.send("执行异常，请检查权限，参数")
 
 @banned.args_parser
 async def _(session: CommandSession):
