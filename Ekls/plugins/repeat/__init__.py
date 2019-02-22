@@ -62,7 +62,7 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", session.ctx["user_id"])  # 记录继位者id
             return text
         else:
-            if flag == 2:
+            if flag >= 2:
                 bot = session.bot
                 try:
                     # 禁言在位者
