@@ -27,6 +27,24 @@
     <Compile Include="config.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\anime_index\dt.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\anime_index\index.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\anime_index\nlp.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\anime_index\requests.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\anime_index\timeline.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\anime_index\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\bilibili_update\crawler.py" />
     <Compile Include="plugins\bilibili_update\__init__.py">
       <SubType>Code</SubType>
@@ -80,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="plugins\" />
+    <Folder Include="plugins\anime_index\" />
     <Folder Include="plugins\bilibili_update\" />
     <Folder Include="plugins\music\" />
     <Folder Include="plugins\rendering\" />
