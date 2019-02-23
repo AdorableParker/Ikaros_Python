@@ -32,11 +32,9 @@ async def _(session: NLPSession):
 
 @on_natural_language(keywords=['更新'])
 async def _(session: NLPSession):
-    print(session.msg_text)
     m = re.match(r'(?:b\s*站)?(?P<day_str>(?:前|昨|今|明|大?后)天)?(?P<name>.+?)'
                  r'(?P<day_str2>(?:前|昨|今|明|大?后)天)?[会有]?更(?:不更)?新',
                  session.msg_text, re.IGNORECASE)
-    print(m)
     day_str, name = None, None
     if m:
         day_str = m.group('day_str') or m.group('day_str2')

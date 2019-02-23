@@ -40,7 +40,7 @@ async def index(session: CommandSession):
         index_show = anime.get('index_show', '不详')
         if not title:
             continue
-        reply += f'{title}  {index_show}\n'
+        reply += f'{title}\t{index_show}\n'
 
     web_url = WEB_URL.format(year=year, month=month)
     reply += f'\n更多详细资料见哔哩哔哩官网 {web_url}'
