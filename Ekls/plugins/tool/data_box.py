@@ -5,7 +5,7 @@ import sqlite3
 
 
 def sql_read(library_name, table_name, field_name="",
-             field_key="", field="*", in_where=True):  # 读
+             field_key="", field="*", link="=" , in_where=True):  # 读
     """"
     # 用于读取数据库
     # 参数(标*为必填参数)：
@@ -23,8 +23,8 @@ def sql_read(library_name, table_name, field_name="",
     out = []
     if in_where:  # 是否启用 where 语句
 
-        cursor = pointer.execute("SELECT {} FROM {} WHERE {} = '{}';".format(
-                field, table_name, field_name, field_key))
+        cursor = pointer.execute("SELECT {} FROM {} WHERE {} {} '{}';".format(
+                field, table_name, field_name, link, field_key))
     else:
         cursor = pointer.execute("SELECT {} FROM {} table_name ;"
                                  .format(field, table_name))

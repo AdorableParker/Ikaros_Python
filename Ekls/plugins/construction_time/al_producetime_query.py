@@ -9,17 +9,18 @@ async def al_query_time(key_name):
     # 返回格式(str)：
     # "name":"time"
     """
-    result = sql_read("User.db", "AzurLane_construct_time",
-                      "Currentname", key_name)
-    if not result:
-        result = sql_read("User.db", "AzurLane_construct_time",
-                          "Usedname", key_name)
-    try:
-        result = list(result[0])
-    except IndexError:
-        output = "该船名未收录或无法建造"
+    resultlist = sql_read("User.db", "AzurLane_construct_time",
+                      "Currentname", "*{}*".format(key_name), link = "GLOB")
+    if not resultlist:
+        resultlist = sql_read("User.db", "AzurLane_construct_time",
+                          "Usedname", "*{}*".format(key_name), link = "GLOB")
+    if resultlist:
+        output = ""
+        resultlist.sort(key=lambda elem: elem[2])
+        for result in resultlist:
+            output += "\n原名：{0[0]}\t和谐名：{0[1]}\t建造时长：{0[2]}".format(result)
     else:
-        output = "和谐名：{0[1]}\n原名：{0[0]}\n建造时长：{0[2]}".format(result)
+        output = "该船名未收录或无法建造"
     return output
 
 
