@@ -22,11 +22,10 @@ async def _(session: NLPSession):
         args['month'] = int(month)
 
     confidence = 90
-    if '哪些' in session.msg_text or '什么' in session.msg_text:
+    if '哪些' in session.msg_text or '什么' in session.msg_text or '啥' in session.msg_text:
         confidence += 3
     if not re.search(r'b\s*站', session.msg_text, re.IGNORECASE):
         confidence -= 10
-
     return IntentCommand(confidence, ('anime_index', 'index'), args=args)
 
 
