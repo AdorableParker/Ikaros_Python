@@ -27,14 +27,16 @@ async def _(session: NLPSession):
     if not re.search(r'b\s*站', session.msg_text, re.IGNORECASE):
         confidence -= 10
 
-    return IntentCommand(confidence, ('bilibili_anime', 'index'), args=args)
+    return IntentCommand(confidence, ('anime_index', 'index'), args=args)
 
 
 @on_natural_language(keywords=['更新'])
 async def _(session: NLPSession):
+    print(session.msg_text)
     m = re.match(r'(?:b\s*站)?(?P<day_str>(?:前|昨|今|明|大?后)天)?(?P<name>.+?)'
                  r'(?P<day_str2>(?:前|昨|今|明|大?后)天)?[会有]?更(?:不更)?新',
                  session.msg_text, re.IGNORECASE)
+    print(m)
     day_str, name = None, None
     if m:
         day_str = m.group('day_str') or m.group('day_str2')
@@ -56,7 +58,7 @@ async def _(session: NLPSession):
     delta_day = delta_day_dict.get(day_str, 0)
     date = (datetime.now() + timedelta(days=delta_day)).strftime('%m-%d')
 
-    return IntentCommand(confidence, ('bilibili_anime', 'timeline'),
+    return IntentCommand(confidence, ('anime_index', 'timeline'),
                          args={'date': date, 'name': name})
 
 
@@ -73,5 +75,5 @@ async def _(session: NLPSession):
     if not re.search(r'b\s*站', session.msg_text, re.IGNORECASE):
         confidence -= 10
 
-    return IntentCommand(confidence, ('bilibili_anime', 'timeline'),
+    return IntentCommand(confidence, ('anime_index', 'timeline'),
                          args={'name': name})

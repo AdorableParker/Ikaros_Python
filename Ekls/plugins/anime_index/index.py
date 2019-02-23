@@ -16,8 +16,8 @@ WEB_URL = 'https://www.bilibili.com/anime/index/#season_version=-1&area=-1&is_fi
 async def get_anime_list(year: int,
                          month: int) -> Optional[List[Dict[str, Any]]]:
     api_url = API_URL.format(year=year, month=month)
-    resp = await requests.get(api_url)
-    payload = await resp.json()
+    resp = requests.get(api_url)
+    payload = resp.json()
     if not payload or payload.get('code') != 0:
         return None
     return payload['result']['data']
