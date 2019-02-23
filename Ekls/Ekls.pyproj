@@ -45,7 +45,6 @@
     <Compile Include="plugins\anime_index\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plugins\bilibili_update\crawler.py" />
     <Compile Include="plugins\bilibili_update\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -58,6 +57,12 @@
     <Compile Include="plugins\help.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\saucenao\get_img.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\tool\shorten_url.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\music\data_source.py" />
     <Compile Include="plugins\music\__init__.py">
       <SubType>Code</SubType>
@@ -66,10 +71,16 @@
     <Compile Include="plugins\rendering\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\tool\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\trace_moe\fan_search.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\trace_moe\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plugins\repeat\data_box.py" />
+    <Compile Include="plugins\tool\data_box.py" />
     <Compile Include="plugins\repeat\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -86,8 +97,7 @@
     <Compile Include="plugins\time_broadcast\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plugins\update_check\crawler.py" />
-    <Compile Include="plugins\update_check\data_box.py" />
+    <Compile Include="plugins\tool\crawler.py" />
     <Compile Include="plugins\update_check\get_update.py" />
     <Compile Include="plugins\update_check\__init__.py">
       <SubType>Code</SubType>
@@ -102,6 +112,7 @@
     <Folder Include="plugins\bilibili_update\" />
     <Folder Include="plugins\music\" />
     <Folder Include="plugins\rendering\" />
+    <Folder Include="plugins\tool\" />
     <Folder Include="plugins\trace_moe\" />
     <Folder Include="plugins\repeat\" />
     <Folder Include="plugins\retelling\" />

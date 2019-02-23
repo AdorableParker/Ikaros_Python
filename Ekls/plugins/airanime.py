@@ -4,6 +4,8 @@ from nonebot import on_command, CommandSession
 import requests
 import json
 
+from plugins.tool import shorten_url
+
 __plugin_name__ = "搜番源"
 __plugin_usage__ = """
 ------air_nime------
@@ -31,8 +33,9 @@ async def _(session: CommandSession):
     airanime_api = 'http://airanime.applinzi.com/function/sonline.php?kt={}'.format(arg)
     response = requests.get(airanime_api)
     if not response.ok:
-        session.finish('搜索失败了，请稍后再试吧')
-        return 
+        await session.finish('搜索失败了，请稍后再试吧')
+        return
+    await session.send('正在搜索，稍等哦')
     result_dic = json.loads(response.text)
     sites =[
         ('bilibili', '哔哩哔哩'),
@@ -53,5 +56,6 @@ async def _(session: CommandSession):
         if number_of_sources:
             output += source_name + ":\n"
             for i in range(number_of_sources):
-                output += "\t{}\n\t{}\n".format(name_list[i], url_list[i])
-    session.finish(output)
+                short_link = shorten_url.shorten_url(url_list[i])
+                output += "\t{}:\t{}\n".format(name_list[i], short_link)
+    await session.finish(output)

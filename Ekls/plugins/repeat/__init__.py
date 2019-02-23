@@ -7,7 +7,7 @@ from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
 
 
-from .data_box import sql_rewrite, sql_read
+from plugins.tool.data_box import sql_rewrite, sql_read
 
 
 __plugin_name__ = "复读姬"

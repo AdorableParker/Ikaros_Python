@@ -6,6 +6,7 @@ import time
 import requests
 import re
 
+from plugins.tool import shorten_url
 
 def reto(string, key):
     """
@@ -92,11 +93,12 @@ def get_trend(uid, flug=True):
             img = ""
 
         for img_uil in img_src:
-            img = img + img_uil["img_src"] + "\n"
+            img_suil = shorten_url.shorten_url(img_uil["img_src"])
+            img += img_suil + "\n"
 
-        if reto(text1, ["评论接~", "见评论", "见置顶", "置顶"]):
+        if reto(text1, ["评论接", "见评论", "见置顶", "置顶"]):
             oid = content['desc']['rid']
-            text1 = text1 + get_upper(oid)
+            text1 += get_upper(oid)
 
     else:
         text1, img = "专栏标题" + text["title"], ""
