@@ -31,7 +31,7 @@ async def repeat(session: CommandSession):
     if reply:
         # 如果调用
         # 转义会把消息中的某些特殊字符做转换，以避免 酷Q 将它们理解为 CQ 码
-        await session.send(escape(reply))
+        await session.finish(escape(reply))
 
 
 @on_natural_language(only_to_me=False)

@@ -38,9 +38,8 @@ async def tuling(session: CommandSession):
     if reply:
         # 如果调用图灵机器人成功，得到了回复，则转义之后发送给用户
         # 转义会把消息中的某些特殊字符做转换，以避免 酷Q 将它们理解为 CQ 码
-        await session.send(escape(reply))
+        await session.finish(escape(reply))
     else:
-        print(reply)
         # 如果调用失败，或者它返回的内容我们目前处理不了，发送无法获取图灵回复时的「表达」
         # 这里的 render_expression() 函数会将一个「表达」渲染成一个字符串消息
         # await session.send(render_expression(EXPR_DONT_UNDERSTAND))

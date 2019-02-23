@@ -26,14 +26,14 @@ __plugin_usage__ = """
 @on_command('open_fire')
 async def open_fire(session: CommandSession):
     if session.ctx['user_id'] == 798864550:
-        await session.send('I！YUTO！TM BURST-FORTH ！')
+        await session.finish('I！YUTO！TM BURST-FORTH ！')
     else:
-        await session.send('你涉嫌无证射爆，请立刻中止行为，接受检查！！')
+        await session.finish('你涉嫌无证射爆，请立刻中止行为，接受检查！！')
 
 @on_command('i_want')
 async def i_want(session: CommandSession):
     if session.ctx['user_id'] == 798864550:
-        await session.send("我懂，你又想射爆了对吧[CQ:face,id=179]")
+        await session.finish("我懂，你又想射爆了对吧[CQ:face,id=179]")
 
 # on_natural_language 装饰器将函数声明为一个自然语言处理器
 # keywords 表示需要响应的关键词，类型为任意可迭代对象，元素类型为 str

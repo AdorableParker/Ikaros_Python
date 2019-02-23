@@ -19,7 +19,6 @@ def render(text, toLang = 'zh'):
     r_s = requests.session()
     r = r_s.post(myurl)
     text = json.loads(r.text)
-    print(text)
     try:
         out = text["trans_result"][0]["dst"]
     except:

@@ -24,11 +24,11 @@ async def _(session: CommandSession):
     arg = session.current_arg_text.strip().lower()
     if not arg:
         # 如果用户没有发送参数，则发送功能列表
-        await session.send(
+        await session.finish(
             '命令清单：\n\n' + '\n'.join(p.name for p in plugins))
         return
 
     # 如果发了参数则发送相应命令的使用帮助
     for p in plugins:
         if p.name.lower() == arg:
-            await session.send(p.usage)
+            await session.finish(p.usage)

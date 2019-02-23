@@ -29,13 +29,12 @@ async def music(session: CommandSession):
     # 获取歌曲信息
     mysic_report = await get_url_of_music(music_name)
     # 向用户发送歌曲
-    await session.send(mysic_report, at_sender=True)
+    await session.finish(mysic_report, at_sender=True)
 
 
 @on_command('post_music_to', aliases=("点歌给"), only_to_me=False)
 async def post_music_to(session: CommandSession):
     # 获取歌曲信息
-    print(session.ctx)
     try:
         music_to = session.ctx["message"][1]["data"]["qq"]
         music_name = session.ctx["message"][2]["data"]["text"]
@@ -45,7 +44,7 @@ async def post_music_to(session: CommandSession):
         mysic_report = await get_url_of_music(music_name)
         # 向用户发送歌曲
         await session.send("[CQ:at,qq={}],[CQ:at,qq={}]为你送上一首{}".format(music_to,session.ctx["user_id"], music_name))
-        await session.send(mysic_report)
+        await session.finish(mysic_report)
     return 
 
 

@@ -53,4 +53,4 @@ async def translation(session: CommandSession):
         echo = "参数不足或不正确，请使用 --help 参数查询使用帮助"
     else:
         echo = render(text, tolanguage)
-    await session.send(echo,at_sender=True)
+    await session.finish(echo,at_sender=True)

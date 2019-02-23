@@ -48,6 +48,11 @@
     <Compile Include="plugins\bilibili_update\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\construction_time\al_producetime_query.py" />
+    <Compile Include="plugins\construction_time\reto.py" />
+    <Compile Include="plugins\construction_time\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\icarus.py">
       <SubType>Code</SubType>
     </Compile>
@@ -55,6 +60,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="plugins\help.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\blue_line_wiki\get_ranking.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\blue_line_wiki\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="plugins\saucenao\get_img.py">
@@ -110,7 +121,9 @@
     <Folder Include="plugins\" />
     <Folder Include="plugins\anime_index\" />
     <Folder Include="plugins\bilibili_update\" />
+    <Folder Include="plugins\construction_time\" />
     <Folder Include="plugins\music\" />
+    <Folder Include="plugins\blue_line_wiki\" />
     <Folder Include="plugins\rendering\" />
     <Folder Include="plugins\tool\" />
     <Folder Include="plugins\trace_moe\" />

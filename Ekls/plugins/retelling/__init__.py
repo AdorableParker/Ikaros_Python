@@ -21,6 +21,6 @@ async def retelling(session: CommandSession):
         into = session.ctx["message"][1]["data"]["qq"]
         info = session.ctx["message"][2]["data"]["text"]
     except IndexError:
-        await session.send("转告登记失败")
+        await session.finish("转告登记失败")
     else:
-        await session.send("[CQ:at,qq={}]{}".format(into, info))
+        await session.finish("[CQ:at,qq={}]{}".format(into, info))

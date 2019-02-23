@@ -26,4 +26,4 @@ async def update_bilibili(session: CommandSession):
     update_info = await crawler.update2out()
     # 向用户发送信息
     # print(update_bilibili)
-    await session.send(update_info)
+    await session.finish(update_info)
