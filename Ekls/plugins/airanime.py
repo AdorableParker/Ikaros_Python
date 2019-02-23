@@ -32,6 +32,7 @@ async def _(session: CommandSession):
     response = requests.get(airanime_api)
     if not response.ok:
         session.finish('搜索失败了，请稍后再试吧')
+        return 
     result_dic = json.loads(response.text)
     sites =[
         ('bilibili', '哔哩哔哩'),
@@ -53,4 +54,4 @@ async def _(session: CommandSession):
             output += source_name + ":\n"
             for i in range(number_of_sources):
                 output += "\t{}\n\t{}\n".format(name_list[i], url_list[i])
-    session.finish('搜索失败了，请稍后再试吧')
+    session.finish('output')
