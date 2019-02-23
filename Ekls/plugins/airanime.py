@@ -54,4 +54,4 @@ async def _(session: CommandSession):
             output += source_name + ":\n"
             for i in range(number_of_sources):
                 output += "\t{}\n\t{}\n".format(name_list[i], url_list[i])
-    session.finish('output')
+    session.finish(output)
