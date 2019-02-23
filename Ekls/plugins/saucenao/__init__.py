@@ -6,7 +6,7 @@
 from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
 
-from get_img import get_img
+from .get_img import get_img
 
 
 __plugin_name__ = "图片搜索"

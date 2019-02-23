@@ -48,7 +48,7 @@ async def get_img(url):
         pass
     try:
         # 剥离链接
-        pixiv_id_url, painter_url = shorten_url(pixiv_id_html['href']), shorten_url(painter_html['href'])
+        pixiv_id_url, painter_url = pixiv_id_html['href'], painter_html['href']
     except BaseException:
         pass
     try:

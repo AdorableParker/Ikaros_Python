@@ -1,6 +1,6 @@
 from nonebot import on_command, CommandSession
 
-from fan_search import fan_search
+from .fan_search import fan_search
 
 
 __plugin_name__ = "番剧搜索"
