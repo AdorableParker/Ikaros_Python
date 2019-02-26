@@ -23,7 +23,10 @@ __plugin_usage__ = """
 @on_command('update_bilibili', aliases=("小加加", "B博更新", "b博更新"), only_to_me=False)
 async def update_bilibili(session: CommandSession):
     # 获取B博信息
-    update_info = await crawler.update2out()
+    try:
+        update_info = await crawler.update2out()
+    except requests.exceptions.ConnectionError:
+        update_info = "由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。"
     # 向用户发送信息
     # print(update_bilibili)
     await session.finish(update_info)

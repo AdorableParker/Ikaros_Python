@@ -44,6 +44,5 @@ async def _(session: CommandSession):
 
     if not stripped_arg:
         session.pause('没收到图片哦，再发一次')
-
     # 如果当前正在向用户询问更多信息，且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg

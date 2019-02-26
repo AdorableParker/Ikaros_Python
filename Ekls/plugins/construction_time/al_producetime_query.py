@@ -33,7 +33,10 @@ async def al_query_name(key_time):
     # '以下舰船符合建造时长 key_time :\n name1 \n name2 \n name3...'
     """
     result = sql_read("User.db", "AzurLane_construct_time", "time", key_time)
-    name_list = "符合建造时长 %s 的舰船有：" % key_time
+    name_list = "\n符合建造时长 %s 的舰船有：" % key_time
+    if result:
+        output = ""
+        result.sort(key=lambda elem: len(elem[0]))
     for name in result:
         name_list += "\n" + name[0] + "        替代名：" + name[1]
     return name_list

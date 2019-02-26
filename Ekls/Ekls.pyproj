@@ -68,6 +68,12 @@
     <Compile Include="plugins\blue_line_wiki\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\run_code\get_run_coderesult.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\run_code\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\saucenao\get_img.py">
       <SubType>Code</SubType>
     </Compile>
@@ -125,6 +131,7 @@
     <Folder Include="plugins\music\" />
     <Folder Include="plugins\blue_line_wiki\" />
     <Folder Include="plugins\rendering\" />
+    <Folder Include="plugins\run_code\" />
     <Folder Include="plugins\tool\" />
     <Folder Include="plugins\trace_moe\" />
     <Folder Include="plugins\repeat\" />

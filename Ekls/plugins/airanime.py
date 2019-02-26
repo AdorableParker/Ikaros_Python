@@ -23,19 +23,17 @@ __plugin_usage__ = """
 
 @on_command('air_nime', aliases=['搜动漫', '搜索动漫', '动漫资源', '动漫搜索', '搜索番剧', '番剧资源', '番剧搜索'], only_to_me=False)
 async def _(session: CommandSession):
-
     arg = session.current_arg_text.strip().lower()
     if not arg:
         # 如果用户没有发送参数，则发送功能列表
         await session.finish("需要搜索的番名不能为空哦")
         return
-
+    await session.send('正在搜索，稍等哦')
     airanime_api = 'http://airanime.applinzi.com/function/sonline.php?kt={}'.format(arg)
     response = requests.get(airanime_api)
     if not response.ok:
         await session.finish('搜索失败了，请稍后再试吧')
         return
-    await session.send('正在搜索，稍等哦')
     result_dic = json.loads(response.text)
     sites =[
         ('bilibili', '哔哩哔哩'),
@@ -57,5 +55,5 @@ async def _(session: CommandSession):
             output += source_name + ":\n"
             for i in range(number_of_sources):
                 short_link = shorten_url.shorten_url(url_list[i])
-                output += "\t{}:\t{}\n".format(name_list[i], short_link)
+                output += " \t{}:{}\n".format(name_list[i], short_link)
     await session.finish(output)

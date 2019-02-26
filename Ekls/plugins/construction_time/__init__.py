@@ -6,7 +6,7 @@ from . import reto
 __plugin_name__ = "建造时间查询"
 __plugin_usage__ = """
 ------construction_info------
-命令关键字："建造时间查询"
+命令关键字："建造时间查询", "建造时间", "建造查询"
 命令输入格式：
 
 建造时间查询 <时间|船名>
@@ -16,14 +16,14 @@ __plugin_usage__ = """
 """
 
 
-@on_command('construction_info', aliases=("建造时间查询",), only_to_me=False)
+@on_command('construction_info', aliases=("建造时间查询", "建造时间", "建造查询"), only_to_me=False)
 async def construction_info (session: CommandSession):
     key = session.get('key')
     time_key = reto.r2n(key, [r"\d\:\d\d"])
     if time_key:
         info = await al_query_name(time_key)
     else:
-        info = await al_query_time(key)
+        info = await al_query_time(key.upper())
     await session.finish("{}".format(info), at_sender=True)
 
 
