@@ -34,6 +34,9 @@ async def trace_moe (session: CommandSession):
 
 @trace_moe.args_parser
 async def _(session: CommandSession):
+
+    session.finish("两会期间，该功能关闭的哦")
+
     # 获取图片url
     stripped_arg = session.current_arg_images
     if session.is_first_run:

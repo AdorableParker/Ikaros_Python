@@ -119,6 +119,7 @@
     <Compile Include="plugins\update_check\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\bilibili_update\x.py" />
     <Compile Include="plugins\YutO\__init__.py">
       <SubType>Code</SubType>
     </Compile>

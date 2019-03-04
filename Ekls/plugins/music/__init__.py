@@ -19,11 +19,13 @@ __plugin_usage__ = """
 
 效果：根据输入的歌名，使用搜索网易云音乐曲库，返回歌单列表第一条。
 
+2019年2月27日注：
+由于网易云音乐不争气，默认曲库改为QQ音乐，如需网易云曲库请加前缀 "网易云-"
 ########################
 """
 
 
-@on_command('music', aliases=("点歌", "来首"), only_to_me=False)
+@on_command('music', aliases=("网易云-点歌", "网易云-来首"), only_to_me=False)
 async def music(session: CommandSession):
     music_name = session.get('music_name', prompt='你想要听哪首歌呢？')
     # 获取歌曲信息

@@ -45,6 +45,9 @@ async def URL_saucenao(session: CommandSession):
 # 命令解析器用于将用户输入的参数解析成命令真正需要的数据
 @URL_saucenao.args_parser
 async def _(session: CommandSession):
+
+    session.finish("两会期间，该功能关闭的哦")
+
     # 去掉消息首尾的空白符
     stripped_arg = session.current_arg_text.strip()
     if session.is_first_run:
@@ -76,6 +79,9 @@ async def img_saucenao(session: CommandSession):
 # 命令解析器用于将用户输入的参数解析成命令真正需要的数据
 @img_saucenao.args_parser
 async def _(session: CommandSession):
+
+    session.finish("两会期间，该功能关闭的哦")
+
     # 获取图片url
     stripped_arg = session.current_arg_images
     if session.is_first_run:
