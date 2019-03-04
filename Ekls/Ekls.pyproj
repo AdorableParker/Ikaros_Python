@@ -48,6 +48,10 @@
     <Compile Include="plugins\bilibili_update\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\boat_name\code_conversion.py" />
+    <Compile Include="plugins\boat_name\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\construction_time\al_producetime_query.py" />
     <Compile Include="plugins\construction_time\reto.py" />
     <Compile Include="plugins\construction_time\__init__.py">
@@ -128,6 +132,7 @@
     <Folder Include="plugins\" />
     <Folder Include="plugins\anime_index\" />
     <Folder Include="plugins\bilibili_update\" />
+    <Folder Include="plugins\boat_name\" />
     <Folder Include="plugins\construction_time\" />
     <Folder Include="plugins\music\" />
     <Folder Include="plugins\blue_line_wiki\" />
