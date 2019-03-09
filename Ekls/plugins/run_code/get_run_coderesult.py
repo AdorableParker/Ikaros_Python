@@ -16,7 +16,7 @@ async def get_run_coderesult(langunges, code):
     response = requests.post('https://run.glot.io/languages/{}/latest'.format(langunges[0]), headers=headers, data=data)
     response = json.loads(response.text)
     try:
-        if ("stdout", "stderr") in response:
+        if "stdout" in response:
             stdout, stderr = response["stdout"], response["stderr"]
         else:
             output = response['message']

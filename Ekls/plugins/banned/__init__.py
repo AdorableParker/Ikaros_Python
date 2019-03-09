@@ -3,9 +3,7 @@
 # 测试模块
 """
 
-from nonebot import on_command, CommandSession
-
-
+from nonebot import permission, on_command, CommandSession
 __plugin_name__ = "自助禁言"
 __plugin_usage__ = """
 ------banned------
@@ -16,6 +14,8 @@ __plugin_usage__ = """
 
 效果：满足你奇怪的要求
 ########################
+
+
 """
 
 
@@ -53,3 +53,18 @@ async def _(session: CommandSession):
 
     # 如果当前正在向用户询问更多信息（例如本例中的要点播的歌曲），且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
+
+
+# on_command 装饰器将函数声明为一个命令处理器
+@on_command('all_banned', aliases=("全员禁言", "全员自闭"),permission=0x0200, only_to_me=False)
+async def all_banned(session: CommandSession):
+    # 向用户发送信息
+    bot = session.bot
+    await bot.set_group_whole_ban(group_id=session.ctx['group_id'], enable=True)
+
+# on_command 装饰器将函数声明为一个命令处理器
+@on_command('all_not_banned', aliases=("解禁",), only_to_me=False)
+async def all_not_banned(session: CommandSession):
+    # 向用户发送信息
+    bot = session.bot
+    await bot.set_group_whole_ban(group_id=session.ctx['group_id'], enable=False)

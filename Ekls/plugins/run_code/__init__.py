@@ -62,7 +62,10 @@ async def run_code(session: CommandSession):
     langunges = session.get('langunges', prompt='运行哪种语言呢？')
     code = session.get('code', prompt='运行的代码是？')
     await session.send('正在运行，请稍等……')
-    langunges = (langunges, LANGUAGES_LIST[langunges])
+    try:
+        langunges = (langunges, LANGUAGES_LIST[langunges])
+    except keyError:
+        await session.finish("不支持程序语言 {}\n运行结束".format(langunges))
     output = await get_run_coderesult(langunges, code)
     await session.finish(output + "\n运行结束")
 
