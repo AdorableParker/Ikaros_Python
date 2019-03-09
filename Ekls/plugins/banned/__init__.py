@@ -4,6 +4,8 @@
 """
 
 from nonebot import permission, on_command, CommandSession
+from nonebot.permission import GROUP_ADMIN
+
 __plugin_name__ = "自助禁言"
 __plugin_usage__ = """
 ------banned------
@@ -56,7 +58,7 @@ async def _(session: CommandSession):
 
 
 # on_command 装饰器将函数声明为一个命令处理器
-@on_command('all_banned', aliases=("全员禁言", "全员自闭"),permission=0x0200, only_to_me=False)
+@on_command('all_banned', aliases=("全员禁言", "全员自闭"),permission=GROUP_ADMIN, only_to_me=False)
 async def all_banned(session: CommandSession):
     # 向用户发送信息
     bot = session.bot
