@@ -57,7 +57,7 @@ def get_upper(oid):
     # 更新B站官方动态
     """
     params = (('oid', oid), ('type', "11"))
-    response = requests.get('https://api.bilibili.com/x/v2/reply/cursor',
+    response = requests.get('http://api.bilibili.com/x/v2/reply/cursor',
                             params=params, verify=False)
     response.encoding = "UTF-8"
     content = response.text

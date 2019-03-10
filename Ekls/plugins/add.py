@@ -16,6 +16,6 @@ __plugin_usage__ = """
 async def _(session: NoticeSession):
     # 发送欢迎消息
     if session.ctx['group_id'] == 463222048:
-    # if True:
-        # print(session.ctx['group_id'])
         await session.send('新来的大佬，先晒个秃头，以证船坞')
+    elif session.ctx['group_id'] == 787211538:
+        await session.send('是大佬！啊，大佬！啊！我死了')
