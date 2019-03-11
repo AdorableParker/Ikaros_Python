@@ -68,13 +68,13 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
                     # 禁言在位者
                     await bot.set_group_ban(group_id=session.ctx['group_id'], 
                                             user_id=old_user,
-                                            duration=flag*90)
+                                            duration=flag*120)
                     # 禁言篡位者
                     await bot.set_group_ban(group_id=session.ctx['group_id'], 
                                             user_id=session.ctx['user_id'],
-                                            duration=flag*60)
+                                            duration=flag*100)
                 except:
-                    session.send("执行异常，请检查权限，参数")
+                    await session.send("执行异常，请检查权限，参数")
             # 写入数据库
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 0)  # 清空次数
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "info", text)  # 更新文本
