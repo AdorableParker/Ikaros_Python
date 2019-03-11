@@ -21,6 +21,7 @@ __plugin_usage__ = """
 async def _():
     bot = nonebot.get_bot()
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
+    print("动态更新执行")
     try:
         update_info = update_check()
         

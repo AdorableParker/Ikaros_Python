@@ -70,7 +70,7 @@ def get_trend(uid, flug=True):
     """
     # 爬取B站动态
     """
-    url = 'http://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history'
+    url = 'https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history'
     response = requests.get(url, params=(('host_uid', uid),))
     response.encoding = "UTF-8"
     content = json.loads(response.text)["data"]["cards"][0]
