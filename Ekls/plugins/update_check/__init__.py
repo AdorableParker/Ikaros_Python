@@ -26,8 +26,8 @@ UID_LIST = (
     )
 
 
-#@nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/20")  # 每半小时执行
-@nonebot.scheduler.scheduled_job('interval', minutes=1)    # 间隔一分钟执行
+@nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/20")  # 每半小时执行
+#@nonebot.scheduler.scheduled_job('interval', minutes=1)    # 间隔一分钟执行
 async def _():
     bot = nonebot.get_bot()
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
