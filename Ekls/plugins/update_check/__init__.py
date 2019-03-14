@@ -20,20 +20,21 @@ GROUP_LIST = (
     787211538
     )
 
-UID_LIST = ("300123440",
-            "233114659")
+UID_LIST = (
+    "300123440",
+    "233114659"
+    )
 
 
-@nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/20")  # 每半小时执行
-# @nonebot.scheduler.scheduled_job('interval', minutes=1)    # 间隔一分钟执行
+#@nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/20")  # 每半小时执行
+@nonebot.scheduler.scheduled_job('interval', minutes=1)    # 间隔一分钟执行
 async def _():
     bot = nonebot.get_bot()
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
-    print("{} 动态更新执行".format(time.strftime('%H%M',time.localtime(time.time()))))
+    print("{} 动态更新执行".format(time.strftime('%H%M%S',time.localtime(time.time()))))
     for uid in UID_LIST:
         try:
-            update_info = update_check()
-        
+            update_info = update_check(uid)
             if update_info[0]:
                 # 碧蓝群
                 for group_id in GROUP_LIST:
@@ -42,9 +43,9 @@ async def _():
             for group_id in GROUP_LIST:
                 await bot.send_group_msg(group_id=group_id, message="更新动态失败")
         else:
-            print("{} 动态更新完成 ".format(time.strftime('%H%M',time.localtime(time.time()))))
+            print("{} {}更新完成 ".format(time.strftime('%H%M%S',time.localtime(time.time())), uid))
     else:
-        print("{} 动态更新完成 ".format(time.strftime('%H%M',time.localtime(time.time()))))
+        print("{} 动态更新全部完成 ".format(time.strftime('%H%M%S',time.localtime(time.time()))))
 
 if __name__ == "__main__":
     update_info = update_check()
