@@ -109,7 +109,7 @@ def get_trend(uid, flug=True):
 async def update2out(uid):
     updata_info = get_trend(uid)
     # print(updata_info)
-    out_info = "{0[0]}\n{0[1]}\n{0[3]} 于 {0[2]} 发布至 bilibili动态".format(updata_info)
+    out_info = "{0[0]}\n{0[1]}\n{0[3]} 于 {0[2]} 发布至 BiliBili 动态".format(updata_info)
     return out_info
 
 if __name__ == '__main__':
