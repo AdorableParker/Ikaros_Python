@@ -20,7 +20,7 @@ def render(text, toLang = 'zh'):
     r = r_s.post(myurl)
     text = json.loads(r.text)
     try:
-        out = text["trans_result"][0]["dst"]
+        result_list = text["trans_result"]
     except:
         code = text['error_code']
         if code == '52001':
@@ -43,10 +43,14 @@ def render(text, toLang = 'zh'):
             out = "error: 译文不支持"
         elif code == "58002":
             out = "error: 服务已关闭"
+    else:
+        out = ""
+        for result in result_list:
+            out += result["dst"] + "\n"
     return out
-    
+
 
 if __name__ == '__main__':
-    a = "碧蓝航线"
-    b = "h"
+    a = "碧蓝航线\n辣鸡百度"
+    b = "en"
     print(render(a, b))

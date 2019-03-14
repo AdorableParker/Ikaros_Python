@@ -20,23 +20,29 @@ GROUP_LIST = (
     787211538
     )
 
+UID_LIST = ("300123440",
+            "233114659")
+
+
 @nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/20")  # 每半小时执行
 # @nonebot.scheduler.scheduled_job('interval', minutes=1)    # 间隔一分钟执行
 async def _():
     bot = nonebot.get_bot()
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
     print("{} 动态更新执行".format(time.strftime('%H%M',time.localtime(time.time()))))
-    try:
-        update_info = update_check()
+    for uid in UID_LIST:
+        try:
+            update_info = update_check()
         
-        if update_info[0]:
-            # 碧蓝群
+            if update_info[0]:
+                # 碧蓝群
+                for group_id in GROUP_LIST:
+                    await bot.send_group_msg(group_id=group_id, message=update_info[1])
+        except:
             for group_id in GROUP_LIST:
-                await bot.send_group_msg(group_id=group_id, message=update_info[1])
-
-    except:
-        for group_id in GROUP_LIST:
-            await bot.send_group_msg(group_id=group_id, message="更新动态失败")
+                await bot.send_group_msg(group_id=group_id, message="更新动态失败")
+        else:
+            print("{} 动态更新完成 ".format(time.strftime('%H%M',time.localtime(time.time()))))
     else:
         print("{} 动态更新完成 ".format(time.strftime('%H%M',time.localtime(time.time()))))
 

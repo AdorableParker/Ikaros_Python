@@ -106,14 +106,14 @@ def get_trend(uid, flug=True):
     return (text1, img, text_time, uname)
 
 
-async def update2out():
-    updata_info = get_trend('233114659')
+async def update2out(uid):
+    updata_info = get_trend(uid)
     # print(updata_info)
-    out_info = "{0[0]}\n{0[1]}\n{0[3]} 于 {0[2]} 发布至 哔哩哔哩动态".format(updata_info)
+    out_info = "{0[0]}\n{0[1]}\n{0[3]} 于 {0[2]} 发布至 bilibili动态".format(updata_info)
     return out_info
 
 if __name__ == '__main__':
     AX = get_top()
-    AXX = get_trend('233114659')
-    AXXX = update2out
+    AXX = get_trend('300123440')
+    AXXX = update2out("233114659")
     print(AXXX)
