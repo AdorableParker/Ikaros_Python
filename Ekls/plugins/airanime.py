@@ -24,7 +24,7 @@ __plugin_usage__ = """
 @on_command('air_nime', aliases=['搜动漫', '搜索动漫', '动漫资源', '动漫搜索', '搜索番剧', '番剧资源', '番剧搜索'], only_to_me=False)
 async def _(session: CommandSession):
 
-    session.finish("两会期间，该功能关闭的哦")
+    #session.finish("两会期间，该功能关闭的哦")
 
     arg = session.current_arg_text.strip().lower()
     if not arg:

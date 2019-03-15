@@ -14,7 +14,6 @@ def update_check(uid):
     # 检测B博是否更新
     """
     update_data = crawler.get_trend(uid, False)  # 获取动态信息
-    print(update_data)
     update_time = data_box.sql_read("User.db", "Crawler_update_time", "update_url", uid, field="update_time")[0]  # 获取历史时间戳
 
     if update_data[2] > update_time[0]:  # 对比时间戳
