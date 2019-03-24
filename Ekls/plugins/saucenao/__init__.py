@@ -37,9 +37,9 @@ async def URL_saucenao(session: CommandSession):
     success, img_info = await get_img(url)
     if success:
         # 向用户发送结果
-        await session.finish("相似度：{0[0]}\n图片名称：{0[1]}\nPixiv ID：{0[2]}\n作品链接：{0[3]}\n画师：{0[4]}\n画师主页：{0[5]}".format(img_info), at_sender=True)
+        await session.finish("\n相似度: {info}\n作品链接: {url[0]}\n画师主页: {url[1]}\n预览图: {thumbnail}".format(**img_info), at_sender=True)
     else:
-        await session.finish("未找到相似度达标的图片", at_sender=True)
+        await session.finish(img_info, at_sender=True)
 
 # URL_saucenao.args_parser 装饰器将函数声明为 URL_saucenao 命令的参数解析器
 # 命令解析器用于将用户输入的参数解析成命令真正需要的数据
@@ -70,7 +70,7 @@ async def img_saucenao(session: CommandSession):
     success, img_info = await get_img(url)
     if success:
         # 向用户发送结果
-        await session.finish("\n相似度：{0[0]}\n作品名称：{0[1]}\n作品ID：{0[2]}\n作品链接：{0[3]}\n画师：{0[4]}\n画师主页：{0[5]}".format(img_info), at_sender=True)
+        await session.finish("\n相似度: {info}作品P站链接: {url[0]}\n画师P站主页: {url[1]}\n预览图: {thumbnail}".format(**img_info), at_sender=True)
     else:
         await session.finish(img_info, at_sender=True)
 

@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "任务-bot",
+      "appliesTo": "Ekls/bot.py",
+      "type": "launch"
+    }
+  ]
+}

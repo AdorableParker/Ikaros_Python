@@ -2,8 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import lxml
 
-from plugins.tool.shorten_url import shorten_url
-
 
 async def get_img(url):
     headers = {
@@ -19,42 +17,46 @@ async def get_img(url):
         )
     try:
         response = requests.get('https://saucenao.com/search.php', headers=headers, params=params)
-        soup = BeautifulSoup(response.text, "html.parser")
-        soup = soup.select_one('div[class="result"]')
+        root_soup = BeautifulSoup(response.text, "html.parser")
+        soup = root_soup.select_one('div[class="result"]')
         resul_tcontent = soup.select_one('div[class="resultcontent"]')
-        # 相似度
-        resul_tsimilarity_info = soup.select_one('div[class="resultsimilarityinfo"]').get_text()
-        if float(resul_tsimilarity_info.rstrip("%")) < 60:
-            return False, "未找到相似度达标结果"
+        list_info = resul_tcontent.select("div")[0]
     except AttributeError:
         return False, "未找到相似度达标结果"
     except ConnectionError:
-        return False, "访问被拒绝，请联系管理员"
+        return False, "\nConnectionError\n连接错误\n访问被拒绝，请联系管理员"
+    
+    j = [text for text in soup.stripped_strings]
+    if float(j[0].rstrip("%")) < 60:
+        return False, "未找到相似度达标结果"
     else:
-        result_title, pixiv_id, pixiv_id_url, painter, painter_url = '未能获取', '未能获取', '未能获取', '未能获取', '未能获取'
-    try:
-        # 标题
-        result_title = resul_tcontent.select_one("div[class='resulttitle']").get_text()
-    except BaseException:
-        pass
-    try:
-        # 详情
-        details = resul_tcontent.select_one("div[class='resultcontentcolumn']")
-    except BaseException:
-        pass
-    try:
-        pixiv_id_html, painter_html = details.select("a[class='linkify']")
-    except BaseException:
-        pass
+        # 缩略图
+        thumbnail_img = root_soup.select_one('div[class="resultimage"]')
+        try:
+            thumbnail_url = thumbnail_img.img["data-src"]
+        except KeyError:
+            thumbnail_url = thumbnail_img.img["src"]
+
+        # 信息
+        out_info = j[0] + "\n"
+        for i in j[1:]:
+            if not i.endswith(":"):
+                out_info += "{}\n".format(i)
+            else:
+                out_info += "{}  ".format(i)
+
+    #尝试获取Pixiv链接
     try:
         # 剥离链接
-        pixiv_id_url, painter_url = pixiv_id_html['href'], painter_html['href']
-    except BaseException:
-        pass
-    try:
-        # 获取信息
-        pixiv_id, painter = pixiv_id_html.get_text(), painter_html.get_text()
+        details = resul_tcontent.select_one("div[class='resultcontentcolumn']")
+        url_list = []
+        for i in details.select("a[class='linkify']"):
+            url_list.append(i["href"])
+        if not len(url_list):
+            url_list = ("-", "-")
+        else:
+            url_list.append("-")
     except BaseException:
         pass
     # 打包返回
-    return True, (resul_tsimilarity_info, result_title, pixiv_id, pixiv_id_url, painter, painter_url)
+    return True, {"info":out_info, "url":url_list, "thumbnail":thumbnail_url}
