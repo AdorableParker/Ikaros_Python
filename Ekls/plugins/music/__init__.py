@@ -5,7 +5,6 @@
 
 from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
-
 from .data_source import get_url_of_music
 
 
@@ -68,7 +67,6 @@ async def _(session: CommandSession):
         # 用户没有发送有效的歌曲名称（而是发送了空白字符），则提示重新输入
         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
         session.pause('要点播的歌曲名称不能为空呢，请重新输入')
-
     # 如果当前正在向用户询问更多信息（例如本例中的要点播的歌曲），且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
 

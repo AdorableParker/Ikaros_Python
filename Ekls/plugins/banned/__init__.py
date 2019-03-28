@@ -51,8 +51,8 @@ async def banned(session: CommandSession):
                                 user_id=session.ctx['user_id'],
                                 duration=banned_time)
     except:
-        pass
-        # session.send("执行异常，请检查权限，参数")
+        session.finish("执行异常，请检查权限，参数")
+
 
 @banned.args_parser
 async def _(session: CommandSession):
@@ -65,11 +65,9 @@ async def _(session: CommandSession):
         return
 
     if not stripped_arg:
-        # 用户没有发送有效的歌曲名称（而是发送了空白字符），则提示重新输入
         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
         session.pause('请重新输入')
 
-    # 如果当前正在向用户询问更多信息（例如本例中的要点播的歌曲），且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
 
 
