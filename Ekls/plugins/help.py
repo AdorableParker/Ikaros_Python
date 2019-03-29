@@ -32,3 +32,7 @@ async def _(session: CommandSession):
     for p in plugins:
         if p.name.lower() == arg:
             await session.finish(p.usage)
+
+@on_command('index', aliases=['主页',], only_to_me=False)
+async def _(session: CommandSession):
+    await session.finish("https://adorableparker.github.io/Hello_World/")
