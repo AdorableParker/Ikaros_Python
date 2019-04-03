@@ -47,7 +47,7 @@ async def _(session: NLPSession):
 @on_command('emancipation')
 async def emancipation(session: CommandSession):
     # 获取可选参数，这里如果没有 message 参数，命令不会被中断，message 变量会是 None
-    await session.finish(render_expression(EXPL))
+    await session.finish(render_expression(EXRE))
 
 
 @on_natural_language(keywords={"(2951899724) 被管理员解除禁言"}, only_to_me=False)
