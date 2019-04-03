@@ -20,14 +20,13 @@ __plugin_usage__ = """
 # @nonebot.scheduler.scheduled_job('interval', minutes=1)    # 间隔一分钟执行
 async def _():
     bot = nonebot.get_bot()
-    now = datetime.now(pytz.timezone('Asia/Shanghai'))
     try:
         # 碧蓝群
         time_line = line()
         await bot.send_group_msg(group_id=463222048,
                                  message=time_line)
-        #await bot.send_group_msg(group_id=787211538,
-        #                         message=time_line)
+        await bot.send_group_msg(group_id=476957090,
+                                message=time_line)
         # 咕咕群
         now_time = time.strftime('%H',time.localtime(time.time()))
         await bot.send_group_msg(group_id=670518695,

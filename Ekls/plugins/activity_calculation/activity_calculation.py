@@ -86,16 +86,17 @@ def activites(completed):
             barlist += "  " * (stuff_num - 1) + "▕"
         text_gap = typesetting(gap, progress)
     elif completed >= shop:  # 如果溢出
-        progress = completed/shop*100
+        progressn = completed/shop
+        progress = progressn*100
         for i in mapid:
             mapid[i] = 0
         if completed - shop > 10000:
             text_gap = typesetting(gap, progress)
         else:
             text_gap = typesetting(gap, progress)
-        progress, barlist, booeolean = 100, "▉" * 10, True
+        progressn, barlist, booeolean = 100, "▉" * 10, True
     else:
-        mapid = progress = barlist = text_gap = None
+        mapid = progressn = barlist = text_gap = None
         booeolean = False
     return True, (name, mapid, progressn, barlist, booeolean, text_gap)
 

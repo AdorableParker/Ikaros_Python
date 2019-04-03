@@ -14,23 +14,26 @@ __plugin_usage__ = """
 命令关键字："点歌", "来首"
 命令输入格式：
 
-点歌 <歌名>
+点歌 <平台>#<歌名>
+# 平台默认QQ
+效果：根据输入的歌名，使用搜索所指定曲库，返回歌单列表第一条。
 
-效果：根据输入的歌名，使用搜索网易云音乐曲库，返回歌单列表第一条。
-
-2019年2月27日注：
-由于网易云音乐不争气，默认曲库改为QQ音乐，如需网易云曲库请加前缀 "网易云-"
 ########################
 """
 
 
-@on_command('music', aliases=("网易云-点歌", "网易云-来首"), only_to_me=False)
+@on_command('music', aliases=("点歌", "来首"), only_to_me=False)
 async def music(session: CommandSession):
     music_name = session.get('music_name', prompt='你想要听哪首歌呢？')
+    music_library = session.get('music_library', prompt='请选择平台曲库，目前仅支持：网易云, QQ，默认QQ')
+    if music_library in ("网易云","163"):
+        music_library = "163"
+    else:
+        music_library = "qq"
     # 获取歌曲信息
-    mysic_report = await get_url_of_music(music_name)
+    mysic_report = await get_url_of_music(music_name, music_library)
     # 向用户发送歌曲
-    await session.finish(mysic_report, at_sender=True)
+    await session.finish(mysic_report)
 
 
 @on_command('post_music_to', aliases=("点歌给"), only_to_me=False)
@@ -58,15 +61,20 @@ async def _(session: CommandSession):
     if session.is_first_run:
         # 该命令第一次运行（第一次进入命令会话）
         if stripped_arg:
-            # 第一次运行参数不为空，意味着用户直接将歌曲名跟在命令名后面，作为参数传入
-            # 例如用户可能发送了：点歌 逆浪千秋
-            session.state['music_name'] = stripped_arg
+            stripped_arg_list = stripped_arg.split("#",1)
+            if len(stripped_arg_list) > 1:
+                session.state['music_library'] = stripped_arg_list[0]
+                session.state['music_name'] = stripped_arg_list[1]
+            else:
+                session.state['music_name'] = stripped_arg
+                session.state['music_library'] = ""
         return
 
     if not stripped_arg:
         # 用户没有发送有效的歌曲名称（而是发送了空白字符），则提示重新输入
         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
-        session.pause('要点播的歌曲名称不能为空呢，请重新输入')
+        if not session.state['music_name']:
+            session.pause('要点播的歌曲名称不能为空呢，请重新输入')
     # 如果当前正在向用户询问更多信息（例如本例中的要点播的歌曲），且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
 

@@ -35,4 +35,5 @@ async def _(session: CommandSession):
 
 @on_command('index', aliases=['主页',], only_to_me=False)
 async def _(session: CommandSession):
+    
     await session.finish("https://adorableparker.github.io/Hello_World/")

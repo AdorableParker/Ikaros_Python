@@ -7,40 +7,48 @@ import requests
 
 from aiocqhttp.message import MessageSegment
 
-async def get_url_of_music(music_name: str) -> str:
+async def get_url_of_music(music_name, music_library="163"):
     # 这里返回歌曲数据
-    text = inquire(music_name)
-    if text["code"] == 200:
-        while "msg" in text:
-            music_name = music_name[0:len(music_name)-1]
-            text = inquire(music_name)
-        try:
-            number_of_results = text["result"]["songCount"]
-        except TypeError:
-            return "网易云拒绝服务"
-        else:
-            if number_of_results != 0:
-                uid = str(text["result"]["songs"][0]["id"])
-                return "[CQ:music,type=163,id={}]".format(uid)
+    if music_library == "163":
+        text = inquire_163(music_name)
+        if text["code"] == 200:
+            while "msg" in text:
+                music_name = music_name[:len(music_name)-1]
+                text = inquire_163(music_name)
+            try:
+                number_of_results = text["result"]["songCount"]
+            except TypeError:
+                return "网易云拒绝服务"
             else:
-                return "没有名叫{}的歌曲".format(music_name)
-    elif text["code"] == 400:
-        return "网易云拒绝访问"
+                if number_of_results != 0:
+                    uid = str(text["result"]["songs"][0]["id"])
+                    return "[CQ:music,type=163,id={}]".format(uid)
+                else:
+                    return "没有名叫{}的歌曲".format(music_name)
+        elif text["code"] == 400:
+            return "网易云拒绝访问"
+        else:
+            return "网络异常"
     else:
-        return "网络异常"
-        
+        text = inquire_qq(music_name)
+        while text["subcode"] == 10003:
+            music_name = music_name[:len(music_name)-1]
+            text = inquire_qq(music_name)
+            print(music_name)
+        uid = text["data"]["song"]["list"][0]["songid"]
+        return "[CQ:music,type=qq,id={}]".format(uid)
 
 def get_music(content):
     """
     # 获取歌曲信息
     # 歌曲信息排版
     """
-    text = inquire(content)
+    text = inquire_163(content)
     if text["code"] == 200:
         while "msg" in text:
             content = content[0:len(content)-1]
             # print (content)
-            text = inquire(content)
+            text = inquire_163(content)
         if text["result"]["songCount"] != 0:
             uid = str(text["result"]["songs"][0]["id"])
             aid = text["result"]["songs"][0]["name"]
@@ -61,9 +69,9 @@ def get_music(content):
     return qed
 
 
-def inquire(musuc_name):
+def inquire_163(musuc_name):
     """
-    # 搜索网易云
+    # 搜索网易云曲库
     """
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36',
@@ -83,6 +91,25 @@ def inquire(musuc_name):
     return json.loads(result.text)
 
 
+
+def inquire_qq(musuc_name):
+    """
+    # 搜索QQ曲库
+    """
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36',
+    }
+
+    params = (
+        ('w', musuc_name),
+    	('format', 'json'),
+    )
+
+    response = requests.get('https://c.y.qq.com/soso/fcgi-bin/client_search_cp', headers=headers, params=params)
+
+    return json.loads(response.text)
+
+
 if __name__ == '__main__':
     #print(get_music(input()))
-    print(inquire("激昂壮志"))
+    print(inquire_163("激昂壮志"))
