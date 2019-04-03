@@ -34,3 +34,15 @@ async def liquidation_time(session: CommandSession):
 async def _(session: NLPSession):
     if session.ctx['user_id'] == 1000000:
         return IntentCommand(90.0, 'liquidation_time')
+
+# 注册一个仅内部使用的命令，不需要 aliases
+@on_command('emancipation')
+async def emancipation(session: CommandSession):
+    # 获取可选参数，这里如果没有 message 参数，命令不会被中断，message 变量会是 None
+    await session.finish("我伊卡洛斯又回来了")
+
+
+@on_natural_language(keywords={"(2951899724) 被管理员解除禁言"}, only_to_me=False)
+async def _(session: NLPSession):
+    if session.ctx['user_id'] == 1000000:
+        return IntentCommand(90.0, 'emancipation')
