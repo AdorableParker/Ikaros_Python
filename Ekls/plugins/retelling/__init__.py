@@ -1,4 +1,5 @@
-from nonebot import on_command, CommandSession
+from nonebot import on_command, CommandSession, get_bot
+from nonebot.permission import SUPERUSER
 
 
 __plugin_name__ = "转告"
@@ -24,3 +25,30 @@ async def retelling(session: CommandSession):
         await session.finish("转告登记失败")
     else:
         await session.finish("[CQ:at,qq={}]{}".format(into, info))
+
+
+@on_command('retelling_refactoring', aliases=("发送到", "to"), only_to_me=False, permission=SUPERUSER)
+async def retelling_refactoring(session: CommandSession):
+    stripped_arg = session.current_arg_text.strip()
+    if stripped_arg:
+        stripped_arg_list = stripped_arg.split(" ",1)
+    try:
+        to = int(stripped_arg_list[0])
+        info = stripped_arg_list[1]
+    except IndexError:
+        await session.finish("转告登记失败")
+    else:
+        bot = get_bot()
+        await bot.send_group_msg(group_id=to,
+                                 message=info)
+
+
+@on_command('get_group_list', aliases=("获取群列表",), only_to_me=False, permission=SUPERUSER)
+async def get_group_list(session: CommandSession):
+    bot = session.bot
+    group_list = await bot.get_group_list()
+    Ed, group_info = 0, "序号\t群号\t群名称\n"
+    for i in group_list:
+        Ed += 1
+        group_info += "{}\t{}\t{}\n".format(Ed, i["group_id"], i["group_name"])
+    await session.finish(group_info)

@@ -21,4 +21,4 @@ EXL = ('新来的大佬，先晒个秃头，以证船坞',
 async def _(session: NoticeSession):
     # 发送欢迎消息
     if session.ctx['group_id'] in GROUP_ID_LIST:
-        await session.send(render_expression(EXL))
+        await session.finish(render_expression(EXL))

@@ -59,16 +59,21 @@ def change_configuration():
     config.write(open(r"config.ini", "w", encoding="UTF-8"))
 
 
-def activites(completed):
+def activites(completed, user_defined):
     """
     # 活动进度计算
     """
     info = read_configuration()
-    if info[0]:
-        name, shop, mapid, stoptime = info[1]
-        shop = int(shop)
-    else:
+    if not info[0]:
         return (False,)
+
+    name, shop, mapid, stoptime = info[1]
+
+    if user_defined:
+        shop = user_defined
+
+    shop = int(shop)
+
 #    获取时间
     gap = time.mktime(time.strptime(stoptime, "%Y-%m-%d"))
     gap -= time.time() - 86400
@@ -94,14 +99,14 @@ def activites(completed):
             text_gap = typesetting(gap, progress)
         else:
             text_gap = typesetting(gap, progress)
-        progressn, barlist, booeolean = 100, "▉" * 10, True
+        progressn, barlist, booeolean = 1, "▉" * 10, True
     else:
         mapid = progressn = barlist = text_gap = None
         booeolean = False
     return True, (name, mapid, progressn, barlist, booeolean, text_gap)
 
 
-async def progress_calculat(content):
+async def progress_calculat(content, user_defined):
     """
     # 计算活动进度并排版
     """
@@ -109,9 +114,9 @@ async def progress_calculat(content):
         point = int(content)
         echo = "计算完成\n"
     except BaseException:
-        echo = "已获得积分参数错误"
+        echo = "已获得积分参数错误,应为整数"
     else:
-        info = activites(point)
+        info = activites(point, user_defined)
         if info[0]:
             name, schedule, progress, barlist, booeolean, gaptime = info[1]
             if booeolean:
@@ -119,11 +124,9 @@ async def progress_calculat(content):
                 for i in schedule:
                     num = math.ceil(schedule[i])
                     echo += "若只出击{}还需{}次\n".format(i, num)
-                print(progress)
                 echo += "当前已获得{}积分\n已完成进度\n{} {:.2%}\n{}".format(point, barlist, progress, gaptime)
             else:
                 echo = "你TMD不要瞎JB填, Please"
         else:
             echo = "暂时没有开启的活动哦"
-        return echo
-    print(echo)
+    return echo

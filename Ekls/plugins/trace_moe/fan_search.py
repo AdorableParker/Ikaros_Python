@@ -16,8 +16,10 @@ def fan_search(url):
         return False, "图片上传失败"
     elif code == 429:
         return False, "请求发送过于频繁，稍后再试\n{}".format(response.text)
-    elif code == 500 or code == 503:
+    elif code == 500:
         return False, "搜索引擎故障，请不要使用动态图片"
+    elif code == 503:
+        return False, "搜索引擎故障，服务器内部错误"
     fan_info = json.loads(response.text)["docs"][0]
     similarity = fan_info["similarity"]  # 相似度
     if similarity < 0.87:
