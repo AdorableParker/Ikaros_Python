@@ -43,10 +43,13 @@ async def _(session: CommandSession):
     if session.is_first_run:
         # 该命令第一次运行（第一次进入命令会话）
         if stripped_arg_img:
-                session.state['url'] = stripped_arg_img
+            session.state['url'] = stripped_arg_img
+            if stripped_arg_text:
                 session.state['text'] = stripped_arg_text
+            else:
+                session.state['text'] = ""
         return
-
+    session.state['text'] = ""
     if not stripped_arg_img:
         session.pause('没收到图片哦，再发一次')
     # 如果当前正在向用户询问更多信息，且用户输入有效，则放入会话状态
