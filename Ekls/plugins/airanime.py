@@ -17,6 +17,7 @@ __plugin_usage__ = """
 效果：根据输入的番剧名，返回搜索到的番剧资源链接
 
 别想了，没有里番的(〜￣△￣)〜
+感谢 Trii Hsia 提供服务
 ########################
 """
 
@@ -37,7 +38,10 @@ async def _(session: CommandSession):
     if not response.ok:
         await session.finish('搜索失败了，请稍后再试吧')
         return
-    result_dic = json.loads(response.text)
+    try:
+        result_dic = json.loads(response.text)
+    except json.decoder.JSONDecodeError:
+        await session.finish('服务提供商出现问题')
     sites =[
         ('bilibili', '哔哩哔哩'),
         ('dilidili', '嘀哩嘀哩'),
