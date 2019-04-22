@@ -23,15 +23,14 @@ async def _():
     try:
         # 碧蓝群
         time_line = line()
-        await bot.send_group_msg(group_id=463222048,
-                                 message=time_line)
-        await bot.send_group_msg(group_id=476957090,
-                                message=time_line)
+        bilian_group_id_list = (463222048, 476957090)
+        for group_id in bilian_group_id_list:
+            await bot.send_group_msg(group_id=group_id, message=time_line)
+
         # 咕咕群
+        group_id_list = (670518695, 483985370, 945098403)
         now_time = time.strftime('%H',time.localtime(time.time()))
-        await bot.send_group_msg(group_id=670518695,
-                                 message='现在{}点咯！'.format(now_time))
-        await bot.send_group_msg(group_id=483985370,
-                                 message='现在{}点咯！'.format(now_time))
+        for group_id in group_id_list:
+            await bot.send_group_msg(group_id=group_id, message='现在{}点咯！'.format(now_time))
     except CQHttpError:
         pass
