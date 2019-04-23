@@ -49,14 +49,39 @@ def sql_rewrite(library_name, table_name, field_name, field_key, field_name_to,
     # 返回:
     # 返回一个改写后的包含元组的列表
     """
-    conn = sqlite3.connect(library_name)
-    pointer = conn.cursor()
+    try:
+        conn = sqlite3.connect(library_name)
+        pointer = conn.cursor()
 
-    pointer.execute('UPDATE {} SET {} = "{}" WHERE {} = "{}";'.format(
+        pointer.execute('UPDATE {} SET {} = "{}" WHERE {} = "{}";'.format(
             table_name, field_name_to, field_key_to, field_name, field_key))
-    conn.commit()
-    conn.close()
+        conn.commit()
+    finally:
+        conn.close()
+
     return sql_read(library_name, table_name, field_name, field_key)  # 返回修改后结果
+
+
+def sql_write(library_name, table_name, info): # 添加行
+    """
+    # 数据库添加行
+    # 参数(标*为必填参数)：
+    # librar_name     库名*
+    # table_name      表名*
+    # info            欲填入值*(元组格式)
+    # 返回:
+    # 返回成功与否
+    """
+    try:
+        conn = sqlite3.connect(library_name)
+        pointer = conn.cursor()
+
+        pointer.execute("INSERT INTO {} VALUES {}".format(table_name, info));
+
+        conn.commit()
+    finally:
+        conn.close()
+
 
 
 if __name__ == '__main__':

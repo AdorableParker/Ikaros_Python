@@ -5,7 +5,7 @@ import pytz
 from aiocqhttp.exceptions import Error as CQHttpError
 
 from .get_update import update_check
-
+from config import DYNAMIC_SUBSCRIBE
 
 __plugin_name__ = "动态更新"
 __plugin_usage__ = """
@@ -14,18 +14,8 @@ __plugin_usage__ = """
 \t\t————萨拉托加
 ########################
 """
-# 群列表
-GROUP_LIST = (
-    463222048,
-    787211538,
-    476957090
-    )
-# 源列表
-UID_LIST = (
-    "300123440",
-    "233114659"
-    )
-
+group_list = DYNAMIC_SUBSCRIBE["GROUP_LIST"]
+uid_list = DYNAMIC_SUBSCRIBE["UID_LIST"]
 
 @nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/20")  # 每半小时执行
 #@nonebot.scheduler.scheduled_job('interval', minutes=1)    # 间隔一分钟执行
@@ -33,15 +23,15 @@ async def _():
     bot = nonebot.get_bot()
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
     print("{} 动态更新执行".format(time.strftime('%H%M%S',time.localtime(time.time()))))
-    for uid in UID_LIST:
+    for uid in uid_list:
         try:
             update_info = update_check(uid)
             if update_info[0]:
                 # 碧蓝群
-                for group_id in GROUP_LIST:
+                for group_id in group_list:
                     await bot.send_group_msg(group_id=group_id, message=update_info[1])
         except:
-            for group_id in GROUP_LIST:
+            for group_id in group_list:
                 await bot.send_group_msg(group_id=group_id, message="更新动态失败")
         else:
             print("{} {}更新完成 ".format(time.strftime('%H%M%S',time.localtime(time.time())), uid))

@@ -99,9 +99,6 @@
     <Compile Include="plugins\rendering\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plugins\tool\Hello_World.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="plugins\tool\__init__.py">
       <SubType>Code</SubType>
     </Compile>

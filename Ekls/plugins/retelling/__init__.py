@@ -54,3 +54,10 @@ async def get_group_list(session: CommandSession):
         Ed += 1
         group_info += "{}\t{}\t{}\n".format(Ed, i["group_id"], i["group_name"])
     await session.finish(group_info)
+
+
+@on_command('print_global_variable', aliases=("输出全局变量",), only_to_me=False, permission=SUPERUSER)
+async def print_global_variable(session: CommandSession):
+    from config import TELL_TIME, DYNAMIC_SUBSCRIBE
+    print(TELL_TIME)
+    print(DYNAMIC_SUBSCRIBE)

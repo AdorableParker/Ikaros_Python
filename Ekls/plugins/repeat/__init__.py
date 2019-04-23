@@ -7,7 +7,7 @@ from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
 
 
-from plugins.tool.data_box import sql_rewrite, sql_read
+from plugins.tool.data_box import sql_rewrite, sql_read, sql_write
 
 
 __plugin_name__ = "复读姬"
@@ -50,7 +50,7 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
         old_info, flag, user, old_user = sql_read("User.db", "repeat_info", "groupid", session.ctx["group_id"])[0][:4]
     except IndexError:
         # 初步判定为未添加复读
-        pass
+        sql_write("User.db", "repeat_info",'( , , , ,{})'.format(session.ctx["group_id"]))
     else:
         if old_info == text:
             if flag > 1 or flag == 0:
@@ -69,10 +69,11 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
                     await bot.set_group_ban(group_id=session.ctx['group_id'], 
                                             user_id=old_user,
                                             duration=flag*120)
-                    # 禁言篡位者
-                    await bot.set_group_ban(group_id=session.ctx['group_id'], 
-                                            user_id=session.ctx['user_id'],
-                                            duration=flag*100)
+                    if old_user != session.ctx['user_id']:  #判断是否自己打断自己
+                        # 禁言篡位者
+                        await bot.set_group_ban(group_id=session.ctx['group_id'], 
+                                                user_id=session.ctx['user_id'],
+                                                duration=flag*100)
                 except:
                     await session.send("执行异常，请检查权限，参数")
             # 写入数据库
