@@ -50,7 +50,7 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
         old_info, flag, user, old_user = sql_read("User.db", "repeat_info", "groupid", session.ctx["group_id"])[0][:4]
     except IndexError:
         # 初步判定为未添加复读
-        sql_write("User.db", "repeat_info",'( , , , ,{})'.format(session.ctx["group_id"]))
+        sql_write("User.db", "repeat_info",'("", 0, null, null,{})'.format(session.ctx["group_id"]))
     else:
         if old_info == text:
             if flag > 1 or flag == 0:

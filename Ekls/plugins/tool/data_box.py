@@ -76,7 +76,7 @@ def sql_write(library_name, table_name, info): # 添加行
         conn = sqlite3.connect(library_name)
         pointer = conn.cursor()
 
-        pointer.execute("INSERT INTO {} VALUES {}".format(table_name, info));
+        pointer.execute("INSERT INTO {} VALUES {};".format(table_name, info));
 
         conn.commit()
     finally:
