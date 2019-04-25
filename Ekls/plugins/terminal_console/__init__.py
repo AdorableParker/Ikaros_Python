@@ -3,14 +3,14 @@ from nonebot.permission import SUPERUSER
 
 from .miscellaneous_function import string_cover as str_co
 from .miscellaneous_function import change_everything as ce
-from plugins.tool.date_box import sql_rewrite, sql_read, sql_write
+from plugins.tool.date_box import sql_rewrite, sql_read, sql_write, look
 
 __plugin_name__ = "控制台"
 __plugin_usage__ = """------terminal_console------
 命令关键字："控制台", "终端"
 
 $ 获取群列表
-$ 输出全局变量
+$ 汇报各群功能配置情况
 $ 发送到群 <目标> <内容>
 $ 改变复读姬状态 [目标]
 $ 改变开火许可状态 [目标]
@@ -43,11 +43,9 @@ async def get_group_list(session: CommandSession):
 
 
 
-@on_command('print_global_variable', aliases=("输出全局变量",), only_to_me=False, permission=SUPERUSER)
+@on_command('print_global_variable', aliases=("汇报各群功能配置情况",), only_to_me=False, permission=SUPERUSER)
 async def print_global_variable(session: CommandSession):
-    from config import TELL_TIME, DYNAMIC_SUBSCRIBE
-    print(TELL_TIME)
-    print(DYNAMIC_SUBSCRIBE)
+    print(look("User.db", "group_info"))
     await session.finish("已输出到控制台")
 
 

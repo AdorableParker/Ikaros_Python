@@ -7,7 +7,7 @@ def string_cover(from_string, to_string):
     return from_string
 
 
-async def change_everything(session, field):
+async def change_everything(session, field, renturn_id=False):
     """
     # 功能            字段名
     #------------------------
@@ -24,6 +24,9 @@ async def change_everything(session, field):
             intent = sql_read("User.db", "group_info", "id", stripped_arg.lstrip("#"), field = field, in_where = True)[0][0]
             sql_rewrite("User.db", "group_info", "id", stripped_arg.lstrip("#"), field, int(not intent))
             echo = sql_read("User.db", "group_info", "id", stripped_arg.lstrip("#"), field = field, in_where = True)[0][0]
+            if renturn_id:
+                group_id = sql_read("User.db", "group_info", "id", stripped_arg.lstrip("#"), field = "group_id", in_where = True)[0][0]
+                return not not intent, not not echo, group_id
             return not not intent, not not echo
         else:
             group_id = stripped_arg
@@ -32,5 +35,7 @@ async def change_everything(session, field):
     intent = sql_read("User.db", "group_info", "group_id", group_id, field = field, in_where = True)[0][0]
     sql_rewrite("User.db", "group_info", "group_id", session.ctx["group_id"], field, int(not intent))
     echo = sql_read("User.db", "group_info", "group_id", group_id, field = field, in_where = True)[0][0]
+    if renturn_id:
+        return not not intent, not not echo, group_id
 
     return not not intent, not not echo

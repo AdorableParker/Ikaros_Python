@@ -79,12 +79,30 @@ def sql_write(library_name, table_name, info): # 添加行
         conn = sqlite3.connect(library_name)
         pointer = conn.cursor()
 
-        pointer.execute("INSERT INTO {} VALUES {};".format(table_name, info));
+        pointer.execute("INSERT INTO {} VALUES {};".format(table_name, info))
 
         conn.commit()
     finally:
         conn.close()
 
+def look(librar_name, table_name):
+    """
+    # 数据库添加行
+    # 参数(标*为必填参数)：
+    # librar_name     库名*
+    # table_name      表名*
+    # 返回:
+    # 无返回
+    """
+    conn = sqlite3.connect(librar_name)
+    pointer = conn.cursor()
+
+    pointer.execute("SELECT * FROM {};".format(table_name))
+    returninfo = pointer.fetchall()
+    conn.commit()
+    conn.close()
+    return returninfo
+    
 
 
 if __name__ == '__main__':
