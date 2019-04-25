@@ -1,6 +1,6 @@
 from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
-
+from plugins.tool.date_box import sql_read
 __plugin_name__ = "YuToForth"
 __plugin_usage__ = """
 ------open_fire------
@@ -40,8 +40,12 @@ async def i_want(session: CommandSession):
 # 如果不传入 keywords，则响应所有没有被当作命令处理的消息
 @on_natural_language(keywords={'射爆', '社保'}, only_to_me=False)
 async def _(session: NLPSession):
+    if sql_read("User.db", "group_info", "group_id", session.ctx["group_id"], field = "fire", in_where = True)[0][0]:
+        point = 0
+    else:
+        point = 100
     # 返回意图命令，前两个参数必填，分别表示置信度和意图命令名
-    return IntentCommand(100.0, 'open_fire')
+    return IntentCommand(point, 'open_fire')
 
 @on_natural_language(keywords={'我想'}, only_to_me=False)
 async def _(session: NLPSession):

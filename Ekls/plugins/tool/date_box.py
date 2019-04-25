@@ -47,7 +47,7 @@ def sql_rewrite(library_name, table_name, field_name, field_key, field_name_to,
     # field_name_to   需修改的字段名*
     # field_key_to    需修改的字段值*
     # 返回:
-    # 返回一个改写后的包含元组的列表
+    # 返回执行状态
     """
     try:
         conn = sqlite3.connect(library_name)
@@ -56,10 +56,13 @@ def sql_rewrite(library_name, table_name, field_name, field_key, field_name_to,
         pointer.execute('UPDATE {} SET {} = "{}" WHERE {} = "{}";'.format(
             table_name, field_name_to, field_key_to, field_name, field_key))
         conn.commit()
+        returninfo = True
+    except Exception:
+        print("/////////////////////////\n{}\n/////////////////////////".format(traceback.format_exc()))
+        rereturninfo = False
     finally:
         conn.close()
-
-    return sql_read(library_name, table_name, field_name, field_key)  # 返回修改后结果
+        return returninfo
 
 
 def sql_write(library_name, table_name, info): # 添加行
@@ -70,7 +73,7 @@ def sql_write(library_name, table_name, info): # 添加行
     # table_name      表名*
     # info            欲填入值*(元组格式)
     # 返回:
-    # 返回成功与否
+    # 无返回
     """
     try:
         conn = sqlite3.connect(library_name)

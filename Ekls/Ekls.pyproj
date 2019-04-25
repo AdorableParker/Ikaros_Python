@@ -88,6 +88,12 @@
     <Compile Include="plugins\saucenao\get_img.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\terminal_console\miscellaneous_function.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\terminal_console\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\tool\shorten_url.py">
       <SubType>Code</SubType>
     </Compile>
@@ -108,7 +114,7 @@
     <Compile Include="plugins\trace_moe\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plugins\tool\data_box.py" />
+    <Compile Include="plugins\tool\date_box.py" />
     <Compile Include="plugins\repeat\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -146,6 +152,7 @@
     <Folder Include="plugins\activity_calculation\" />
     <Folder Include="plugins\rendering\" />
     <Folder Include="plugins\run_code\" />
+    <Folder Include="plugins\terminal_console\" />
     <Folder Include="plugins\tool\" />
     <Folder Include="plugins\trace_moe\" />
     <Folder Include="plugins\repeat\" />

@@ -7,7 +7,7 @@ from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
 
 
-from plugins.tool.data_box import sql_rewrite, sql_read, sql_write
+from plugins.tool.date_box import sql_rewrite, sql_read, sql_write
 
 
 __plugin_name__ = "复读姬"
@@ -43,7 +43,8 @@ async def _(session: NLPSession):
 
 async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
     # 查询数据库
-
+    if not sql_read("User.db", "group_info", "group_id", session.ctx["group_id"], field = "repeat", in_where = True)[0][0]:  # 权限管理器
+        return None
     if not text:
         return None
     try:
@@ -56,7 +57,7 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
             if flag > 1 or flag == 0:
                 text = False
             flag += 1
-            # 写入数据库
+            # 更改数据库
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", flag)  # 复读次数
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", user)  # 更迭在位者id
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", session.ctx["user_id"])  # 记录继位者id
@@ -76,7 +77,7 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
                                                 duration=flag*100)
                 except:
                     await session.send("执行异常，请检查权限，参数")
-            # 写入数据库
+            # 更改数据库
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "flag", 0)  # 清空次数
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "info", text)  # 更新文本
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", "")  # 清空在位者id
