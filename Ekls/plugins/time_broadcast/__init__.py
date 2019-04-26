@@ -7,6 +7,9 @@ from aiocqhttp.exceptions import Error as CQHttpError
 
 from .time_word import line
 
+from plugins.tool.date_box import sql_read
+
+
 __plugin_name__ = "整点报时"
 __plugin_usage__ = """
 ########################

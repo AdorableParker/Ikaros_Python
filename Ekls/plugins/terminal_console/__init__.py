@@ -33,12 +33,11 @@ async def admin_terminal_console(session: CommandSession):
 async def get_group_list(session: CommandSession):
     bot = session.bot
     group_list = await bot.get_group_list()
-    Ed, group_info = 0, "序号\t群号\t群名称"
-    for i in group_list:
-        Ed += 1
-        if not sql_rewrite("User.db", "group_info", "group_id", i["group_id"], "id", Ed): # 序号改变
-            sql_write("User.db", "group_info", (Ed, i["group_id"]))  # 无则添加
-        group_info += "\n{}\t{}\t{}".format(Ed, str_co(i["group_id"],"*"), str_co(i["group_name"], "#")) # 加入掩码
+    group_info = "序号\t群号\t群名称"
+    for i, j in enumerate(group_list,1):
+        if not sql_rewrite("User.db", "group_info", "group_id", j["group_id"], "id", i): # 序号改变
+            sql_write("User.db", "group_info", (i, j["group_id"]))  # 无则添加
+        group_info += "\n{}\t{}\t{}".format(i, str_co(j["group_id"],"*"), str_co(j["group_name"], "#")) # 加入掩码
     await session.finish(group_info)
 
 

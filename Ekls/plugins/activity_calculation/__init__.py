@@ -23,8 +23,7 @@ async def activity(session: CommandSession):
     # 向用户发送信息
     content = session.get('content', prompt='请输入已刷点数')
     user_defined = session.get('user_defined', prompt='请输入已刷点数')
-    if not user_defined:
-        user_defined = False
+    user_defined = user_defined if user_defined else False 
     result = await progress_calculat(content, user_defined)
     await session.finish(result, at_sender=True)
 
@@ -33,21 +32,18 @@ async def activity(session: CommandSession):
 async def _(session: CommandSession):
     # 去掉消息首尾的空白符
     stripped_arg = session.current_arg_text.strip()
-    if session.is_first_run:
-        # 该命令第一次运行（第一次进入命令会话）
-        if stripped_arg:
-            stripped_arg_list = stripped_arg.split("#",1)
-            if len(stripped_arg_list) > 1:
-                session.state['content'] = stripped_arg_list[0]
-                session.state['user_defined'] = stripped_arg_list[1]
-                await session.send('自定义目标已设定，仅此次计算时生效')
-            else:
-                session.state['content'] = stripped_arg
-                session.state['user_defined'] = ""
-
-    if not stripped_arg:
+    if stripped_arg:
+        stripped_arg_list = stripped_arg.split("#",1)
+        if len(stripped_arg_list) > 1:
+            session.state['content'] = stripped_arg_list[0]
+            session.state['user_defined'] = stripped_arg_list[1]
+            await session.send('自定义目标已设定，仅此次计算时生效')
+        else:
+            session.state['content'] = stripped_arg
+            session.state['user_defined'] = ""
+    else:
         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
-        session.pause('请重新输入')
+        session.pause('请输入已刷点数')
 
     session.state[session.current_key] = stripped_arg
 
