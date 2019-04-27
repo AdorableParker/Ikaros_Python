@@ -39,14 +39,15 @@ def read_configuration():
     config = configparser.ConfigParser()
     config.read(r"config.ini", encoding="UTF-8")
     ongoing = int(config.get("ongoing_activities", "form"))
-    if ongoing:
-        name = config['ongoing_activities']['name']
-        shop = config['shop']['all']
-        mapid = dict(config.items('mapid'))
-        mapid = eval(str(mapid).upper())
-        stoptime = config['time']['stoptime']
-        return True, (name, shop, mapid, stoptime)
-    return (False,)
+    if not ongoing:
+        return (False,)
+    name = config['ongoing_activities']['name']
+    shop = config['shop']['all']
+    mapid = dict(config.items('mapid'))
+    mapid = eval(str(mapid).upper())
+    stoptime = config['time']['stoptime']
+    return True, (name, shop, mapid, stoptime)
+
 
 
 def change_configuration():

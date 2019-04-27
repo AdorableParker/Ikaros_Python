@@ -23,7 +23,7 @@ async def activity(session: CommandSession):
     # 向用户发送信息
     content = session.get('content', prompt='请输入已刷点数')
     user_defined = session.get('user_defined', prompt='请输入已刷点数')
-    user_defined = user_defined if user_defined else False 
+    user_defined = int(user_defined) if user_defined else False 
     result = await progress_calculat(content, user_defined)
     await session.finish(result, at_sender=True)
 
