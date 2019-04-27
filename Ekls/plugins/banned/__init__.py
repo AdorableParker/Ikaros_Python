@@ -43,15 +43,14 @@ async def banned(session: CommandSession):
     # 向用户发送信息
     banned_time = session.get('banned_time', prompt='请选择套餐规模\n以分钟为单位')
     bot = session.bot
-    try:
-        banned_time = int(float(banned_time)*60)
-        if banned_time > 2592000:
-            banned_time = 2592000
-        await bot.set_group_ban(group_id=session.ctx['group_id'],
-                                user_id=session.ctx['user_id'],
-                                duration=banned_time)
-    except:
-        session.finish("执行异常，请检查权限，参数")
+    if not banned_time.isdigit():
+        session.finish("请不要输入一些花里胡哨的东西")
+    banned_time = int(banned_time)*60
+    if banned_time > 2592000:
+        banned_time = 2592000
+    await bot.set_group_ban(group_id=session.ctx['group_id'],
+                            user_id=session.ctx['user_id'],
+                            duration=banned_time)       
 
 
 @banned.args_parser

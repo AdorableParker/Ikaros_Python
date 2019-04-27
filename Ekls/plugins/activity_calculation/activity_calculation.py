@@ -69,10 +69,7 @@ def activites(completed, user_defined):
 
     name, shop, mapid, stoptime = info[1]
 
-    if user_defined:
-        shop = user_defined
-
-    shop = int(shop)
+    shop = user_defined if user_defined else int(shop)
 
 #    获取时间
     gap = time.mktime(time.strptime(stoptime, "%Y-%m-%d"))
@@ -110,23 +107,21 @@ async def progress_calculat(content, user_defined):
     """
     # 计算活动进度并排版
     """
-    try:
-        point = int(content)
-        echo = "计算完成\n"
-    except BaseException:
-        echo = "已获得积分参数错误,应为整数"
-    else:
-        info = activites(point, user_defined)
-        if info[0]:
-            name, schedule, progress, barlist, booeolean, gaptime = info[1]
-            if booeolean:
-                echo += "活动名：{}\n".format(name)
-                for i in schedule:
-                    num = math.ceil(schedule[i])
-                    echo += "若只出击{}还需{}次\n".format(i, num)
-                echo += "当前已获得{}积分\n已完成进度\n{} {:.2%}\n{}".format(point, barlist, progress, gaptime)
-            else:
-                echo = "你TMD不要瞎JB填, Please"
+    if not content.isdigit():
+        return "已获得积分参数错误,应为整数"
+    point = int(content)
+    echo = "计算完成\n"
+    info = activites(point, user_defined)
+    if info[0]:
+        name, schedule, progress, barlist, booeolean, gaptime = info[1]
+        if booeolean:
+            echo += "活动名：{}\n".format(name)
+            for i in schedule:
+                num = math.ceil(schedule[i])
+                echo += "若只出击{}还需{}次\n".format(i, num)
+            echo += "当前已获得{}积分\n已完成进度\n{} {:.2%}\n{}".format(point, barlist, progress, gaptime)
         else:
-            echo = "暂时没有开启的活动哦"
-    return echo
+            echo = "你TMD不要瞎JB填, Please"
+    else:
+        echo = "暂时没有开启的活动哦"
+return echo
