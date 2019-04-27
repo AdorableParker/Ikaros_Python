@@ -109,19 +109,19 @@ async def progress_calculat(content, user_defined):
     """
     if not content.isdigit():
         return "已获得积分参数错误,应为整数"
+
     point = int(content)
     echo = "计算完成\n"
     info = activites(point, user_defined)
-    if info[0]:
-        name, schedule, progress, barlist, booeolean, gaptime = info[1]
-        if booeolean:
-            echo += "活动名：{}\n".format(name)
-            for i in schedule:
-                num = math.ceil(schedule[i])
-                echo += "若只出击{}还需{}次\n".format(i, num)
-            echo += "当前已获得{}积分\n已完成进度\n{} {:.2%}\n{}".format(point, barlist, progress, gaptime)
-        else:
-            echo = "你TMD不要瞎JB填, Please"
-    else:
-        echo = "暂时没有开启的活动哦"
-return echo
+    if not info[0]:
+        return "暂时没有开启的活动哦"
+
+    name, schedule, progress, barlist, booeolean, gaptime = info[1]
+    if not booeolean:
+        return "你TMD不要瞎JB填, Please"
+    echo += "活动名：{}\n".format(name)
+    for i in schedule:
+        num = math.ceil(schedule[i])
+        echo += "若只出击{}还需{}次\n".format(i, num)
+    echo += "当前已获得{}积分\n已完成进度\n{} {:.2%}\n{}".format(point, barlist, progress, gaptime)
+    return echo
