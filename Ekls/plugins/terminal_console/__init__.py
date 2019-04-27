@@ -51,19 +51,18 @@ async def print_global_variable(session: CommandSession):
     await session.finish("已输出到控制台")
 
 
-@on_command('retelling_refactoring', aliases=("发送公告", "to all"), only_to_me=False, permission=SUPERUSER)
-async def retelling_refactoring(session: CommandSession):
+@on_command('send_announcement', aliases=("发送公告", "to_all"), only_to_me=False, permission=SUPERUSER)
+async def send_announcement(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
     if stripped_arg:
-        bot = session.bot
-        group_list = await bot.get_group_list()
+        group_list = await session.bot.get_group_list()
         bot = get_bot()
-        for i,j in group_list:
-            await bot.send_group_msg(group_id=i, message=stripped_arg)
+        for i in group_list:
+            await bot.send_group_msg(group_id=i["group_id"], message=stripped_arg)
 
 
-@on_command('retelling_refactoring', aliases=("发送到群", "to"), only_to_me=False, permission=SUPERUSER)
-async def retelling_refactoring(session: CommandSession):
+@on_command('send_to_group', aliases=("发送到群", "to"), only_to_me=False, permission=SUPERUSER)
+async def send_to_group(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
     if stripped_arg:
         stripped_arg_list = stripped_arg.split(" ",1)
