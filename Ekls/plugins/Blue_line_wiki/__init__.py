@@ -8,8 +8,7 @@ from .get_ranking import get_equipment_list, get_srength_list
 
 
 __plugin_name__ = "测评榜"
-__plugin_usage__ = """
-------equipment_ranking------
+__plugin_usage__ = """------equipment_ranking------
 命令关键字："装备榜单", "装备榜", "装备排行榜"
 
 效果：装备强度测评榜
@@ -19,8 +18,7 @@ __plugin_usage__ = """
 命令关键字："强度榜单", "强度榜", "舰娘强度榜", "舰娘排行榜"
 
 效果：舰娘强度测评榜
-########################
-"""
+########################"""
 
 
 # on_command 装饰器将函数声明为一个命令处理器

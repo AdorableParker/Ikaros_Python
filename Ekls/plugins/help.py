@@ -3,8 +3,7 @@ from nonebot import on_command, CommandSession
 
 
 __plugin_name__ = "使用说明"
-__plugin_usage__ = """
-------help------
+__plugin_usage__ = """------help------
 命令关键字："使用说明", "使用帮助", "帮助", "使用方法"
 命令输入格式：
 
@@ -12,8 +11,7 @@ __plugin_usage__ = """
 
 效果：根据输入的命令名，返回帮助信息
 
-########################
-"""
+########################"""
 
 
 @on_command('help', aliases=['使用说明', '使用帮助', '帮助', '使用方法'], only_to_me=False)

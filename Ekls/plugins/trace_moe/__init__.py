@@ -5,8 +5,7 @@ from .fan_search import fan_search
 
 
 __plugin_name__ = "番剧搜索"
-__plugin_usage__ = """
-------trace_moe------
+__plugin_usage__ = """------trace_moe------
 命令关键字："以图搜番", "搜番"
 命令输入格式：
 
@@ -16,8 +15,7 @@ __plugin_usage__ = """
 
 <注意>：由于运算需求过高，请勿频繁调用该命令！
 
-########################
-"""
+########################"""
 
 
 @on_command('trace_moe', aliases=("以图搜番", "搜番"), only_to_me=False)

@@ -11,14 +11,12 @@ from plugins.tool.date_box import sql_rewrite, sql_read, sql_write
 
 
 __plugin_name__ = "复读姬"
-__plugin_usage__ = """
-------repeat------
+__plugin_usage__ = """------repeat------
 
 人类的本质是什么？
 
 给我把倒数第二个复读机砸了！
-########################
-"""
+########################"""
 
 
 # 注册一个仅内部使用的命令，不需要 aliases

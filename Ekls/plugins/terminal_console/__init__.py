@@ -9,16 +9,19 @@ __plugin_name__ = "控制台"
 __plugin_usage__ = """------terminal_console------
 命令关键字："控制台", "终端"
 
-$ 获取群列表
+&内部管理员执行有效&
+
+$ 获取群列表|更新群列表|刷新群列表
 $ 汇报各群功能配置情况
+$ 发送公告 <内容>
 $ 发送到群 <目标> <内容>
+
 $ 改变复读姬状态 [目标]
 $ 改变开火许可状态 [目标]
 $ 改变火星时报订阅状态 [目标]
 $ 改变标枪快讯订阅状态 [目标]
 $ 改变报时鸟状态 [目标]
-$ 改变报时鸟_舰C版状态 [目标]
-"""
+$ 改变报时鸟_舰C版状态 [目标]"""
 
 
 
@@ -29,7 +32,7 @@ async def admin_terminal_console(session: CommandSession):
 
 
 
-@on_command('update_group_list', aliases=("更新群列表",), only_to_me=False, permission=SUPERUSER)
+@on_command('update_group_list', aliases=("更新群列表", "获取群列表", "刷新群列表"), only_to_me=False, permission=SUPERUSER)
 async def get_group_list(session: CommandSession):
     bot = session.bot
     group_list = await bot.get_group_list()
@@ -46,6 +49,17 @@ async def get_group_list(session: CommandSession):
 async def print_global_variable(session: CommandSession):
     print(look("User.db", "group_info"))
     await session.finish("已输出到控制台")
+
+
+@on_command('retelling_refactoring', aliases=("发送公告", "to all"), only_to_me=False, permission=SUPERUSER)
+async def retelling_refactoring(session: CommandSession):
+    stripped_arg = session.current_arg_text.strip()
+    if stripped_arg:
+        bot = session.bot
+        group_list = await bot.get_group_list()
+        bot = get_bot()
+        for i,j in group_list:
+            await bot.send_group_msg(group_id=i, message=stripped_arg)
 
 
 @on_command('retelling_refactoring', aliases=("发送到群", "to"), only_to_me=False, permission=SUPERUSER)

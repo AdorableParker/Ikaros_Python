@@ -8,12 +8,10 @@ from .get_update import update_check
 
 from plugins.tool.date_box import sql_read
 __plugin_name__ = "动态更新"
-__plugin_usage__ = """
-########################
+__plugin_usage__ = """########################
 今天有没有被指挥官偷瞄呢(:3_ヽ)_
 \t\t————萨拉托加
-########################
-"""
+########################"""
 
 
 @nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/20")  # 每半小时执行

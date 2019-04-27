@@ -4,16 +4,14 @@ from .al_producetime_query import al_query_time, al_query_name
 from . import reto
 
 __plugin_name__ = "建造时间查询"
-__plugin_usage__ = """
-------construction_info------
+__plugin_usage__ = """------construction_info------
 命令关键字："建造时间查询", "建造时间", "建造查询"
 命令输入格式：
 
 建造时间查询 <时间|船名>
 
 效果：返回数据库中，符合的船名和时间
-########################
-"""
+########################"""
 
 
 @on_command('construction_info', aliases=("建造时间查询", "建造时间", "建造查询"), only_to_me=False)

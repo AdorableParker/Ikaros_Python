@@ -10,8 +10,7 @@ from .get_img import get_img
 
 
 __plugin_name__ = "图片搜索"
-__plugin_usage__ = """
-------URL_saucenao------
+__plugin_usage__ = """------URL_saucenao------
 命令关键字："链接搜图", "url搜图", "URL搜图"
 命令输入格式：
 
@@ -27,8 +26,7 @@ __plugin_usage__ = """
 图片搜索 <图片>
 
 效果：根据输入的图片，使用saucenao搜图引擎进行图源搜索，返回相似度高于60%的结果中，相似度最高的。
-########################
-"""
+########################"""
 
 @on_command('URL_saucenao', aliases=("链接搜图", "url搜图", "URL搜图"), only_to_me=False)
 async def URL_saucenao(session: CommandSession):

@@ -11,11 +11,9 @@ from plugins.tool.date_box import sql_read
 
 
 __plugin_name__ = "整点报时"
-__plugin_usage__ = """
-########################
+__plugin_usage__ = """########################
 伊卡洛斯 为您报时
-########################
-"""
+########################"""
 
 
 @nonebot.scheduler.scheduled_job('cron', hour='*')  # 整点执行

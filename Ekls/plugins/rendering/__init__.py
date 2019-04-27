@@ -10,8 +10,7 @@ from .render import render
 
 
 __plugin_name__ = "翻译"
-__plugin_usage__ = """
-------translation------
+__plugin_usage__ = """------translation------
 命令关键字："翻译"
 命令输入格式：
 
@@ -28,8 +27,7 @@ __plugin_usage__ = """
 越南语\t捷克语\t瑞典语\t匈牙利语
 保加利亚语\t罗马尼亚语
 爱沙尼亚语\t斯洛文尼亚语
-########################
-"""
+########################"""
 
 
 # on_command 装饰器将函数声明为一个命令处理器

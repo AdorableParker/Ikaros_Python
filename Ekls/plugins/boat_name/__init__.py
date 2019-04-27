@@ -3,16 +3,14 @@ from nonebot import on_command, CommandSession
 from .code_conversion import code_name
 
 __plugin_name__ = "重樱船名查询"
-__plugin_usage__ = """
-------heavycherry_boat_name_query------
+__plugin_usage__ = """------heavycherry_boat_name_query------
 命令关键字："重樱船名查询", "重樱船名", "船名查询", "和谐名查询"
 命令输入格式：
 
 重樱船名 <船名>
 
 效果：返回数据库中，符合的船名
-########################
-"""
+########################"""
 
 
 @on_command('heavycherry_boat_name_query', aliases=("重樱船名查询", "重樱船名", "船名查询", "和谐名查询"), only_to_me=False)

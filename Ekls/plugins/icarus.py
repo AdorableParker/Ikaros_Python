@@ -9,15 +9,13 @@ from nonebot.helpers import context_id, render_expression
 
 
 __plugin_name__ = "图灵AI"
-__plugin_usage__ = """
-------tuling------
+__plugin_usage__ = """------tuling------
 关键字："伊卡洛斯"
 
 "我是娱乐用人造天使，α型号「伊卡洛斯」，My Master。"
 \t\t\t————伊卡洛斯
 
-########################
-"""
+########################"""
 
 # 定义无法获取图灵回复时的「表达（Expression）」
 EXPR_DONT_UNDERSTAND = (

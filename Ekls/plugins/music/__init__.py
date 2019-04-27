@@ -9,8 +9,7 @@ from .data_source import get_url_of_music
 
 
 __plugin_name__ = "点歌姬"
-__plugin_usage__ = """
-------music------
+__plugin_usage__ = """------music------
 命令关键字："点歌", "来首"
 命令输入格式：
 
@@ -18,8 +17,7 @@ __plugin_usage__ = """
 # 平台默认QQ
 效果：根据输入的歌名，使用搜索所指定曲库，返回歌单列表第一条。
 
-########################
-"""
+########################"""
 
 
 @on_command('music', aliases=("点歌", "来首"), only_to_me=False)

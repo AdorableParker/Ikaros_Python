@@ -9,8 +9,7 @@ from plugins.tool import crawler
 from plugins.rendering import render
 
 __plugin_name__ = "碧蓝航线动态获取"
-__plugin_usage__ = """
-------update_bilibili------
+__plugin_usage__ = """------update_bilibili------
 关键字："小加加", "B博更新", "b博更新"
 
 效果：锉刀怪又gū了？让我康康
@@ -22,8 +21,7 @@ __plugin_usage__ = """
 
 效果：这特么是什么东西
 
-########################
-"""
+########################"""
 
 
 # on_command 装饰器将函数声明为一个命令处理器

@@ -136,6 +136,12 @@
     <Compile Include="plugins\update_check\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\User_feedback\submit_feedback.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\User_feedback\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\YutO\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -162,6 +168,7 @@
     <Folder Include="plugins\time_broadcast\" />
     <Folder Include="plugins\time_broadcast\time_txt\" />
     <Folder Include="plugins\update_check\" />
+    <Folder Include="plugins\User_feedback\" />
     <Folder Include="plugins\YutO\" />
   </ItemGroup>
   <ItemGroup>

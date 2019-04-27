@@ -3,8 +3,7 @@ from nonebot import on_natural_language, NLPSession, IntentCommand
 from nonebot.helpers import render_expression
 
 __plugin_name__ = "SIN"
-__plugin_usage__ = """
-------liquidation_time------
+__plugin_usage__ = """------liquidation_time------
 Envy
 Lust
 Greed
@@ -12,8 +11,7 @@ Pride
 Wrath
 Sloth
 Gluttony
-########################
-"""
+########################"""
 
 EXPL = ("好了，来细数你的罪恶吧",
         "好好想想你过去的所作所为",

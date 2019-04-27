@@ -4,8 +4,7 @@ from nonebot import on_command, CommandSession
 from .get_run_coderesult import get_run_coderesult
 
 __plugin_name__ = "代码运行"
-__plugin_usage__ = """
-------run_code------
+__plugin_usage__ = """------run_code------
 命令关键字："run", "运行", "运行代码"
 命令输入格式：
 
@@ -24,8 +23,7 @@ kotlin\t\tpython
 clojure\t\thaskell
 assembly\tjavascript
 typescript\tcoffeescript
-########################
-"""
+########################"""
 
 
 LANGUAGES_LIST = {
