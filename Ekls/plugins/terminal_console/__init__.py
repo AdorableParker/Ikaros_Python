@@ -47,7 +47,8 @@ async def get_group_list(session: CommandSession):
 
 @on_command('print_global_variable', aliases=("汇报各群功能配置情况",), only_to_me=False, permission=SUPERUSER)
 async def print_global_variable(session: CommandSession):
-    print(look("User.db", "group_info"))
+    for i in look("User.db", "group_info"):
+        print(i)
     await session.finish("已输出到控制台")
 
 
