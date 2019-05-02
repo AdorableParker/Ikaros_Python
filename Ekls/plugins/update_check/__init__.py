@@ -21,7 +21,7 @@ async def _():
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
     # 火星时报
     group_list = sql_read("User.db", "group_info", "Sara_news", 1.0, field = "group_id", in_where = True)
-    if not group_list:
+    if group_list:
         update_info = update_check('233114659')
         for group_id in group_list:
             try:
@@ -31,7 +31,7 @@ async def _():
                     await bot.send_group_msg(group_id=group_id, message="更新动态失败")
     # 标枪快讯
     group_list = sql_read("User.db", "group_info", "Javelin_news", 1.0, field = "group_id", in_where = True)
-    if not group_list:
+    if group_list:
         update_info = update_check('300123440')
         for group_id in group_list:
             try:
