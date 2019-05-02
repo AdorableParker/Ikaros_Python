@@ -14,31 +14,35 @@ __plugin_usage__ = """########################
 ########################"""
 
 
-@nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/20")  # 每半小时执行
-#@nonebot.scheduler.scheduled_job('interval', seconds=60)    # 间隔一分钟执行
+#@nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/20")  # 每半小时执行
+@nonebot.scheduler.scheduled_job('interval', seconds=10)    # 间隔一分钟执行
 async def _():
     bot = nonebot.get_bot()
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
+
     # 火星时报
     group_list = sql_read("User.db", "group_info", "Sara_news", 1.0, field = "group_id", in_where = True)
     if group_list:
         update_info = update_check('233114659')
-        for group_id in group_list:
-            try:
-                await bot.send_group_msg(group_id=group_id, message=update_info[1])
-            except:
-                for group_id in group_list:
-                    await bot.send_group_msg(group_id=group_id, message="更新动态失败")
+        if update_info[0]:
+            for group_id in group_list:
+                try:
+                    await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
+                except:
+                    print("/////////////////////////\n{}\n/////////////////////////".format(traceback.format_exc()))
+                    await bot.send_group_msg(group_id=group_id[0], message="更新动态失败")
+
     # 标枪快讯
     group_list = sql_read("User.db", "group_info", "Javelin_news", 1.0, field = "group_id", in_where = True)
     if group_list:
         update_info = update_check('300123440')
-        for group_id in group_list:
-            try:
-                await bot.send_group_msg(group_id=group_id, message=update_info[1])
-            except:
-                for group_id in group_list:
-                    await bot.send_group_msg(group_id=group_id, message="更新动态失败")
+        if update_info[0]:
+            for group_id in group_list:
+                try:
+                    await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
+                except:
+                    print("/////////////////////////\n{}\n/////////////////////////".format(traceback.format_exc()))
+                    await bot.send_group_msg(group_id=group_id[0], message="更新动态失败")
 
 if __name__ == "__main__":
     update_info = update_check()
