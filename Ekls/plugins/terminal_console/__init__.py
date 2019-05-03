@@ -1,5 +1,5 @@
 from nonebot import on_command, CommandSession, get_bot
-from nonebot.permission import SUPERUSER
+from nonebot.permission import SUPERUSER, GROUP_ADMIN
 
 from .miscellaneous_function import string_cover as str_co
 from .miscellaneous_function import change_everything as ce
@@ -16,6 +16,8 @@ $ 汇报各群功能配置情况
 $ 发送公告 <内容>
 $ 发送到群 <目标> <内容>
 
+&群管理员执行有效&
+
 $ 改变复读姬状态 [目标]
 $ 改变开火许可状态 [目标]
 $ 改变火星时报订阅状态 [目标]
@@ -25,7 +27,7 @@ $ 改变报时鸟_舰C版状态 [目标]"""
 
 
 
-@on_command('terminal_console', aliases=("控制台", "终端"), only_to_me=False, permission=SUPERUSER)
+@on_command('terminal_console', aliases=("控制台", "终端"), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
 async def admin_terminal_console(session: CommandSession):
     
     await session.finish(__plugin_usage__)
@@ -76,31 +78,31 @@ async def send_to_group(session: CommandSession):
         await bot.send_group_msg(group_id=to, message=info)
 
 
-@on_command('repeat_alter', aliases=("改变复读姬状态",), only_to_me=False, permission=SUPERUSER)
+@on_command('repeat_alter', aliases=("改变复读姬状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
 async def repeat_alter(session: CommandSession):
     intent, echo = await ce(session, "repeat")
     await session.finish("复读姬原状态为 {}\n现状态已改为 {}".format(intent, echo))
 
 
-@on_command('fire_alter', aliases=("改变开火许可状态",), only_to_me=False, permission=SUPERUSER)
+@on_command('fire_alter', aliases=("改变开火许可状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
 async def fire_alter(session: CommandSession):
     intent, echo = await ce(session, "fire")
     await session.finish("开火权限原状态为 {}\n现状态已改为 {}".format(intent, echo))
 
 
-@on_command('Sara_news_alter', aliases=("改变火星时报订阅状态",), only_to_me=False, permission=SUPERUSER)
+@on_command('Sara_news_alter', aliases=("改变火星时报订阅状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
 async def Sara_news_alter(session: CommandSession):
     intent, echo = await ce(session, "Sara_news")
     await session.finish("火星时报订阅原状态为 {}\n现状态已改为 {}".format(intent, echo))
 
 
-@on_command('Javelin_news_alter', aliases=("改变标枪快讯订阅状态",), only_to_me=False, permission=SUPERUSER)
+@on_command('Javelin_news_alter', aliases=("改变标枪快讯订阅状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
 async def Javelin_news_alter(session: CommandSession):
     intent, echo = await ce(session, "Javelin_news")
     await session.finish("标枪快讯订阅原状态为 {}\n现状态已改为 {}".format(intent, echo))
 
 
-@on_command('Call_bell_alter', aliases=("改变报时鸟状态",), only_to_me=False, permission=SUPERUSER)
+@on_command('Call_bell_alter', aliases=("改变报时鸟状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
 async def Call_bell_alter(session: CommandSession):
     intent, echo, group_id = await ce(session, "Call_bell", True)
     if echo:
@@ -108,7 +110,7 @@ async def Call_bell_alter(session: CommandSession):
     await session.finish("报时鸟原状态为 {}\n现状态已改为 {}".format(intent, echo))
 
 
-@on_command('Call_bell_AZ_alter', aliases=("改变报时鸟_舰C版状态",), only_to_me=False, permission=SUPERUSER)
+@on_command('Call_bell_AZ_alter', aliases=("改变报时鸟_舰C版状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
 async def Call_bell_AZ_alter(session: CommandSession):
     intent, echo, group_id = await ce(session, "Call_bell_AZ", True)
     if echo:
