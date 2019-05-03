@@ -52,7 +52,6 @@ def sql_rewrite(library_name, table_name, field_name, field_key, field_name_to,
     try:
         conn = sqlite3.connect(library_name)
         pointer = conn.cursor()
-
         pointer.execute('UPDATE {} SET {} = "{}" WHERE {} = "{}";'.format(
             table_name, field_name_to, field_key_to, field_name, field_key))
         conn.commit()

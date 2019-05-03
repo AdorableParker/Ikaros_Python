@@ -29,7 +29,6 @@ $ 改变报时鸟_舰C版状态 [目标]"""
 
 @on_command('terminal_console', aliases=("控制台", "终端"), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
 async def admin_terminal_console(session: CommandSession):
-    
     await session.finish(__plugin_usage__)
 
 
@@ -106,7 +105,7 @@ async def Javelin_news_alter(session: CommandSession):
 async def Call_bell_alter(session: CommandSession):
     intent, echo, group_id = await ce(session, "Call_bell", True)
     if echo:
-        sql_rewrite("User.db", "group_info", "group_id", group_id, "Call_bell_AZ", False)
+        sql_rewrite("User.db", "group_info", "group_id", group_id, "Call_bell_AZ", 0)
     await session.finish("报时鸟原状态为 {}\n现状态已改为 {}".format(intent, echo))
 
 
@@ -114,5 +113,5 @@ async def Call_bell_alter(session: CommandSession):
 async def Call_bell_AZ_alter(session: CommandSession):
     intent, echo, group_id = await ce(session, "Call_bell_AZ", True)
     if echo:
-        sql_rewrite("User.db", "group_info", "group_id", group_id, "Call_bell", False)
+        sql_rewrite("User.db", "group_info", "group_id", group_id, "Call_bell", 0)
     await session.finish("舰C版报时鸟原状态为 {}\n现状态已改为 {}".format(intent, echo))
