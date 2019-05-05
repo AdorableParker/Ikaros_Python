@@ -39,8 +39,10 @@ async def get_group_list(session: CommandSession):
     group_list = await bot.get_group_list()
     group_info = "序号\t群号\t群名称"
     for i, j in enumerate(group_list,1):
-        if not sql_rewrite("User.db", "group_info", "group_id", j["group_id"], "id", i): # 序号改变
-            sql_write("User.db", "group_info", (i, j["group_id"]))  # 无则添加
+        if sql_read("User.db", "group_info", "group_id", j["group_id"]):
+            sql_rewrite("User.db", "group_info", "group_id", j["group_id"], "id", i) # 序号改变
+        else:
+            sql_write("User.db", "group_info", (i, j["group_id"], 0, 0, 0, 0, 0, 0))  # 无则添加
         group_info += "\n{}\t{}\t{}".format(i, str_co(j["group_id"],"*"), str_co(j["group_name"], "#")) # 加入掩码
     await session.finish(group_info)
 

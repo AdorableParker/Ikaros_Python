@@ -45,8 +45,7 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
         if not sql_read("User.db", "group_info", "group_id", session.ctx["group_id"], field = "repeat", in_where = True)[0][0]:  # 权限管理器
             return None
     except IndexError:
-        from plugins.terminal_console import get_group_list
-        await get_group_list(session)
+        print(sql_read("User.db", "group_info", "group_id", session.ctx["group_id"], field = "repeat", in_where = True))
     if not text:
         return None
     try:
