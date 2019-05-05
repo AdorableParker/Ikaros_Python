@@ -74,7 +74,12 @@ def get_trend(uid, flug=True):
     response = requests.get(url, params=(('host_uid', uid),))
     response.encoding = "UTF-8"
     content = json.loads(response.text)["data"]["cards"][0]
-    uname = content["desc"]['user_profile']["info"]['uname']
+    try:
+        uname = json.loads(content["card"])['user']['name']
+        
+    except KeyError:
+        print(content)
+
     if flug:
         text_time = time.strftime('%Y-%m-%d %H:%M:%S',
                                   time.localtime(content["desc"]["timestamp"]))
@@ -113,7 +118,7 @@ async def update2out(uid):
     return out_info
 
 if __name__ == '__main__':
-    AX = get_top()
+    #AX = get_top()
     AXX = get_trend('300123440')
-    AXXX = update2out("233114659")
-    print(AXXX)
+    #AXXX = update2out("233114659")
+    print(AXX)
