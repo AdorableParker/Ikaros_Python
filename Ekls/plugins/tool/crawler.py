@@ -75,10 +75,9 @@ def get_trend(uid, flug=True):
     response.encoding = "UTF-8"
     content = json.loads(response.text)["data"]["cards"][0]
     try:
-        uname = json.loads(content["card"])['user']['name']
-        
+        uname = content["desc"]['user_profile']["info"]['uname']
     except KeyError:
-        print(content)
+        uname = json.loads(content["card"])['user']['name']
 
     if flug:
         text_time = time.strftime('%Y-%m-%d %H:%M:%S',
