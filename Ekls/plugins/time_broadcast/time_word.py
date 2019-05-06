@@ -7,24 +7,25 @@ import time
 import random
 
 
-def file_name():
+def get_file_name():
     """
     # 取台词文件列表
     """ 
     address = "{}/plugins/time_broadcast/time_txt/".format(os.getcwd())
     file_info = os.listdir(address)
-    return address + random.choice(file_info)
+    fname = random.choice(file_info)
+    return address + fname, fname
 
 
 def line():
     """
     # 取台词内容
     """
-    fname = file_name()
-    file_text = open(fname, encoding='UTF-8')
+    file_dir, file_name, = get_file_name()
+    file_text = open(file_dir, encoding='UTF-8')
     i = file_text.readlines()
     localtime = int(time.strftime("%H", time.localtime()))
-    i = i[localtime].strip()
+    i = "{}\n        ——{}".format(i[localtime].strip(), file_name.rstrip(".txt"))
     return i
 
 

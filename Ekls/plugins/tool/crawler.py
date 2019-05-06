@@ -73,11 +73,15 @@ def get_trend(uid, flug=True):
     url = 'https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history'
     response = requests.get(url, params=(('host_uid', uid),))
     response.encoding = "UTF-8"
-    content = json.loads(response.text)["data"]["cards"][0]
+    try:
+        content = json.loads(response.text)["data"]["cards"][0]
+    except KeyError:
+        print(json.loads(response.text)["data"])
+        print(type(json.loads(response.text)["data"]))
     try:
         uname = content["desc"]['user_profile']["info"]['uname']
     except KeyError:
-        uname = json.loads(content["card"])['user']['name']
+        uname = ""
 
     if flug:
         text_time = time.strftime('%Y-%m-%d %H:%M:%S',
@@ -105,8 +109,8 @@ def get_trend(uid, flug=True):
             text1 += get_upper(oid)
 
     else:
-        text1, img = "专栏标题" + text["title"], ""
-    
+        text1, img = "专栏标题:{}\n专栏摘要：\n{}…".format(text["title"], text["summary"]), ""
+        uname = text["author"]["name"]
     return (text1, img, text_time, uname)
 
 
