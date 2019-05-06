@@ -173,6 +173,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config.ini" />
+    <Content Include="plugins\time_broadcast\time_txt\Z1.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\三隈.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\伊19.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\初春.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\初霜.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\加贺.txt" />
     <Content Include="plugins\time_broadcast\time_txt\台词_Z1.txt" />
     <Content Include="plugins\time_broadcast\time_txt\台词_伊19.txt" />
     <Content Include="plugins\time_broadcast\time_txt\台词_初春.txt" />
@@ -198,6 +204,37 @@
     <Content Include="plugins\time_broadcast\time_txt\台词_长门.txt" />
     <Content Include="plugins\time_broadcast\time_txt\台词_雾岛.txt" />
     <Content Include="plugins\time_broadcast\time_txt\台词_飞龙.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\吹雪.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\夕张.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\夕立.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\大凤.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\天城.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\妙高.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\川内.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\时雨.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\明石.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\春雨.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\晓.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\最上.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\榛名.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\欧根.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\比睿.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\瑞鹤.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\矶风.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\神通.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\绫波.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\翔鹤.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\苍龙.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\萨拉托加.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\衣笠.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\足柄.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\野分.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\金刚.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\铃谷.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\长门.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\阿武隈.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\雾岛.txt" />
+    <Content Include="plugins\time_broadcast\time_txt\飞龙.txt" />
     <Content Include="User.db" />
   </ItemGroup>
   <ItemGroup>
