@@ -5,8 +5,10 @@ import pytz
 from aiocqhttp.exceptions import Error as CQHttpError
 
 from .get_update import update_check
-
 from plugins.tool.date_box import sql_read
+from plugins.rendering import render
+
+
 __plugin_name__ = "动态更新"
 __plugin_usage__ = """########################
 今天有没有被指挥官偷瞄呢(:3_ヽ)_
@@ -37,9 +39,10 @@ async def _():
     if group_list:
         update_info = update_check('300123440')
         if update_info[0]:
+            update_info = "{}\n————————\n百度机翻如下：\n\n{}".format(update_info[1], render(update_info[1]))
             for group_id in group_list:
                 try:
-                    await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
+                    await bot.send_group_msg(group_id=group_id[0], message=update_info)
                 except:
                     print("/////////////////////////\n{}\n/////////////////////////".format(traceback.format_exc()))
                     await bot.send_group_msg(group_id=group_id[0], message="更新动态失败")

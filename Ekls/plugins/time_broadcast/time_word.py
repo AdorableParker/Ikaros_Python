@@ -25,7 +25,7 @@ def line():
     file_text = open(file_dir, encoding='UTF-8')
     i = file_text.readlines()
     localtime = int(time.strftime("%H", time.localtime()))
-    i = "{}\n    \t    \t——————{}".format(i[localtime].strip(), file_name.rstrip(".txt"))
+    i = "{}\n    \t    \t—————— {}".format(i[localtime].strip(), file_name.rstrip(".txt"))
     return i
 
 
