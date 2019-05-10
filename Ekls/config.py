@@ -12,3 +12,5 @@ TOO_MANY_VALIDATION_FAILURES_EXPRESSION = ('你输错太多次啦，需要的时
 HOST = '127.0.0.1'
 PORT = 1234
 TULING_API_KEY = 'd146dcf03ae6438d8f53b2e78aafc694'
+Baidu_fanyi = {"appid" : '20180811000193438',
+               "secretKey" : '3WGh4YP8OYMubp9JOuHa'}

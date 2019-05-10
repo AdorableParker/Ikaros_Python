@@ -3,12 +3,13 @@ import hashlib
 import urllib
 import random
 import json
+from config import Baidu_fanyi
 
 
 def render(text, toLang = 'zh'):
 
-    appid = '20180811000193438'
-    secretKey = '3WGh4YP8OYMubp9JOuHa'
+    appid = Baidu_fanyi["appid"]
+    secretKey = Baidu_fanyi["secretKey"]
     salt = random.randint(32768, 65536)
     sign = appid + text + str(salt) + secretKey
     md5 = hashlib.md5()
