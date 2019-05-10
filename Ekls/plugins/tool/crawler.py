@@ -109,8 +109,7 @@ def get_trend(uid, flug=True):
             text1 += get_upper(oid)
 
     else:
-        text1, img = "专栏标题:{}\n专栏摘要：\n{}…".format(text["title"], text["summary"]), ""
-        uname = text["author"]["name"]
+        text1, img = "专栏标题:{}\n专栏摘要：\n{}…".format(text["title"], text.get("summary","")), ""
     return (text1, img, text_time, uname)
 
 
@@ -122,6 +121,6 @@ async def update2out(uid):
 
 if __name__ == '__main__':
     #AX = get_top()
-    AXX = get_trend('300123440')
-    #AXXX = update2out("233114659")
+    #AXX = get_trend('300123440')
+    AXX = get_trend("233114659")
     print(AXX)
