@@ -105,7 +105,8 @@ def look(librar_name, table_name):
 
 
 if __name__ == '__main__':
-    i = sql_read("User.db", "User", in_where=False)
-    ii = sql_read("User.db", "User", "Name", "A,B=B,A+B", "admin")[0]
-    text = "测试1"
-    print(i, ii)
+    i = sql_read("User.db", "group_info", in_where=False)
+    #ii = sql_read("User.db", "group_info", "Name", "A,B=B,A+B", "admin")[0]
+    #text = "测试1"
+    look("User.db", "group_info")
+    print(i)

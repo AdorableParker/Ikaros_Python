@@ -20,7 +20,7 @@ def typesetting(gap, progress):
         change_configuration()
     elif not time_gap:
         time_gap = int(gap // 3600)
-        print(gap)
+        #print(gap)
         text_gap = "距离活动结束只剩{}小时了\n最后一波抓紧哦".format(time_gap)
     elif time_gap < 5 and progress < 35:
         text_gap = "距离活动结束只剩{}天了\n你很弱欸".format(time_gap)

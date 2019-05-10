@@ -41,18 +41,19 @@ async def _(session: NLPSession):
 
 async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
     # 查询数据库
-    try:
-        if not sql_read("User.db", "group_info", "group_id", session.ctx["group_id"], field = "repeat", in_where = True)[0][0]:  # 权限管理器
-            return None
-    except IndexError:
-        print(sql_read("User.db", "group_info", "group_id", session.ctx["group_id"], field = "repeat", in_where = True))
     if not text:
         return None
+
+    switch = sql_read("User.db", "group_info", "group_id", session.ctx["group_id"], field = "repeat", in_where = True)  # 权限管理器
+    if not switch:  # 如果没有这个群的配置记录，则添加一条，默认全部为False
+       sql_write("User.db", "group_info",'(Null, {}, 0, 0, 0, 0, 0, 0)'.format(session.ctx["group_id"]))
+    elif not switch[0][0]:  # 如果配置记录为关闭，则退出
+            return None
     try:
         old_info, flag, user, old_user = sql_read("User.db", "repeat_info", "groupid", session.ctx["group_id"])[0][:4]
     except IndexError:
         # 初步判定为未添加复读
-        sql_write("User.db", "repeat_info",'("", 0, null, null,{})'.format(session.ctx["group_id"]))
+        sql_write("User.db", "repeat_info",'("", 0, Null, Null,{})'.format(session.ctx["group_id"]))
     else:
         if old_info == text:
             if flag > 1 or flag == 0:
@@ -83,4 +84,4 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "info", text)  # 更新文本
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", "")  # 清空在位者id
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", "")  # 清空继位者id
-            return False
+            return None

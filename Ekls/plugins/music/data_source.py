@@ -34,7 +34,7 @@ async def get_url_of_music(music_name, music_library="163"):
         while text["subcode"] == 10003:
             music_name = music_name[:len(music_name)-1]
             text = inquire_qq(music_name)
-            print(music_name)
+            #print(music_name)
         uid = text["data"]["song"]["list"][0]["songid"]
         return "[CQ:music,type=qq,id={}]".format(uid)
 
