@@ -28,11 +28,7 @@ async def _():
         update_info = update_check('233114659')
         if update_info[0]:
             for group_id in group_list:
-                try:
-                    await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
-                except:
-                    print("/////////////////////////\n{}\n/////////////////////////".format(traceback.format_exc()))
-                    await bot.send_group_msg(group_id=group_id[0], message="更新动态失败")
+                await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
 
     # 标枪快讯
     group_list = sql_read("User.db", "group_info", "Javelin_news", 1.0, field = "group_id", in_where = True)
@@ -41,11 +37,7 @@ async def _():
         if update_info[0]:
             update_info = "{}\n————————\n百度机翻如下：\n\n{}".format(update_info[1], render(update_info[1]))
             for group_id in group_list:
-                try:
-                    await bot.send_group_msg(group_id=group_id[0], message=update_info)
-                except:
-                    print("/////////////////////////\n{}\n/////////////////////////".format(traceback.format_exc()))
-                    await bot.send_group_msg(group_id=group_id[0], message="更新动态失败")
+                await bot.send_group_msg(group_id=group_id[0], message=update_info)
 
 if __name__ == "__main__":
     update_info = update_check()

@@ -37,7 +37,7 @@ async def admin_terminal_console(session: CommandSession):
 async def get_group_list(session: CommandSession):
     bot = session.bot
     group_list = await bot.get_group_list()
-    group_info = "序号\t群号\t群名称"
+    group_info = "编号\t群号\t群名称"
     for i in group_list:
         j = sql_read("User.db", "group_info", "group_id", i["group_id"])
         if j:

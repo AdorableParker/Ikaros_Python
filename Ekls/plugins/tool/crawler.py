@@ -54,7 +54,7 @@ def get_top():
 
 def get_upper(oid):
     """
-    # 更新B站官方动态
+    # 判断更新B站官方动态
     """
     params = (('oid', oid), ('type', "11"))
     response = requests.get('http://api.bilibili.com/x/v2/reply/cursor',
@@ -66,28 +66,34 @@ def get_upper(oid):
     return text
 
 
-def get_trend(uid, flug=True):
-    """
-    # 爬取B站动态
-    """
+def get_trend_getweb(uid):
     url = 'https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history'
     response = requests.get(url, params=(('host_uid', uid),))
     response.encoding = "UTF-8"
-    try:
-        content = json.loads(response.text)["data"]["cards"][0]
-    except KeyError:
-        print(json.loads(response.text)["data"])
-        print(type(json.loads(response.text)["data"]))
-    try:
-        uname = content["desc"]['user_profile']["info"]['uname']
-    except KeyError:
-        uname = ""
+    return response
+
+def get_trend(uid, flug=True):
+    """
+    # 爬取B站动态
+    # 针对碧蓝航线的动态进行了内容处理
+    """
+    for i in range(3):
+        response = get_trend_getweb(uid)
+        if not json.loads(response.text)["code"]:
+            inform_content = {"code":0}
+            break
+    else:
+        inform_content = {"code":1}
+        return 
+    content = json.loads(response.text)["data"]["cards"][0]
+    inform_content["sign"] = content["desc"]['user_profile']["info"]['uname']
 
     if flug:
-        text_time = time.strftime('%Y-%m-%d %H:%M:%S',
+        inform_content["posted_time"] = time.strftime('%Y-%m-%d %H:%M:%S',
                                   time.localtime(content["desc"]["timestamp"]))
     else:
-        text_time = content["desc"]["timestamp"]
+        inform_content["posted_time"] = content["desc"]["timestamp"]
+
     text = json.loads(content["card"])
     if "item" in text:
         text = text["item"]
@@ -95,22 +101,21 @@ def get_trend(uid, flug=True):
             text1 = text["description"]
             img_src = text["pictures"]
             img = "附图:\n"
+            for img_uil in img_src:
+                img_suil = shorten_url.shorten_url(img_uil["img_src"])
+                img += img_suil + "\n"
+            inform_content["img"] = img
         else:
             text1 = text["content"]
-            img_src = [{"img_src": ""}]
-            img = ""
-
-        for img_uil in img_src:
-            img_suil = shorten_url.shorten_url(img_uil["img_src"])
-            img += img_suil + "\n"
 
         if reto(text1, ["评论接", "见评论", "见置顶", "置顶"]):
             oid = content['desc']['rid']
             text1 += get_upper(oid)
-
+        inform_content["main_body"] = text1
+        
     else:
-        text1, img = "专栏标题:{}\n专栏摘要：\n{}…".format(text["title"], text.get("summary","")), ""
-    return (text1, img, text_time, uname)
+        inform_content["main_body"] = "专栏标题:{}\n专栏摘要：\n{}…".format(text["title"],text.get("summary",""))
+    return inform_content
 
 
 async def update2out(uid):
