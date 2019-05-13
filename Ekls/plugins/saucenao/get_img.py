@@ -19,6 +19,10 @@ async def get_img(url):
         response = requests.get('https://saucenao.com/search.php', headers=headers, params=params)
         root_soup = BeautifulSoup(response.text, "html.parser")
         soup = root_soup.select_one('div[class="result"]')
+
+        resultmiscinfo = soup.select_one('div[class="resultmiscinfo"]') # 尝试获取关联链接
+        related_links = resultmiscinfo.find_all("a")
+
         resul_tcontent = soup.select_one('div[class="resultcontent"]')
         list_info = resul_tcontent.select("div")[0]
     except AttributeError:
@@ -52,11 +56,15 @@ async def get_img(url):
         url_list = []
         for i in details.select("a[class='linkify']"):
             url_list.append(i["href"])
-        if not len(url_list):
-            url_list = ("-", "-")
+        if not url_list:
+            url_list = ["-", "-"]
         else:
             url_list.append("-")
+        url_list.append("")
     except BaseException:
         pass
+    for i in related_links:
+        url_list[2] += i["href"] + "\n"
+
     # 打包返回
     return True, {"info":out_info, "url":url_list, "thumbnail":thumbnail_url}

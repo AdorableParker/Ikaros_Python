@@ -77,7 +77,7 @@ def get_trend(uid, flug=True):
     # 爬取B站动态
     # 针对碧蓝航线的动态进行了内容处理
     """
-    for i in range(3):
+    for _ in range(3):
         response = get_trend_getweb(uid)
         if not json.loads(response.text)["code"]:
             inform_content = {"code":0}
