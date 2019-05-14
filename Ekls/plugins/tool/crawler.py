@@ -86,8 +86,13 @@ def get_trend(uid, flug=True):
         inform_content = {"code":1}
         return 
     content = json.loads(response.text)["data"]["cards"][0]
-    inform_content["sign"] = content["desc"]['user_profile']["info"]['uname']
-
+    try:
+        sign_info = content["desc"]['user_profile']["info"]
+        inform_content["sign"] = sign_info.get('uname',"")
+    except:
+        print("////////////////////////////////////////////")
+        print(content)
+        print("////////////////////////////////////////////")
     if flug:
         inform_content["posted_time"] = time.strftime('%Y-%m-%d %H:%M:%S',
                                   time.localtime(content["desc"]["timestamp"]))
