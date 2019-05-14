@@ -126,7 +126,11 @@ def get_trend(uid, flug=True):
 async def update2out(uid):
     updata_info = get_trend(uid)
     # print(updata_info)
-    out_info = "{0[0]}\n{0[1]}\n{0[3]} 于 {0[2]} 发布至 BiliBili 动态".format(updata_info)
+    img_url = updata_info.get("img","")
+    main_body = updata_info.get("main_body","")
+    sign = updata_info.get("sign", "")
+    text_time = updata_info["posted_time"]
+    out_info = "{}\n{}\n{} 于 {} 发布至 BiliBili 动态".format(main_body, img_url, sign, text_time)
     return out_info
 
 if __name__ == '__main__':
