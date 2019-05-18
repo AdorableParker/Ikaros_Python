@@ -41,12 +41,12 @@ async def get_group_list(session: CommandSession):
     for i in group_list:
         j = sql_read("User.db", "group_info", "group_id", i["group_id"])
         if j:
-            num = j[0]
+            num = j[0][0]
         else:
-            sql_write("User.db", "group_info", ("Null", j["group_id"], 0, 0, 0, 0, 0, 0))  # 无则添加
+            sql_write("User.db", "group_info", ("Null", i["group_id"], 0, 0, 0, 0, 0, 0))  # 无则添加
             num = sql_read("User.db", "group_info", "group_id", i["group_id"])[0]
 
-        group_info += "\n{}\t{}\t{}".format(num, str_co(j["group_id"],"*"), str_co(j["group_name"], "#")) # 加入掩码
+        group_info += "\n{}\t{}\t{}".format(num, str_co(i["group_id"],"*"), str_co(i["group_name"], "#")) # 加入掩码
     await session.finish(group_info)
 
 
