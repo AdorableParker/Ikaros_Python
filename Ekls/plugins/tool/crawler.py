@@ -104,7 +104,9 @@ def get_trend(uid, flug=True):
         text = text["item"]
         if "description" in text:
             text1 = text["description"]
-            img_src = text["pictures"]
+            img_src = text.get("pictures", False)
+            if not img_src:
+                img_src = [{"img_src":text.get("cover").get("default","")}] # 获取小视频封面
             img = "附图:\n"
             for img_uil in img_src:
                 img_suil = shorten_url.shorten_url(img_uil["img_src"])

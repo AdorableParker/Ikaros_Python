@@ -16,8 +16,8 @@ __plugin_usage__ = """########################
 ########################"""
 
 
-#@nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/20")  # 每半小时执行
-@nonebot.scheduler.scheduled_job('interval', seconds=10)    # 间隔一分钟执行
+@nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/10")  # 每半小时执行
+#@nonebot.scheduler.scheduled_job('interval', seconds=10)    # 间隔一分钟执行
 async def _():
     bot = nonebot.get_bot()
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
