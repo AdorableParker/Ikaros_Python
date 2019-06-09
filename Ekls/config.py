@@ -10,7 +10,7 @@ SESSION_CANCEL_EXPRESSION = "命令已取消" # 命令会话取消运行时回�
 #-----------------------------------------------
 HOST = '127.0.0.1'
 PORT = 1234
-TULING_API_KEY = 'd146dcf03ae6438d8f53b2e78aafc694'
+# TULING_API_KEY = 'd146dcf03ae6438d8f53b2e78aafc694'
 Baidu_fanyi = {"appid" : '20180811000193438',
                "secretKey" : '3WGh4YP8OYMubp9JOuHa'}
 

@@ -32,7 +32,10 @@ async def tuling(session: CommandSession):
     # 获取可选参数，这里如果没有 message 参数，命令不会被中断，message 变量会是 None
     message = session.state.get('message')
     # 通过封装的函数获取图灵机器人的回复
-    reply = await call_tuling_api(session, message)
+
+    # 图灵服务端被限制，不再调用这个东西，防止把号封了，伊卡洛斯也可以开源了。
+    # reply = await call_tuling_api(session, message)
+    reply = "o_o（伊卡洛斯已经不再能听懂了）"
     if reply:
         # 如果调用图灵机器人成功，得到了回复，则转义之后发送给用户
         # 转义会把消息中的某些特殊字符做转换，以避免 酷Q 将它们理解为 CQ 码
