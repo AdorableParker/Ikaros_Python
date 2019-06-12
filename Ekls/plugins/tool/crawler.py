@@ -61,8 +61,9 @@ def get_upper(oid):
                             params=params, verify=False)
     response.encoding = "UTF-8"
     content = response.text
+    #print(content)
     text = json.loads(content)
-    text = text["data"]["top"]["upper"]["content"]["message"]
+    text = text["data"]["top"]["upper"]
     return text
 
 
@@ -72,7 +73,7 @@ def get_trend_getweb(uid):
     response.encoding = "UTF-8"
     return response
 
-def get_trend(uid, flug=True):
+def get_trend(uid, flag=True):
     """
     # 爬取B站动态
     # 针对碧蓝航线的动态进行了内容处理
@@ -93,7 +94,7 @@ def get_trend(uid, flug=True):
         print("////////////////////////////////////////////")
         print(content)
         print("////////////////////////////////////////////")
-    if flug:
+    if flag:
         inform_content["posted_time"] = time.strftime('%Y-%m-%d %H:%M:%S',
                                   time.localtime(content["desc"]["timestamp"]))
     else:
@@ -117,7 +118,14 @@ def get_trend(uid, flug=True):
 
         if reto(text1, ["评论接", "见评论", "见置顶", "置顶"]):
             oid = content['desc']['rid']
-            text1 += get_upper(oid)
+            supplement = get_upper(oid)
+            text1 += supplement["content"]["message"]
+            supplement_add = {}
+            for add_to in supplement["replies"]:
+                if add_to["mid"] == int(uid):
+                    supplement_add[add_to['ctime']] = add_to["content"]["message"]
+            for ctime in sorted(supplement_add):
+                text1 += "\n\n{}".format(supplement_add[ctime])
         inform_content["main_body"] = text1
         
     else:
