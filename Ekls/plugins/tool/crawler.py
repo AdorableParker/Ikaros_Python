@@ -119,7 +119,7 @@ def get_trend(uid, flag=True):
         if reto(text1, ["评论接", "见评论", "见置顶", "置顶"]):
             oid = content['desc']['rid']
             supplement = get_upper(oid)
-            text1 += supplement["content"]["message"]
+            text1 += "\n\n{}".format(supplement["content"]["message"])
             supplement_add = {}
             for add_to in supplement["replies"]:
                 if add_to["mid"] == int(uid):
