@@ -32,10 +32,13 @@ async def tuling(session: CommandSession):
     # 获取可选参数，这里如果没有 message 参数，命令不会被中断，message 变量会是 None
     message = session.state.get('message')
     # 通过封装的函数获取图灵机器人的回复
+    # 不调用时默认返回
+    # reply = "o_o（伊卡洛斯已经不再能听懂了）"
 
-    # 图灵服务端被限制，不再调用这个东西，防止把号封了，伊卡洛斯也可以开源了。
+
     # reply = await call_tuling_api(session, message)
-    reply = "o_o（伊卡洛斯已经不再能听懂了）"
+    reply = await call_qingyun_api(session, message)
+
     if reply:
         # 如果调用图灵机器人成功，得到了回复，则转义之后发送给用户
         # 转义会把消息中的某些特殊字符做转换，以避免 酷Q 将它们理解为 CQ 码
@@ -95,6 +98,40 @@ async def call_tuling_api(session: CommandSession, text: str) -> Optional[str]:
                         if result['resultType'] == 'text':
                             # 返回文本类型的回复
                             return result['values']['text']
+    except (aiohttp.ClientError, json.JSONDecodeError, KeyError):
+        # 抛出上面任何异常，说明调用失败
+        return None
+
+
+
+async def call_qingyun_api(session: CommandSession, text: str) -> Optional[str]:
+    # 调用青云机器人的 API 获取回复
+    import requests
+    if not text:
+        return None
+
+    url = 'http://api.qingyunke.com/api.php?key=free&msg=text{}'.format(text)
+
+    # 构造请求数据
+		
+
+ #   response = requests.get(url, params=params)
+ #   if not json.loads(response.text)["result"]:
+ #       # 返回文本类型的回复
+ #       return json.loads(response.text)['content']
+
+    try:
+        # 使用 aiohttp 库发送最终的请求
+        async with aiohttp.ClientSession() as sess:
+            async with sess.get(url) as response:
+                if response.status != 200:
+                    # 如果 HTTP 响应状态码不是 200，说明调用失败
+                    return None
+
+                resp_payload = json.loads(await response.text())
+                if not resp_payload['result']:
+                    # 返回文本类型的回复
+                    return resp_payload['content']
     except (aiohttp.ClientError, json.JSONDecodeError, KeyError):
         # 抛出上面任何异常，说明调用失败
         return None
