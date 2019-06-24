@@ -54,4 +54,4 @@ def render(text, toLang = 'zh'):
 if __name__ == '__main__':
     a = "碧蓝航线\n辣鸡百度"
     b = "en"
-    print(render(a, b))
+    print(render(a,b))

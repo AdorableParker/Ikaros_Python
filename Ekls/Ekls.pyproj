@@ -76,6 +76,9 @@
     <Compile Include="plugins\blue_line_wiki\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\img2url\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\liquidation_time\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -152,6 +155,7 @@
     <Folder Include="plugins\bilibili_update\" />
     <Folder Include="plugins\boat_name\" />
     <Folder Include="plugins\construction_time\" />
+    <Folder Include="plugins\img2url\" />
     <Folder Include="plugins\liquidation_time\" />
     <Folder Include="plugins\music\" />
     <Folder Include="plugins\blue_line_wiki\" />
