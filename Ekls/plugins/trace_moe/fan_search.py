@@ -14,6 +14,8 @@ def fan_search(url):
     code = response.status_code
     if code == 400:
         return False, "图片上传失败"
+    elif code == 413:
+        return False, "请求实体太大，请压缩图片数据"
     elif code == 429:
         return False, "请求发送过于频繁，稍后再试\n{}".format(response.text)
     elif code == 500:

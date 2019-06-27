@@ -28,11 +28,12 @@ async def trace_moe (session: CommandSession):
     except Exception:
         print("/////////////////////////\n{}\n/////////////////////////".format(traceback.format_exc()))
         await session.send("搜索过程出现问题，错误报告已打印", at_sender=True)
-    if success:
-        # 向用户发送结果
-        await session.finish("\n相似度：{0[0]:.2%}\n原名：{0[1]}\n中文译名：{0[2]}\n中文别名：{0[3]}\n匹配画面出于第 {0[4]} 番\nAnilist站ID：{0[5]}\nMyanimelist站ID:{0[6]}\n首发时间：{0[7]}\n是否完结：{0[8]}".format(Fan_drama_info), at_sender=True)
     else:
-        await session.finish(Fan_drama_info, at_sender=True)
+        if success:
+            # 向用户发送结果
+            await session.finish("\n相似度：{0[0]:.2%}\n原名：{0[1]}\n中文译名：{0[2]}\n中文别名：{0[3]}\n匹配画面出于第 {0[4]} 番\nAnilist站ID：{0[5]}\nMyanimelist站ID:{0[6]}\n首发时间：{0[7]}\n是否完结：{0[8]}".format(Fan_drama_info), at_sender=True)
+        else:
+            await session.finish(Fan_drama_info, at_sender=True)
 
 
 @trace_moe.args_parser
