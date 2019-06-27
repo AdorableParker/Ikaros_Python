@@ -6,9 +6,8 @@ async def get_equipment_list():
         'Connection': 'keep-alive',
         'Cache-Control': 'max-age=0',
         'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
-        'Accept': 'text/css,*/*;q=0.1',
-        'Referer': 'http://wiki.joyme.com/blhx/首页',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Mobile Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
         'Accept-Encoding': 'gzip, deflate',
         'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
     }
@@ -27,11 +26,10 @@ async def get_equipment_list():
 async def get_srength_list():
     headers = {
         'Connection': 'keep-alive',
-        'Cache-Control': 'no-cache',
+        'Cache-Control': 'max-age=0',
         'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
-        'Accept': 'image/webp,image/apng,image/*,*/*;q=0.8',
-        'Referer': 'http://wiki.joyme.com/blhx/首页',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Mobile Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
         'Accept-Encoding': 'gzip, deflate',
         'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
     }
