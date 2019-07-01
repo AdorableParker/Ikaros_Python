@@ -7,7 +7,7 @@ from nonebot import on_command, CommandSession
 from .get_ranking import get_equipment_list, get_srength_list, get_pixiv_list
 
 
-__plugin_name__ = "测评榜"
+__plugin_name__ = "wiki榜单"
 __plugin_usage__ = """------equipment_ranking------
 命令关键字："装备榜单", "装备榜", "装备排行榜"
 

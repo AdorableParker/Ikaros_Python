@@ -18,7 +18,7 @@ async def get_equipment_list():
     info = soup.select_one('p[class="info1"]')
     info = info.select('span')
     info = info[2].get_text()
-    url = soup.select_one('div[class="noresize"]')
+    url = soup.select_one('div[class="floatnone"]')
     url = url.select_one("img")
     return url["src"],info
 
