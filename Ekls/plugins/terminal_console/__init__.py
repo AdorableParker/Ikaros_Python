@@ -24,7 +24,8 @@ $ 改变火星时报订阅状态 [目标]
 $ 改变标枪快讯订阅状态 [目标]
 $ 改变报时鸟状态 [目标]
 $ 改变报时鸟_舰C版状态 [目标]
-$ 改变迎新功能状态 [目标]"""
+$ 改变迎新功能状态 [目标]
+$ 改变每日提醒功能状态 [目标]"""
 
 
 
@@ -128,3 +129,9 @@ async def Call_bell_AZ_alter(session: CommandSession):
 async def New_add_alter(session: CommandSession):
     intent, echo, group_id = await ce(session, "New_add", True)
     await session.finish("迎新功能原状态为 {}\n现状态已改为 {}".format(intent, echo))
+
+
+@on_command('Daily_remind_alter', aliases=("改变每日提醒功能状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
+async def Daily_remind_alter(session: CommandSession):
+    intent, echo, group_id = await ce(session, "Daily_remind", True)
+    await session.finish("每日提醒功能原状态为 {}\n现状态已改为 {}".format(intent, echo))

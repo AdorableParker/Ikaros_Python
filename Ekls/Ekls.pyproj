@@ -82,6 +82,9 @@
     <Compile Include="plugins\liquidation_time\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\Daily_remind.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\run_code\get_run_coderesult.py">
       <SubType>Code</SubType>
     </Compile>
