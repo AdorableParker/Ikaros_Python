@@ -36,6 +36,7 @@ async def _():
             week = time.localtime(time.time()).tm_wday
             if week > 2:
                 week -= 3
+                flag = False
             else:
                 flag = True
 

@@ -74,13 +74,15 @@ def inquire_163(musuc_name):
     # 搜索网易云曲库
     """
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36',
+        'origin': 'https://music.163.com',
+        'referer': 'https://music.163.com/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
     }
 
     params = (
         ('csrf_token', 'hlpretag='),
         ('hlposttag', ''),
-        ('s', musuc_name),
+        ('s', musuc_name + '.'),
         ('type', '1'),
         ('offset', '0'),
         ('total', 'true'),
@@ -101,7 +103,7 @@ def inquire_qq(musuc_name):
     }
 
     params = (
-        ('w', musuc_name),
+        ('w', musuc_name + '.'),
     	('format', 'json'),
     )
 
@@ -112,4 +114,4 @@ def inquire_qq(musuc_name):
 
 if __name__ == '__main__':
     #print(get_music(input()))
-    print(inquire_163("激昂壮志"))
+    print(inquire_163("カチューシャ"))
