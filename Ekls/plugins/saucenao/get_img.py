@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import lxml
 
 
 async def get_img(url):
@@ -17,7 +16,7 @@ async def get_img(url):
         )
     try:
         response = requests.get('https://saucenao.com/search.php', headers=headers, params=params)
-        root_soup = BeautifulSoup(response.text, "html.parser")
+        root_soup = BeautifulSoup(response.text, features="lxml")
         soup = root_soup.select_one('div[class="result"]')
 
         resultmiscinfo = soup.select_one('div[class="resultmiscinfo"]') # 尝试获取关联链接
@@ -32,7 +31,7 @@ async def get_img(url):
     
     j = [text for text in soup.stripped_strings]
     if float(j[0].rstrip("%")) < 60:
-        return False, "未找到相似度达标结果"
+        return False, "saucenao引擎未找到相似度大于60的结果"
     else:
         # 缩略图
         thumbnail_img = root_soup.select_one('div[class="resultimage"]')
@@ -68,3 +67,29 @@ async def get_img(url):
 
     # 打包返回
     return True, {"info":out_info, "url":url_list, "thumbnail":thumbnail_url}
+
+
+async def ascii2d_api(img_url):
+    url = 'https://ascii2d.net/search/url/{}'.format(img_url[0])
+    headers = {
+        'authority': 'ascii2d.net',
+        'upgrade-insecure-requests': '1',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+    }
+
+    response = requests.get(url, headers=headers)
+    response = requests.get(response.url, headers=headers)
+    soup = BeautifulSoup(response.text, features="lxml")
+    soup = soup.select('div[class="row item-box"]')
+    soup_list = map(lambda xx : xx.select('h6 > img'), soup)
+    for i in soup_list:
+        if i:
+            in_from = i[0]['alt']
+            aims = i[0].next_sibling.next_sibling
+            writer = aims.next_sibling.next_sibling
+            aims_url = aims['href']
+            aims_name = aims.text
+            writer_url = writer['href']
+            writer_name = writer.text
+            return (in_from, aims_name, aims_url, writer_name, writer_url)
