@@ -5,7 +5,7 @@ from typing import Optional
 from aiocqhttp.message import escape
 from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
-
+from config import NICKNAME
 
 from plugins.tool.date_box import sql_rewrite, sql_read, sql_write
 
@@ -46,7 +46,8 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
 
     switch = sql_read("User.db", "group_info", "group_id", session.ctx["group_id"], field = "repeat", in_where = True)  # 权限管理器
     if not switch:  # 如果没有这个群的配置记录，则添加一条，默认全部为False
-       sql_write("User.db", "group_info",'(Null, {}, 0, 0, 0, 0, 0, 0)'.format(session.ctx["group_id"]))
+       sql_write("User.db", "group_info (id, group_id)",'(Null, {})'.format(session.ctx["group_id"]))
+       return None
     elif not switch[0][0]:  # 如果配置记录为关闭，则退出
             return None
     try:
