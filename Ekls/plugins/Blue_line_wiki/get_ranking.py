@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-#async
-def get_equipment_list():
+
+async def get_equipment_list():
     headers = {
         'Connection': 'keep-alive',
         'Cache-Control': 'max-age=0',
@@ -65,4 +65,3 @@ async def get_pixiv_list():
     url = url.select_one("img")
     return url["src"],info
 
-print(get_equipment_list())
