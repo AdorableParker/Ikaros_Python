@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-async def get_equipment_list():
+#async
+def get_equipment_list():
     headers = {
         'Connection': 'keep-alive',
         'Cache-Control': 'max-age=0',
@@ -18,7 +19,7 @@ async def get_equipment_list():
     info = soup.select_one('p[class="info1"]')
     info = info.select('span')
     info = info[2].get_text()
-    url = soup.select_one('div[class="floatnone"]')
+    url = soup.select_one('div[class="noresize"]')
     url = url.select_one("img")
     return url["src"],info
 
@@ -63,3 +64,5 @@ async def get_pixiv_list():
     url = soup.select_one('div[id="mw-content-text"]')
     url = url.select_one("img")
     return url["src"],info
+
+print(get_equipment_list())
