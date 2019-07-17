@@ -70,6 +70,15 @@ async def get_img(url):
 
 
 async def ascii2d_api(img_url):
+    '''
+    # ascii2d搜图引擎API
+    # 输入元组类型的url
+    # 输出元组类型的结果
+    # 0[0] 色彩搜索结果
+    # 0[1] 特征搜索结果
+    '''
+
+
     url = 'https://ascii2d.net/search/url/{}'.format(img_url[0])
     headers = {
         'authority': 'ascii2d.net',
@@ -79,17 +88,22 @@ async def ascii2d_api(img_url):
     }
 
     response = requests.get(url, headers=headers)
-    response = requests.get(response.url, headers=headers)
-    soup = BeautifulSoup(response.text, features="lxml")
-    soup = soup.select('div[class="row item-box"]')
-    soup_list = map(lambda xx : xx.select('h6 > img'), soup)
-    for i in soup_list:
-        if i:
-            in_from = i[0]['alt']
-            aims = i[0].next_sibling.next_sibling
-            writer = aims.next_sibling.next_sibling
-            aims_url = aims['href']
-            aims_name = aims.text
-            writer_url = writer['href']
-            writer_name = writer.text
-            return (in_from, aims_name, aims_url, writer_name, writer_url)
+    Redirect_url = (response.url, response.url.replace("color","bovw"))
+    info = []
+    for Sublink in Redirect_url:
+        response = requests.get(Sublink,headers=headers)
+        soup = BeautifulSoup(response.text, features="lxml")
+        soup = soup.select('div[class="row item-box"]')
+        soup_list = map(lambda xx : xx.select('h6 > img'), soup)
+        for i in soup_list:
+            if i:
+                in_from = i[0]['alt']
+                aims = i[0].next_sibling.next_sibling
+                writer = aims.next_sibling.next_sibling
+                aims_url = aims['href']
+                aims_name = aims.text
+                writer_url = writer['href']
+                writer_name = writer.text
+                info.append((in_from, aims_name, aims_url, writer_name, writer_url))
+                break
+    return info

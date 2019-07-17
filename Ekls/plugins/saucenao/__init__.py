@@ -40,11 +40,19 @@ async def URL_saucenao(session: CommandSession):
         info = await ascii2d_api(url)
         img_info += """，转用ascii2d引擎搜索
 ascii2d引擎搜索结果：
+色彩搜索：
 最相似来源结果：{0[0]}
 作品名：{0[1]}
 该作品链接：{0[2]}
 作者名：{0[3]}
-该作者链接：{0[4]}""".format(info) if info else "所有引擎均未成功匹配"
+该作者链接：{0[4]}
+\n######\n
+特征搜索:
+最相似来源结果：{1[0]}
+作品名：{1[1]}
+该作品链接：{1[2]}
+作者名：{1[3]}
+该作者链接：{1[4]}""".format(*info) if info else "所有引擎均未成功匹配"
         await session.finish(img_info, at_sender=True)
 
 # URL_saucenao.args_parser 装饰器将函数声明为 URL_saucenao 命令的参数解析器
@@ -81,11 +89,19 @@ async def img_saucenao(session: CommandSession):
         info = await ascii2d_api(url)
         img_info += """，转用ascii2d引擎搜索
 ascii2d引擎搜索结果：
+色彩搜索：
 最相似来源结果：{0[0]}
 作品名：{0[1]}
 该作品链接：{0[2]}
 作者名：{0[3]}
-该作者链接：{0[4]}""".format(info) if info else "所有引擎均未成功匹配"
+该作者链接：{0[4]}
+\n######\n
+特征搜索:
+最相似来源结果：{1[0]}
+作品名：{1[1]}
+该作品链接：{1[2]}
+作者名：{1[3]}
+该作者链接：{1[4]}""".format(*info) if info else "所有引擎均未成功匹配"
         await session.finish(img_info, at_sender=True)
 
 
