@@ -94,6 +94,7 @@ async def ascii2d_api(img_url):
         response = requests.get(Sublink,headers=headers)
         soup = BeautifulSoup(response.text, features="lxml")
         soup = soup.select('div[class="row item-box"]')
+        img = 'https://ascii2d.net' + soup[1].select('img')[0]['src']
         soup_list = map(lambda xx : xx.select('h6 > img'), soup)
         for i in soup_list:
             if i:
@@ -104,6 +105,6 @@ async def ascii2d_api(img_url):
                 aims_name = aims.text
                 writer_url = writer['href']
                 writer_name = writer.text
-                info.append((in_from, aims_name, aims_url, writer_name, writer_url))
+                info.append((in_from, aims_name, aims_url, writer_name, writer_url, img))
                 break
     return info
