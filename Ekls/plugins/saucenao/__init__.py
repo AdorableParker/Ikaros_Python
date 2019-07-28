@@ -37,7 +37,8 @@ async def URL_saucenao(session: CommandSession):
         # 向用户发送结果
         await session.finish("\n相似度: {info}作品链接: {url[0]}\n画师主页: {url[1]}\n其他相关链接{url[2]}\n预览图: {thumbnail}".format(**img_info), at_sender=True)
     else:
-        info = await ascii2d_api(url)
+        # info = await ascii2d_api(url)
+        info = False
         img_info += """，转用ascii2d引擎搜索
 ascii2d引擎搜索结果：
 色彩搜索：
@@ -88,7 +89,8 @@ async def img_saucenao(session: CommandSession):
         # 向用户发送结果
         await session.finish("\n相似度: {info}作品链接: {url[0]}\n画师主页: {url[1]}\n其他相关链接{url[2]}\n预览图: {thumbnail}".format(**img_info), at_sender=True)
     else:
-        info = await ascii2d_api(url)
+        #info = await ascii2d_api(url)
+        info = False
         img_info += """，转用ascii2d引擎搜索
 ascii2d引擎搜索结果：
 色彩搜索：
