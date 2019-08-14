@@ -31,7 +31,7 @@ __plugin_usage__ = """------update_bilibili------
 async def update_bilibili(session: CommandSession):
     # 获取B博信息
     stripped_arg = session.current_arg_text.strip()
-    if stripped_arg.isdecimal():
+    try:
         stripped_arg = int(stripped_arg)
         if stripped_arg > 10:
             await session.send('最多只能往前10条哦')
@@ -39,12 +39,11 @@ async def update_bilibili(session: CommandSession):
         elif stripped_arg < 0:
             await session.send('未来的事情还没发生呢')
             stripped_arg = 0
-    else:
-        await session.finish("请不要填些奇奇怪怪的东西")
-    try:
         update_info = await crawler.update2out("233114659", stripped_arg) #"300123440"
     except requests.exceptions.ConnectionError:
         update_info = "由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。"
+    except ValueError:
+        update_info = "请不要填些奇奇怪怪的东西"
     # 向用户发送信息
     # print(update_bilibili)
     await session.finish(update_info)
