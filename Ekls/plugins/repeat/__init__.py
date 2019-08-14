@@ -68,6 +68,7 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", session.ctx["user_id"])  # 记录继位者id
             return text
         else:
+            return None
             if flag >= 2:
                 bot = session.bot
                 try:
@@ -88,3 +89,11 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", "")  # 清空在位者id
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", "")  # 清空继位者id
             return None
+
+@on_command('一个顶俩', aliases=['一个顶俩',], only_to_me=False)
+async def _(session: CommandSession):
+    bot = session.bot
+    # 禁言在位者
+    await bot.set_group_ban(group_id=session.ctx['group_id'],
+                            user_id=session.ctx['user_id'],
+                            duration=600)       

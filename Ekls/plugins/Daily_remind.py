@@ -29,7 +29,7 @@ ZH_CODE = (
     ("六", "三"),
     ("日")
     )
-@nonebot.scheduler.scheduled_job('cron', hour='23', minute='45')  # 整点执行
+@nonebot.scheduler.scheduled_job('cron', hour='23', minute='50')  # 整点执行
 #@nonebot.scheduler.scheduled_job('interval', seconds=10)    # 测试执行
 async def _():
     bot = nonebot.get_bot()

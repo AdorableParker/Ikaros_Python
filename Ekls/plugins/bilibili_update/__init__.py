@@ -30,8 +30,19 @@ __plugin_usage__ = """------update_bilibili------
 @on_command('update_bilibili', aliases=("小加加", "火星加","B博更新", "b博更新"), only_to_me=False)
 async def update_bilibili(session: CommandSession):
     # 获取B博信息
+    stripped_arg = session.current_arg_text.strip()
+    if stripped_arg.isdecimal():
+        stripped_arg = int(stripped_arg)
+        if stripped_arg > 10:
+            await session.send('最多只能往前10条哦')
+            stripped_arg = 10
+        elif stripped_arg < 0:
+            await session.send('未来的事情还没发生呢')
+            stripped_arg = 0
+    else:
+        await session.finish("请不要填些奇奇怪怪的东西")
     try:
-        update_info = await crawler.update2out("233114659") #"300123440"
+        update_info = await crawler.update2out("233114659", stripped_arg) #"300123440"
     except requests.exceptions.ConnectionError:
         update_info = "由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。"
     # 向用户发送信息

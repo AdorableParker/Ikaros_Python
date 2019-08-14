@@ -73,7 +73,7 @@ def get_trend_getweb(uid):
     response.encoding = "UTF-8"
     return response
 
-def get_trend(uid, flag=True):
+def get_trend(uid, cards:int=0, flag=True):
     """
     # 爬取B站动态
     # 针对碧蓝航线的动态进行了内容处理
@@ -86,7 +86,7 @@ def get_trend(uid, flag=True):
     else:
         inform_content = {"code":1}
         return 
-    content = json.loads(response.text)["data"]["cards"][0]
+    content = json.loads(response.text)["data"]["cards"][cards]
     try:
         sign_info = content["desc"]['user_profile']["info"]
         inform_content["sign"] = sign_info.get('uname',"")
@@ -133,8 +133,8 @@ def get_trend(uid, flag=True):
     return inform_content
 
 
-async def update2out(uid):
-    updata_info = get_trend(uid)
+async def update2out(uid, cards=0):
+    updata_info = get_trend(uid, cards)
     # print(updata_info)
     img_url = updata_info.get("img","")
     main_body = updata_info.get("main_body","")
