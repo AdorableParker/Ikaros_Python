@@ -73,7 +73,7 @@ def get_trend_getweb(uid):
     response.encoding = "UTF-8"
     return response
 
-def get_trend(uid, cards:int=0, flag=True):
+def get_trend(uid, cards:int =0, flag=True):
     """
     # 爬取B站动态
     # 针对碧蓝航线的动态进行了内容处理

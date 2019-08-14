@@ -13,7 +13,7 @@ def update_check(uid):
     """
     # 检测B博是否更新
     """
-    update_data = crawler.get_trend(uid, False)  # 获取动态信息
+    update_data = crawler.get_trend(uid, flag = False)  # 获取动态信息
     update_time = date_box.sql_read("User.db", "Crawler_update_time", "update_url", uid, field="update_time")[0]  # 获取历史时间戳
     if update_data["code"] == 0: # 正常状况
         posted_time = update_data["posted_time"]
