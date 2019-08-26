@@ -7,7 +7,7 @@ from aiocqhttp.exceptions import Error as CQHttpError
 from .get_update import update_check
 from plugins.tool.date_box import sql_read
 from plugins.rendering import render
-
+from config import SUPERUSERS
 
 __plugin_name__ = "动态更新"
 __plugin_usage__ = """########################
@@ -19,7 +19,7 @@ __plugin_usage__ = """########################
 
 
 @nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/10")  # 每十分钟执行
-#@nonebot.scheduler.scheduled_job('interval', seconds=10)    # 间隔一分钟执行
+#@nonebot.scheduler.scheduled_job('interval', seconds=30)    # 间隔三十秒执行
 async def _():
     bot = nonebot.get_bot()
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
@@ -30,16 +30,28 @@ async def _():
         update_info = update_check('233114659')
         if update_info[0]:
             for group_id in group_list:
-                await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
+                try:
+                    await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
+                except:
+                    await notice(bot,group_id[0])
+
 
     # 标枪快讯
     group_list = sql_read("User.db", "group_info", "Javelin_news", 1.0, field = "group_id", in_where = True)
     if group_list:
         update_info = update_check('300123440')
-        if update_info[0]:
-            update_info = "{}\n————————\n百度机翻如下：\n\n{}".format(update_info[1], render(update_info[1]))
+        if not update_info[0]:
+            #update_info = "{}\n————————\n百度机翻如下：\n\n{}".format(update_info[1], render(update_info[1]))
             for group_id in group_list:
-                await bot.send_group_msg(group_id=group_id[0], message=update_info)
+                try:
+                    await bot.send_group_msg(group_id=group_id[0], message=update_info)
+                except:
+                    notice(bot, group_id[0])
+
+async def notice(bot, group_id):
+    for i in SUPERUSERS:
+        await bot.send_private_msg(user_id=i, message="公告发送异常，群号：{0}".format(group_id))
+
 
 if __name__ == "__main__":
     update_info = update_check()

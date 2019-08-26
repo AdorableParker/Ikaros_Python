@@ -7,6 +7,7 @@ from nonebot import on_command, CommandSession
 
 from plugins.tool import crawler
 from plugins.rendering import render
+import requests
 
 __plugin_name__ = "碧蓝航线动态获取"
 __plugin_usage__ = """------update_bilibili------
@@ -32,7 +33,7 @@ async def update_bilibili(session: CommandSession):
     # 获取B博信息
     stripped_arg = session.current_arg_text.strip()
     try:
-        stripped_arg = int(stripped_arg)
+        stripped_arg = int(stripped_arg) if stripped_arg else 0
         if stripped_arg > 10:
             await session.send('最多只能往前10条哦')
             stripped_arg = 10
