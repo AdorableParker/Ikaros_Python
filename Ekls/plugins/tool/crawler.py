@@ -146,5 +146,5 @@ async def update2out(uid, cards=0):
 if __name__ == '__main__':
     #AX = get_top()
     #AXX = get_trend('300123440')
-    AXX = get_trend("233114659")
+    AXX = get_trend("24430990")
     print(AXX)

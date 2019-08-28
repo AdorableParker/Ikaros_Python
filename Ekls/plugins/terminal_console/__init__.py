@@ -22,6 +22,7 @@ $ 改变复读姬状态 [目标]
 $ 改变开火许可状态 [目标]
 $ 改变火星时报订阅状态 [目标]
 $ 改变标枪快讯订阅状态 [目标]
+$ 改变罗德岛线报订阅状态 [目标]
 $ 改变报时鸟状态 [目标]
 $ 改变报时鸟_舰C版状态 [目标]
 $ 改变迎新功能状态 [目标]
@@ -107,6 +108,12 @@ async def Sara_news_alter(session: CommandSession):
 async def Javelin_news_alter(session: CommandSession):
     intent, echo = await ce(session, "Javelin_news")
     await session.finish("标枪快讯订阅原状态为 {}\n现状态已改为 {}".format(intent, echo))
+
+
+@on_command('Arknights_alter', aliases=("改变罗德岛线报订阅状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
+async def Arknights_alter(session: CommandSession):
+    intent, echo = await ce(session, "Arknights")
+    await session.finish("罗德岛线报订阅原状态为 {}\n现状态已改为 {}".format(intent, echo))
 
 
 @on_command('Call_bell_alter', aliases=("改变报时鸟状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)

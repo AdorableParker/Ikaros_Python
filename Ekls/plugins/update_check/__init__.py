@@ -18,7 +18,7 @@ __plugin_usage__ = """########################
 # 欲启用此功能请使用命令： 控制台"""
 
 
-@nonebot.scheduler.scheduled_job('cron', hour='*', minute="0/10")  # 每十分钟执行
+@nonebot.scheduler.scheduled_job('cron', hour='*', minute="1/9")  # 第一分钟开始每九分钟执行一次
 #@nonebot.scheduler.scheduled_job('interval', seconds=30)    # 间隔三十秒执行
 async def _():
     bot = nonebot.get_bot()
@@ -47,6 +47,18 @@ async def _():
                     await bot.send_group_msg(group_id=group_id[0], message=update_info)
                 except:
                     notice(bot, group_id[0])
+
+
+    # 罗德岛线报
+    group_list = sql_read("User.db", "group_info", "Arknights", 1.0, field = "group_id", in_where = True)
+    if group_list:
+        update_info = update_check('161775300')
+        if update_info[0]:
+            for group_id in group_list:
+                try:
+                    await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
+                except:
+                    await notice(bot,group_id[0])
 
 async def notice(bot, group_id):
     for i in SUPERUSERS:
