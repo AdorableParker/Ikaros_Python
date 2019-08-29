@@ -26,7 +26,6 @@ __plugin_usage__ = """------repeat------
 async def repeat(session: CommandSession):
     # 获取可选参数，这里如果没有 message 参数，命令不会被中断，message 变量会是 None
     message = session.state.get('message')
-
     reply = await get_repeat(session, message)
     if reply:
         # 如果调用
@@ -39,7 +38,6 @@ async def _(session: NLPSession):
     # 以置信度 60.0 返回 tuling 命令
     # 确保任何消息都在且仅在其它自然语言处理器无法理解的时候触发命令
     return IntentCommand(60.0, 'repeat', args={'message': session.msg_text})
-
 
 async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
     # 查询数据库
@@ -89,11 +87,3 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "old_userid", "")  # 清空在位者id
             sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", "")  # 清空继位者id
             return None
-
-@on_command('一个顶俩', aliases=['一个顶俩',], only_to_me=False)
-async def _(session: CommandSession):
-    bot = session.bot
-    # 禁言在位者
-    await bot.set_group_ban(group_id=session.ctx['group_id'],
-                            user_id=session.ctx['user_id'],
-                            duration=600)       

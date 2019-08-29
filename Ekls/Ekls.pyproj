@@ -85,6 +85,9 @@
     <Compile Include="plugins\Daily_remind.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\minus.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\run_code\get_run_coderesult.py">
       <SubType>Code</SubType>
     </Compile>

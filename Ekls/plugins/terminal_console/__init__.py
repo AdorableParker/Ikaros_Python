@@ -11,7 +11,6 @@ __plugin_usage__ = """------terminal_console------
 
 &内部管理员执行有效&
 
-$ 获取群列表|更新群列表|刷新群列表
 $ 汇报各群功能配置情况
 $ 发送公告 <内容>
 $ 发送到群 <目标> <内容>
@@ -34,25 +33,6 @@ $ 改变每日提醒功能状态 [目标]"""
 @on_command('terminal_console', aliases=("控制台", "终端"), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
 async def admin_terminal_console(session: CommandSession):
     await session.finish(__plugin_usage__)
-
-
-
-@on_command('update_group_list', aliases=("更新群列表", "获取群列表", "刷新群列表"), only_to_me=False, permission=SUPERUSER)
-async def get_group_list(session: CommandSession):
-    bot = session.bot
-    group_list = await bot.get_group_list()
-    group_info = "编号\t群号\t群名称"
-    for i in group_list:
-        j = sql_read("User.db", "group_info", "group_id", i["group_id"])
-        if j:
-            num = j[0][0]
-        else:
-            sql_write("User.db", "group_info", ("Null", i["group_id"], 0, 0, 0, 0, 0, 0))  # 无则添加
-            num = sql_read("User.db", "group_info", "group_id", i["group_id"])[0]
-
-        group_info += "\n{}\t{}\t{}".format(num, str_co(i["group_id"],"*"), str_co(i["group_name"], "#")) # 加入掩码
-    await session.finish(group_info)
-
 
 
 @on_command('print_global_variable', aliases=("汇报各群功能配置情况",), only_to_me=False, permission=SUPERUSER)

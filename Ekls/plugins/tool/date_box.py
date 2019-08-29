@@ -84,6 +84,28 @@ def sql_write(library_name, table_name, info): # 添加行
     finally:
         conn.close()
 
+
+def sql_delete(library_name, table_name, condition): # 添加行
+    """
+    # 数据库添加行
+    # 参数(标*为必填参数)：
+    # librar_name     库名*
+    # table_name      表名*
+    # condition            条件*(元组格式)
+    # 返回:
+    # 无返回
+    """
+    try:
+        conn = sqlite3.connect(library_name)
+        pointer = conn.cursor()
+
+        pointer.execute("DELETE FROM {} WHERE {};".format(table_name, condition))
+
+        conn.commit()
+    finally:
+        conn.close()
+
+
 def look(librar_name, table_name):
     """
     # 数据库添加行
