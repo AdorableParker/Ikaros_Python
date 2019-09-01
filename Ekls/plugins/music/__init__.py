@@ -6,7 +6,7 @@
 from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
 from .data_source import get_url_of_music
-from nonebot.command.argfilter.controllers import handle_cancellation
+
 
 
 __plugin_name__ = "点歌姬"
@@ -57,7 +57,6 @@ async def post_music_to(session: CommandSession):
 async def _(session: CommandSession):
     # 去掉消息首尾的空白符
     stripped_arg = session.current_arg_text.strip()
-    handle_cancellation(session)(stripped_arg)
     if session.is_first_run:
         # 该命令第一次运行（第一次进入命令会话）
         if stripped_arg:
