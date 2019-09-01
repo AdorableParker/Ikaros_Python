@@ -1,4 +1,5 @@
 from nonebot import on_command, CommandSession
+from nonebot.command.argfilter.controllers import handle_cancellation
 import traceback
 
 from .fan_search import fan_search
@@ -40,7 +41,7 @@ async def trace_moe (session: CommandSession):
 async def _(session: CommandSession):
 
     #session.finish("两会期间，该功能关闭的哦")
-
+    handle_cancellation(session)(session.current_arg_text)
     # 获取图片url
     stripped_arg = session.current_arg_images
     if session.is_first_run:

@@ -6,6 +6,7 @@
 from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
 from .data_source import get_url_of_music
+from nonebot.command.argfilter.controllers import handle_cancellation
 
 
 __plugin_name__ = "点歌姬"
@@ -56,6 +57,7 @@ async def post_music_to(session: CommandSession):
 async def _(session: CommandSession):
     # 去掉消息首尾的空白符
     stripped_arg = session.current_arg_text.strip()
+    handle_cancellation(session)(stripped_arg)
     if session.is_first_run:
         # 该命令第一次运行（第一次进入命令会话）
         if stripped_arg:
@@ -71,7 +73,7 @@ async def _(session: CommandSession):
     if not stripped_arg:
         # 用户没有发送有效的歌曲名称（而是发送了空白字符），则提示重新输入
         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
-        if not session.state['music_name']:
+        if not session.state.get('music_name'):
             session.pause('要点播的歌曲名称不能为空呢，请重新输入')
     # 如果当前正在向用户询问更多信息（例如本例中的要点播的歌曲），且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg

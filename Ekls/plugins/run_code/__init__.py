@@ -1,5 +1,6 @@
 # -*— coding: utf-8 -*-
 from nonebot import on_command, CommandSession
+from nonebot.command.argfilter.controllers import handle_cancellation
 
 from .get_run_coderesult import get_run_coderesult
 
@@ -71,6 +72,7 @@ async def run_code(session: CommandSession):
 async def _(session: CommandSession):
     # 去掉消息首尾的空白符
     stripped_arg = session.current_arg_text.strip()
+    handle_cancellation(session)(stripped_arg)
     if session.is_first_run:
         if stripped_arg:
             langunges, *code_list = stripped_arg.split(maxsplit=1)

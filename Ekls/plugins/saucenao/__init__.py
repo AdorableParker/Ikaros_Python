@@ -5,7 +5,7 @@
 
 from nonebot import on_command, CommandSession
 from nonebot import on_natural_language, NLPSession, IntentCommand
-
+from nonebot.command.argfilter.controllers import handle_cancellation
 from .get_img import get_img, ascii2d_api
 
 
@@ -117,7 +117,7 @@ ascii2d引擎搜索结果：
 async def _(session: CommandSession):
 
     #session.finish("两会期间，该功能关闭的哦")
-
+    handle_cancellation(session)(session.current_arg_text)
     # 获取图片url
     stripped_arg = session.current_arg_images
     if session.is_first_run:
