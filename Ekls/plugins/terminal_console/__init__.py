@@ -25,7 +25,8 @@ $ 改变罗德岛线报订阅状态 [目标]
 $ 改变报时鸟状态 [目标]
 $ 改变报时鸟_舰C版状态 [目标]
 $ 改变迎新功能状态 [目标]
-$ 改变每日提醒功能状态 [目标]"""
+$ 改变每日提醒_舰B版功能状态 [目标]
+$ 改变每日提醒_FGO版功能状态 [目标]"""
 
 
 
@@ -118,7 +119,13 @@ async def New_add_alter(session: CommandSession):
     await session.finish("迎新功能原状态为 {}\n现状态已改为 {}".format(intent, echo))
 
 
-@on_command('Daily_remind_alter', aliases=("改变每日提醒功能状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
+@on_command('Daily_remind_alter', aliases=("改变每日提醒_舰B版功能状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
 async def Daily_remind_alter(session: CommandSession):
-    intent, echo, group_id = await ce(session, "Daily_remind", True)
-    await session.finish("每日提醒功能原状态为 {}\n现状态已改为 {}".format(intent, echo))
+    intent, echo, group_id = await ce(session, "Daily_remind_AzurLane", True)
+    await session.finish("每日提醒_舰B版功能原状态为 {}\n现状态已改为 {}".format(intent, echo))
+
+
+@on_command('Daily_remind_alter', aliases=("改变每日提醒_FGO版功能状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
+async def Daily_remind_alter(session: CommandSession):
+    intent, echo, group_id = await ce(session, "Daily_remind_FGO", True)
+    await session.finish("每日提醒_FGO版功能原状态为 {}\n现状态已改为 {}".format(intent, echo))

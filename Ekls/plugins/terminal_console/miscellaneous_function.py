@@ -13,15 +13,16 @@ async def change_everything(session, field, renturn_id=False):
     """
     # 功能            字段名
     #------------------------
-    # 复读姬          repeat
-    # 开火权限        fire
-    # 火星时报        Sara_news
-    # 标枪快讯        Javelin_news
-    # 报时           Call_bell
-    # 报时_舰C       Call_bell_AZ
-    # 迎新           New_add
-    # 每日提醒        Daily_remind
-    # 明日方舟        Arknights
+    # 复读姬                repeat
+    # 开火权限              fire
+    # 火星时报              Sara_news
+    # 标枪快讯              Javelin_news
+    # 报时                 Call_bell
+    # 报时_舰C             Call_bell_AZ
+    # 迎新                 New_add
+    # 每日提醒_AzurLane     Daily_remind_AzurLane
+    # 每日提醒_FGO          Daily_remind_FGO
+    # 明日方舟              Arknights
     """
     bot = get_bot()
     stripped_arg = session.current_arg_text.strip() if await check_permission(bot, session.ctx, SUPERUSER) else False
