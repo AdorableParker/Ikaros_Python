@@ -1,5 +1,6 @@
 from nonebot import on_command, CommandSession
-
+from nonebot.command.argfilter.extractors import extract_text
+from nonebot.command.argfilter.validators import not_empty
 from .al_producetime_query import al_query_time, al_query_name
 from . import reto
 
@@ -16,7 +17,7 @@ __plugin_usage__ = """------construction_info------
 
 @on_command('construction_info', aliases=("建造时间查询", "建造时间", "建造查询"), only_to_me=False)
 async def construction_info (session: CommandSession):
-    key = session.get('key', arg_filters=[extract_text, not_empty('索引不能为空哦')])
+    key = session.get('key', prompt='请输入索引信息', arg_filters=[extract_text, not_empty('索引不能为空哦')]).replace('：', ':')
     time_key = reto.r2n(key, [r"\d\:\d\d"])
     if time_key:
         info = await al_query_name(time_key)
@@ -31,7 +32,6 @@ async def _(session: CommandSession):
     if session.is_first_run:
         # 该命令第一次运行（第一次进入命令会话）
         if stripped_arg:
-            stripped_arg = stripped_arg.replace('：', ':')
             session.state['key'] = stripped_arg    
         return
     # 如果当前正在向用户询问更多信息，且用户输入有效，则放入会话状态

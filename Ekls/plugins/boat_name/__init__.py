@@ -1,5 +1,6 @@
 from nonebot import on_command, CommandSession
-
+from nonebot.command.argfilter.extractors import extract_text
+from nonebot.command.argfilter.validators import not_empty
 from .code_conversion import code_name
 
 __plugin_name__ = "重樱船名查询"
