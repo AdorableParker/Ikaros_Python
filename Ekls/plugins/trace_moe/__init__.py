@@ -1,5 +1,7 @@
 from nonebot import on_command, CommandSession
 from nonebot.command.argfilter.controllers import handle_cancellation
+from nonebot.command.argfilter.extractors import extract_image_urls
+from nonebot.command.argfilter.validators import not_empty
 import traceback
 
 from .fan_search import fan_search
@@ -21,7 +23,7 @@ __plugin_usage__ = """------trace_moe------
 
 @on_command('trace_moe', aliases=("以图搜番", "搜番"), only_to_me=False)
 async def trace_moe (session: CommandSession):
-    url = session.get('url', prompt='请提供番剧截图哦')
+    url = session.get('url', prompt='请提供番剧截图哦', arg_filters=[extract_image_urls, not_empty('没收到图片哦，再发一次')])
     # 获取信息
     await session.send("开始搜索咯，稍等哦", at_sender=True)
     try:
@@ -49,8 +51,5 @@ async def _(session: CommandSession):
         if stripped_arg:
             session.state['url'] = stripped_arg
         return
-
-    if not stripped_arg:
-        session.pause('没收到图片哦，再发一次')
     # 如果当前正在向用户询问更多信息，且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg

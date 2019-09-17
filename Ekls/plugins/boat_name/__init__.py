@@ -15,7 +15,8 @@ __plugin_usage__ = """------heavycherry_boat_name_query------
 
 @on_command('heavycherry_boat_name_query', aliases=("重樱船名查询", "重樱船名", "船名查询", "和谐名查询"), only_to_me=False)
 async def heavycherry_boat_name_query (session: CommandSession):
-    key = session.get('key')
+    key = session.get('key', prompt='需要查询的船名', arg_filters=[extract_text, not_empty('输入不能为空哦')])
+
     info = await code_name(key)
     if info[0]:
         await session.finish("{}".format(info[1]), at_sender=True)
@@ -31,7 +32,5 @@ async def _(session: CommandSession):
         if stripped_arg:
             session.state['key'] = stripped_arg    
         return
-    if not stripped_arg:
-        session.pause('船名不能为空哦')
     # 如果当前正在向用户询问更多信息，且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
