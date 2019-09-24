@@ -20,8 +20,17 @@ def typesetting(gap, progress):
         change_configuration()
     elif not time_gap:
         time_gap = int(gap // 3600)
-        #print(gap)
-        text_gap = "距离活动结束只剩{}小时了\n最后一波抓紧哦".format(time_gap)
+        if progress > 90:
+            #print(gap)
+            text_gap = "距离活动结束只剩{}小时了\n最后一波抓紧哦".format(time_gap)
+        elif progress > 85:
+            text_gap = "距离活动结束只剩{}小时了\n使劲肝还有希望".format(time_gap)
+        else:
+            text_gap = "距离活动结束只剩{}小时了\n没救了，等死吧，告辞".format(time_gap)
+
+    elif time_gap > 7 and progress > 100:
+        text_gap = "距离活动结束还差{}天就完成目标\n你太强了".format(time_gap)
+
     elif time_gap < 5 and progress < 35:
         text_gap = "距离活动结束只剩{}天了\n你很弱欸".format(time_gap)
     elif progress > 133:
@@ -73,8 +82,8 @@ def activites(completed, user_defined):
     shop = user_defined if user_defined else int(shop)
 
 #    获取时间
-    gap = time.mktime(time.strptime(stoptime, "%Y-%m-%d"))
-    gap -= time.time() - 86400
+    gap = time.mktime(time.strptime(stoptime, "%Y-%m-%d %H:%M"))
+    gap -= time.time()
 
     if completed >= 0 and completed <= shop:  # 如果在范围内
         bartext, booeolean = ["", "▏", "▍", "▋", "▊", "▉"], True
