@@ -100,8 +100,7 @@ def activites(completed, user_defined):
     elif completed >= shop:  # 如果溢出
         progressn = completed/shop
         progress = progressn*100
-        for i in mapid:
-            mapid[i] = 0
+        mapid = False
         if completed - shop > 10000:
             text_gap = typesetting(gap, progress)
         else:
@@ -130,8 +129,9 @@ async def progress_calculat(content, user_defined):
     if not booeolean:
         return "你TMD不要瞎JB填, Please"
     echo += "活动名：{}\n".format(name)
-    for i in schedule:
-        num = math.ceil(schedule[i])
-        echo += "若只出击{}还需{}次\n".format(i, num)
+    if schedule:
+        for i in schedule:
+            num = math.ceil(schedule[i])
+            echo += "若只出击{}还需{}次\n".format(i, num)
     echo += "当前已获得{}积分\n已完成进度\n{} {:.2%}\n{}".format(point, barlist, progress, gaptime)
     return echo
