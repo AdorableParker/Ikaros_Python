@@ -20,13 +20,18 @@ def typesetting(gap, progress):
         change_configuration()
     elif not time_gap:
         time_gap = int(gap // 3600)
+        if not time_gap:
+            time_gap = int(gap // 60)
+            unit = "小时"
+        else:
+            unit = "分钟"
         if progress > 90:
             #print(gap)
-            text_gap = "距离活动结束只剩{}小时了\n最后一波抓紧哦".format(time_gap)
+            text_gap = "距离活动结束只剩{}{}了\n最后一波抓紧哦".format(time_gap, unit)
         elif progress > 85:
-            text_gap = "距离活动结束只剩{}小时了\n使劲肝还有希望".format(time_gap)
+            text_gap = "距离活动结束只剩{}{}了\n使劲肝还有希望".format(time_gap, unit)
         else:
-            text_gap = "距离活动结束只剩{}小时了\n没救了，等死吧，告辞".format(time_gap)
+            text_gap = "距离活动结束只剩{}{}了\n没救了，等死吧，告辞".format(time_gap, unit)
 
     elif time_gap > 7 and progress > 100:
         text_gap = "距离活动结束还差{}天就完成目标\n你太强了".format(time_gap)
@@ -117,7 +122,7 @@ async def progress_calculat(content, user_defined):
     # 计算活动进度并排版
     """
     if not content.isdigit():
-        return "已获得积分参数错误,应为整数"
+        return "已获得积分参数错误,应为正整数"
 
     point = int(content)
     echo = "计算完成\n"
