@@ -1,6 +1,6 @@
 from nonebot import on_notice , NoticeSession
 from nonebot.helpers import render_expression
-from plugins.tool.date_box import sql_read , sql_write
+from plugins.tool.date_box import sql_read, sql_write
 import time
 
 __plugin_name__ = "迎新"
@@ -22,7 +22,7 @@ EXL = ('是大佬！啊，大佬！啊！我死了',
 async def _(session: NoticeSession):
 
     # 为定制功能加料
-    if  session.ctx["group_id"] = 578182492:
+    if  session.ctx["group_id"] == 578182492:
         sql_write((session.ctx["user_id"], time.time()))
         await session.send("[CQ:at,qq={}]冒个泡吧，入群后至少2小时但从未发言的将会在晚12点被移出群组哦".format(session.ctx["user_id"]))
 
