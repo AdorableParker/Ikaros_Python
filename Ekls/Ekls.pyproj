@@ -56,6 +56,9 @@
     <Compile Include="plugins\boat_name\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\commission_function\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\construction_time\al_producetime_query.py" />
     <Compile Include="plugins\construction_time\reto.py" />
     <Compile Include="plugins\construction_time\__init__.py">
@@ -160,6 +163,7 @@
     <Folder Include="plugins\anime_index\" />
     <Folder Include="plugins\bilibili_update\" />
     <Folder Include="plugins\boat_name\" />
+    <Folder Include="plugins\commission_function\" />
     <Folder Include="plugins\construction_time\" />
     <Folder Include="plugins\img2url\" />
     <Folder Include="plugins\liquidation_time\" />

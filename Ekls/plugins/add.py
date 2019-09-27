@@ -1,6 +1,7 @@
-from nonebot import on_notice, NoticeSession
+from nonebot import on_notice , NoticeSession
 from nonebot.helpers import render_expression
-from plugins.tool.date_box import sql_read
+from plugins.tool.date_box import sql_read , sql_write
+import time
 
 __plugin_name__ = "迎新"
 __plugin_usage__ = """########################
@@ -19,6 +20,12 @@ EXL = ('是大佬！啊，大佬！啊！我死了',
 # 将函数注册为群成员增加通知处理器
 @on_notice('group_increase')
 async def _(session: NoticeSession):
+
+    # 为定制功能加料
+    if  session.ctx["group_id"] = 578182492:
+        sql_write((session.ctx["user_id"], time.time()))
+        await session.send("[CQ:at,qq={}]冒个泡吧，入群后至少2小时但从未发言的将会在晚12点被移出群组哦".format(session.ctx["user_id"]))
+
     # 发送欢迎消息
     if sql_read("User.db", "group_info", "group_id", session.ctx["group_id"], field = "New_add", in_where = True)[0][0]:
         await session.send(render_expression(EXL))

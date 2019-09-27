@@ -2,7 +2,6 @@ from datetime import datetime
 
 import time
 import nonebot
-import pytz
 from aiocqhttp.exceptions import Error as CQHttpError
 
 from .time_word import line

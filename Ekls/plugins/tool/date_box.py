@@ -85,13 +85,13 @@ def sql_write(library_name, table_name, info): # 添加行
         conn.close()
 
 
-def sql_delete(library_name, table_name, condition): # 添加行
+def sql_delete(library_name, table_name, condition): # 删除行
     """
-    # 数据库添加行
+    # 数据库删除行
     # 参数(标*为必填参数)：
     # librar_name     库名*
     # table_name      表名*
-    # condition            条件*(元组格式)
+    # condition       条件*
     # 返回:
     # 无返回
     """
@@ -108,7 +108,7 @@ def sql_delete(library_name, table_name, condition): # 添加行
 
 def look(librar_name, table_name):
     """
-    # 数据库添加行
+    # 查看数据库
     # 参数(标*为必填参数)：
     # librar_name     库名*
     # table_name      表名*

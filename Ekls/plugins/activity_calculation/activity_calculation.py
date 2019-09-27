@@ -10,39 +10,51 @@ import configparser
 
 
 
-def typesetting(gap, progress):
+def typesetting(gap, progress, mapid):
     """
     # 排版
     """
-    time_gap = int(gap // 86400)
-    if time_gap < 0:
+    
+    if gap:  # 如果剩余时间存在
+        time_gap = int(gap // 86400)  # 计算剩余天数
+        if progress >= 100 and time_gap > 7:
+            text_gap = "距离活动结束还差{}天就完成目标\n你太强了".format(time_gap)
+
+        elif time_gap < 5 and progress < 35:
+            text_gap = "距离活动结束只剩{}天了\n你很弱欸".format(time_gap)
+        elif progress > 133:
+            text_gap = "距离活动结束还剩{}天呢\n你太秃了".format(time_gap)
+
+        elif not time_gap:              # 如果不足24小时
+            # 获取至少次数
+            if mapid.get("SP"):
+                frequency = int(mapid[list(mapid)[-2]])
+            elif mapid:
+                frequency = int(mapid[list(mapid)[-1]])
+            else:
+                frequency = 0
+            time_gap = int(gap // 3600)    # 计算剩余小时数
+            if not time_gap:               # 如果不足1小时
+                time_gap = int(gap // 60)  # 计算剩余分钟数
+                unit = "分钟"
+                score = frequency / time_gap - 15
+            else:
+                unit = "小时"
+                score = 4 - frequency / time_gap
+            if progress >= 100:
+                text_gap = "目标已完成，距活动结束还有{}{}".format(time_gap, unit)  
+            elif score >= 1:
+                text_gap = "距离活动结束只剩{}{}了\n最后一波抓紧哦".format(time_gap, unit)
+            elif score >= 0:
+                text_gap = "距离活动结束只剩{}{}了\n使劲肝还有希望".format(time_gap, unit)
+            else:
+                text_gap = "距离活动结束只剩{}{}了\n没救了，等死吧，告辞".format(time_gap, unit)
+        else:
+            text_gap = "距离活动结束还剩{}天哦\n頑張れ(ง •_•)ง".format(time_gap)
+    else:
         text_gap = "活动已经结束了呢"
         change_configuration()
-    elif not time_gap:
-        time_gap = int(gap // 3600)
-        if not time_gap:
-            time_gap = int(gap // 60)
-            unit = "小时"
-        else:
-            unit = "分钟"
-        if progress > 90:
-            #print(gap)
-            text_gap = "距离活动结束只剩{}{}了\n最后一波抓紧哦".format(time_gap, unit)
-        elif progress > 85:
-            text_gap = "距离活动结束只剩{}{}了\n使劲肝还有希望".format(time_gap, unit)
-        else:
-            text_gap = "距离活动结束只剩{}{}了\n没救了，等死吧，告辞".format(time_gap, unit)
-
-    elif time_gap > 7 and progress > 100:
-        text_gap = "距离活动结束还差{}天就完成目标\n你太强了".format(time_gap)
-
-    elif time_gap < 5 and progress < 35:
-        text_gap = "距离活动结束只剩{}天了\n你很弱欸".format(time_gap)
-    elif progress > 133:
-        text_gap = "距离活动结束还剩{}天呢\n你太秃了".format(time_gap)
-    else:
-        text_gap = "距离活动结束还剩{}天哦\n頑張れ(ง •_•)ง".format(time_gap)
-
+        
     return text_gap
 
 
@@ -101,15 +113,12 @@ def activites(completed, user_defined):
         stuff_num = 10 - len(barlist)
         if stuff_num:  # 进度条填充
             barlist += "  " * (stuff_num - 1) + "▕"
-        text_gap = typesetting(gap, progress)
+        text_gap = typesetting(gap, progress, mapid)
     elif completed >= shop:  # 如果溢出
         progressn = completed/shop
         progress = progressn*100
-        mapid = False
-        if completed - shop > 10000:
-            text_gap = typesetting(gap, progress)
-        else:
-            text_gap = typesetting(gap, progress)
+        mapid = {}
+        text_gap = typesetting(gap, progress, mapid)
         progressn, barlist, booeolean = 1, "▉" * 10, True
     else:
         mapid = progressn = barlist = text_gap = None
