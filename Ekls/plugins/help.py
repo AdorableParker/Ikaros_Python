@@ -35,3 +35,7 @@ async def _(session: CommandSession):
 async def _(session: CommandSession):
     
     await session.finish("https://adorableparker.github.io/Hello_World/")
+
+@on_command('water', aliases=['群活跃数据',], only_to_me=False)
+async def _(session: CommandSession):
+    await session.finish("https://qqweb.qq.com/m/qun/activedata/active.html?gc={}".format(session.ctx["group_id"]))

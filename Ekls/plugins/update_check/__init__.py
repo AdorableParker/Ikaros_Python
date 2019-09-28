@@ -33,20 +33,20 @@ async def _():
                 try:
                     await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
                 except:
-                    await notice(bot,group_id[0])
+                    await notice(bot, group_id[0])
 
 
     # 标枪快讯
     group_list = sql_read("User.db", "group_info", "Javelin_news", 1.0, field = "group_id", in_where = True)
     if group_list:
         update_info = update_check('300123440')
-        if not update_info[0]:
+        if update_info[0]:
             #update_info = "{}\n————————\n百度机翻如下：\n\n{}".format(update_info[1], render(update_info[1]))
             for group_id in group_list:
                 try:
-                    await bot.send_group_msg(group_id=group_id[0], message=update_info)
+                    await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
                 except:
-                    notice(bot, group_id[0])
+                    await notice(bot, group_id[0])
 
 
     # 罗德岛线报
@@ -58,7 +58,7 @@ async def _():
                 try:
                     await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
                 except:
-                    await notice(bot,group_id[0])
+                    await notice(bot, group_id[0])
 
 async def notice(bot, group_id):
     for i in SUPERUSERS:

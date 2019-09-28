@@ -112,8 +112,7 @@ async def call_qingyun_api(session: CommandSession, text: str) -> Optional[str]:
 
     url = 'http://api.qingyunke.com/api.php?key=free&msg=text{}'.format(text)
 
-    # 构造请求数据
-		
+    # 构造请求数据		
 
  #   response = requests.get(url, params=params)
  #   if not json.loads(response.text)["result"]:
