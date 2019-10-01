@@ -1,5 +1,5 @@
 import requests
-import json
+import ujson
 
 async def get_run_coderesult(langunges, code):
     headers = {
@@ -12,9 +12,9 @@ async def get_run_coderesult(langunges, code):
             "content": "{}".format(code)
             }]
         }
-    data = json.dumps(data) 
+    data = ujson.dumps(data) 
     response = requests.post('https://run.glot.io/languages/{}/latest'.format(langunges[0]), headers=headers, data=data)
-    response = json.loads(response.text)
+    response = ujson.loads(response.text)
     output = "output:\n"
     for i in response:
         output += response[i] + "\n"

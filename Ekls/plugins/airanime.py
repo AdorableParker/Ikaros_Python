@@ -2,7 +2,7 @@ import nonebot
 from nonebot import on_command, CommandSession
 
 import requests
-import json
+import ujson
 
 from plugins.tool import shorten_url
 
@@ -37,8 +37,8 @@ async def _(session: CommandSession):
         await session.finish('搜索失败了，请稍后再试吧')
         return
     try:
-        result_dic = json.loads(response.text)
-    except json.decoder.JSONDecodeError:
+        result_dic = ujson.loads(response.text)
+    except ujson.decoder.JSONDecodeError:
         await session.finish('服务提供商出现问题')
     sites =[
         ('bilibili', '哔哩哔哩'),

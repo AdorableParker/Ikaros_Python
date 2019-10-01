@@ -2,7 +2,7 @@
 # 点歌 处理
 """
 
-import json
+import ujson
 import requests
 
 from aiocqhttp.message import MessageSegment
@@ -36,7 +36,7 @@ async def get_url_of_music(music_name, music_library="163"):
             text = inquire_qq(music_name)
             #print(music_name)
         uid = text["data"]["song"]["list"][0]["songid"]
-        return "[CQ:music,type=qq,id={}]".format(uid)
+        return "[CQ:music,id={},type=qq,]".format(uid)
 
 def get_music(content):
     """
@@ -90,7 +90,7 @@ def inquire_163(musuc_name):
     )
 
     result = requests.get('http://music.163.com/api/search/get/web', headers=headers, params=params)
-    return json.loads(result.text)
+    return ujson.loads(result.text)
 
 
 
@@ -109,7 +109,7 @@ def inquire_qq(musuc_name):
 
     response = requests.get('https://c.y.qq.com/soso/fcgi-bin/client_search_cp', headers=headers, params=params)
 
-    return json.loads(response.text)
+    return ujson.loads(response.text)
 
 
 if __name__ == '__main__':

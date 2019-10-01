@@ -2,7 +2,7 @@ import requests
 import hashlib
 import urllib
 import random
-import json
+import ujson
 from config import Baidu_fanyi
 
 
@@ -19,7 +19,7 @@ def render(text, toLang = 'zh'):
         
     r_s = requests.session()
     r = r_s.post(myurl)
-    text = json.loads(r.text)
+    text = ujson.loads(r.text)
     try:
         result_list = text["trans_result"]
     except:

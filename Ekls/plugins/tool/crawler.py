@@ -1,7 +1,7 @@
 """
 # 爬取B站
 """
-import json
+import ujson
 import time
 import requests
 import re
@@ -39,7 +39,7 @@ def get_top():
                             params=params, verify=False)
     response.encoding = "UTF-8"
     content = response.text
-    text = json.loads(content)["data"]
+    text = ujson.loads(content)["data"]
     echo = []
     for out in text[:3]:
         echo.append({
@@ -62,7 +62,7 @@ def get_upper(oid):
     response.encoding = "UTF-8"
     content = response.text
     #print(content)
-    text = json.loads(content)
+    text = ujson.loads(content)
     text = text["data"]["top"]["upper"]
     return text
 
@@ -80,13 +80,13 @@ def get_trend(uid, cards:int =0, flag=True):
     """
     for _ in range(3):
         response = get_trend_getweb(uid)
-        if not json.loads(response.text)["code"]:
+        if not ujson.loads(response.text)["code"]:
             inform_content = {"code":0}
             break
     else:
         inform_content = {"code":1}
         return 
-    content = json.loads(response.text)["data"]["cards"][cards]
+    content = ujson.loads(response.text)["data"]["cards"][cards]
     try:
         sign_info = content["desc"]['user_profile']["info"]
         inform_content["sign"] = sign_info.get('uname',"")
@@ -100,7 +100,7 @@ def get_trend(uid, cards:int =0, flag=True):
     else:
         inform_content["posted_time"] = content["desc"]["timestamp"]
 
-    text = json.loads(content["card"])
+    text = ujson.loads(content["card"])
     if "item" in text:
         text = text["item"]
         if "description" in text:

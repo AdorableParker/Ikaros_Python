@@ -1,6 +1,6 @@
 import requests
 import base64
-import json
+import ujson
 
 
 def fan_search(url):
@@ -23,7 +23,7 @@ def fan_search(url):
     elif code == 503:
         return False, "搜索引擎故障，服务器内部错误"
     # print(response.text)
-    fan_info = json.loads(response.text)["docs"][0]
+    fan_info = ujson.loads(response.text)["docs"][0]
     similarity = fan_info["similarity"]  # 相似度
     if similarity < 0.87:
         return False, "没有找到可信度达标的结果"

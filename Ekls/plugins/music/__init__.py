@@ -32,7 +32,9 @@ async def music(session: CommandSession):
     # 获取歌曲信息
     mysic_report = await get_url_of_music(music_name, music_library)
     # 向用户发送歌曲
-    await session.finish(mysic_report)
+
+    await session.send(mysic_report)
+    await session.finish("歌曲消息已发送，若未收到原因类似图片被吞，带来不便还请谅解")
 
 
 @on_command('post_music_to', aliases=("点歌给"), only_to_me=False)
