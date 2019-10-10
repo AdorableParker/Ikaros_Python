@@ -4,7 +4,6 @@
 """
 
 from nonebot import on_command, CommandSession
-from nonebot import on_natural_language, NLPSession, IntentCommand
 from nonebot.command.argfilter.controllers import handle_cancellation
 from nonebot.command.argfilter.extractors import extract_image_urls
 from nonebot.command.argfilter.validators import not_empty
@@ -24,7 +23,16 @@ __plugin_usage__ = """------img_saucenao------
 
 @on_command('img_saucenao', aliases=("图片搜索", "搜图"), only_to_me=False)
 async def img_saucenao(session: CommandSession):
-    url = session.get('url', prompt='要搜索的图片是哪张呢？', arg_filters=[extract_image_urls, not_empty('没收到图片哦，再发一次')])
+
+    url = session.get(
+        'url', prompt='要搜索的图片是哪张呢？', 
+        arg_filters=[
+            handle_cancellation(session), 
+            extract_image_urls, 
+            not_empty('没收到图片哦，再发一次')
+            ]
+        )
+
     # 获取信息
     success, img_info = await get_img(url)
     if success:
@@ -59,7 +67,7 @@ ascii2d引擎搜索结果：
 async def _(session: CommandSession):
 
     #session.finish("两会期间，该功能关闭的哦")
-    handle_cancellation(session)(session.current_arg_text)
+
     # 获取图片url
     stripped_arg = session.current_arg_images
     if session.is_first_run:

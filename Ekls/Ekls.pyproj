@@ -91,6 +91,12 @@
     <Compile Include="plugins\minus.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\QRCode.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\Remote.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\run_code\get_run_coderesult.py">
       <SubType>Code</SubType>
     </Compile>

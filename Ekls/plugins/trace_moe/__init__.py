@@ -23,7 +23,16 @@ __plugin_usage__ = """------trace_moe------
 
 @on_command('trace_moe', aliases=("以图搜番", "搜番"), only_to_me=False)
 async def trace_moe (session: CommandSession):
-    url = session.get('url', prompt='请提供番剧截图哦', arg_filters=[extract_image_urls, not_empty('没收到图片哦，再发一次')])
+
+    url = session.get(
+        'url', prompt='请提供番剧截图哦', 
+        arg_filters=[
+            handle_cancellation(session), 
+            extract_image_urls, 
+            not_empty('没收到图片哦，再发一次')
+            ]
+        )
+
     # 获取信息
     await session.send("开始搜索咯，稍等哦", at_sender=True)
     try:
@@ -43,7 +52,7 @@ async def trace_moe (session: CommandSession):
 async def _(session: CommandSession):
 
     #session.finish("两会期间，该功能关闭的哦")
-    handle_cancellation(session)(session.current_arg_text)
+
     # 获取图片url
     stripped_arg = session.current_arg_images
     if session.is_first_run:
