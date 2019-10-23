@@ -32,8 +32,8 @@ async def _():
             for group_id in group_list:
                 try:
                     await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
-                except:
-                    await notice(bot, group_id[0])
+                except CQHttpError as err:
+                    await notice(bot, group_id[0], err)
 
 
     # 标枪快讯
@@ -45,8 +45,8 @@ async def _():
             for group_id in group_list:
                 try:
                     await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
-                except:
-                    await notice(bot, group_id[0])
+                except CQHttpError as err:
+                    await notice(bot, group_id[0], err)
 
 
     # 罗德岛线报
@@ -57,13 +57,15 @@ async def _():
             for group_id in group_list:
                 try:
                     await bot.send_group_msg(group_id=group_id[0], message=update_info[1])
-                except:
-                    await notice(bot, group_id[0])
+                except CQHttpError as err:
+                    await notice(bot, group_id[0], err)
 
-async def notice(bot, group_id):
-    for i in SUPERUSERS:
-        await bot.send_private_msg(user_id=i, message="公告发送异常，群号：{0}".format(group_id))
-
+async def notice(bot, group_id, err):
+        if err.retcode == -34:
+            print("由于被禁言而发送失败")
+        else:
+            for i in SUPERUSERS:
+                await bot.send_private_msg(user_id=i, message="公告发送异常，群号：{}\n错误信息：{}".format(group_id, err.retcode))
 
 if __name__ == "__main__":
     update_info = update_check()

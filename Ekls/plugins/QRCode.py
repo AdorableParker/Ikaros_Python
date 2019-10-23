@@ -22,7 +22,7 @@ async def img_saucenao(session: CommandSession):
     # 获取信息
     success, info = await QRCode_decoding(url)
     if success:
-        await session.finish("识别成功\n{}{}{}{}{}".format(info), at_sender=True)
+        await session.finish("识别成功\n{}\n{}\n{}\n{}\n{}".format(*info), at_sender=True)
     else:
         await session.finish(info, at_sender=True)
 
@@ -39,7 +39,7 @@ async def QRCode_decoding(imgurl):
     if title == "Decode Succeeded":
         body = soup.select('tr')
         for i in body:
-            info.append(i.select('td')[0].text +":/n"+ i.select('td')[1].text)
+            info.append(i.select('td')[0].text +":\n"+ i.select('td')[1].text)
         return True, info
     else:
         return False, title
