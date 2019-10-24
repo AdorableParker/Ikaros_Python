@@ -27,7 +27,8 @@ def update_check(uid):
             main_body = update_data.get("main_body","")
             sign = update_data.get("sign", "")
 
-            echo = "最新动态:\n{}\n{}\n{} 于 {} 发布至 BiliBili 动态".format(main_body, img_url, sign, text_time)  # 发表最新动态
+            echo = """最新动态:\n{}\n{}\n{} 于 {} 发布至 BiliBili 动态
+详情请访问：https://space.bilibili.com/{}/dynamic""".format(main_body, img_url, sign, text_time, uid)  # 发表最新动态
             return True, echo
         return False, None
     elif update_data["code"] == 1:  # 连续三次错误返回
