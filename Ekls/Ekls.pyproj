@@ -91,6 +91,15 @@
     <Compile Include="plugins\minus.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\MurphyisLaw\namelist.json">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\MurphyisLaw\startshipbuilding.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\MurphyisLaw\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\QRCode.py">
       <SubType>Code</SubType>
     </Compile>
@@ -173,6 +182,7 @@
     <Folder Include="plugins\construction_time\" />
     <Folder Include="plugins\img2url\" />
     <Folder Include="plugins\liquidation_time\" />
+    <Folder Include="plugins\MurphyisLaw\" />
     <Folder Include="plugins\music\" />
     <Folder Include="plugins\blue_line_wiki\" />
     <Folder Include="plugins\activity_calculation\" />
