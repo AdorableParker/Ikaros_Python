@@ -4,7 +4,6 @@ import time
 
 async def startshipbuilding(buildtype, num):
     with open('./plugins/MurphyisLaw/namelist.json', 'r',encoding="utf-8") as f:
-        print(f)
         data = ujson.loads(f.read())
     namelist = data[buildtype]
     buildresultlist = {}
