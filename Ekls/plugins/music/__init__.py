@@ -37,7 +37,7 @@ async def music(session: CommandSession):
     await session.finish("歌曲消息已发送，若未收到原因类似图片被吞，带来不便还请谅解")
 
 
-@on_command('post_music_to', aliases=("点歌给"), only_to_me=False)
+@on_command('post_music_to', aliases=("点歌给",), only_to_me=False)
 async def post_music_to(session: CommandSession):
     # 获取歌曲信息
     try:
