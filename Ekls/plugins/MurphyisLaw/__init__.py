@@ -31,7 +31,10 @@ async def MurphyisLaw (session: CommandSession):
                             ])
     for i in TYPE:
         if buildtype in TYPE[i]:
+            if buildnum > 10:
+                buildnum = 10
             buildresult = await startshipbuilding(i, buildnum)
+            break
 
     await session.finish("\n建造类型：{}\n建造次数：{}\n{}".format(buildtype, buildnum, buildresult), at_sender=True)
 
@@ -51,7 +54,7 @@ async def _(session: CommandSession):
         else:
             await session.send('格式不正确，请重输')
         if len(stripped_arg) >= 2:
-            session.state['num'] = stripped_arg[1]
+            session.state['num'] = int(stripped_arg[1]) if stripped_arg[1].isdigit() else 1
         else:
             session.state['num'] = 1
     return
