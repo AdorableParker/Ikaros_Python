@@ -26,9 +26,10 @@ async def startshipbuilding(buildtype, num):
         else:
             buildresultlist[buildingrare] = {ship:1}
 
-    buildresult = "船名\t次数\n-------------"
+    buildresult = "船名\t次数\n==============="
     for i in buildresultlist:
-        buildresult += "\n{}\t共计:{}".format(i, len(i))
+        buildresult += "\n{}\t共计:{}艘\n— — — — — — —".format(i, sum(buildresultlist[i].values()))
         for j in buildresultlist[i]:
-            buildresult += "\n{}{:->10d}".format(j,buildresultlist[i][j])
+            buildresult += "\n{:　<10}{}".format(j,buildresultlist[i][j])
+        buildresult += "\n— — — — — — —"
     return buildresult
