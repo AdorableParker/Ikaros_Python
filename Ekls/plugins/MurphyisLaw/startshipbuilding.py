@@ -8,7 +8,8 @@ async def startshipbuilding(buildtype, num):
     namelist = data[buildtype]
     buildresultlist = {}
     for i in range(num):
-        rareProbability = random.randint(0,1000)
+        time.sleep(0.1)
+        rareProbability = random.randint(1,1000)
         if rareProbability <= 70:
             buildingrare="超稀有"
         elif rareProbability <= 190:
