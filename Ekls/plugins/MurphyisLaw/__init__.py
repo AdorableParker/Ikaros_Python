@@ -13,12 +13,14 @@ $ 类型参数选填
     轻/轻型/a/A/1
     重/重型/b/B/2
     特/特型/c/C/3
+    限/限时/d/D/4
 
 #######################"""
 
 TYPE = {"轻型":("轻", "轻型", "a", "A", "1"), 
         "重型":("重", "重型", "b", "B", "2"), 
-        "特型":("特", "特型", "c", "C", "3")}
+        "特型":("特", "特型", "c", "C", "3"),
+        "限时":("限", "限时", "d", "D", "4")}
 
 
 @on_command("MurphyisLaw", aliases=("建造模拟", "模拟建造"), only_to_me=False)
@@ -26,13 +28,15 @@ async def MurphyisLaw (session: CommandSession):
     buildnum = session.get_optional('num',default=1)
     buildtype = session.get('type', prompt='要建造哪个类型呢？', 
                             arg_filters=[
-                                match_regex(pattern=r'轻|轻型|重|重型|特|特型|[a-cA-C1-3]', message='格式不正确，请重输', fullmatch=True),
+                                match_regex(pattern=r'轻|轻型|重|重型|特|特型|限|限时|[a-dA-D1-4]', message='格式不正确，请重输', fullmatch=True),
                                 handle_cancellation(session), 
                             ])
     for i in TYPE:
+        print(buildtype, TYPE[i])
         if buildtype in TYPE[i]:
             if buildnum > 10:
                 buildnum = 10
+            print("pass")
             buildresult = await startshipbuilding(i, buildnum)
             break
 
