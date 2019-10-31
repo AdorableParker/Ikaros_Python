@@ -32,11 +32,9 @@ async def MurphyisLaw (session: CommandSession):
                                 handle_cancellation(session), 
                             ])
     for i in TYPE:
-        print(buildtype, TYPE[i])
         if buildtype in TYPE[i]:
             if buildnum > 10:
                 buildnum = 10
-            print("pass")
             buildresult = await startshipbuilding(i, buildnum)
             break
 
