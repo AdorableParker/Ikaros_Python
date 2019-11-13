@@ -23,7 +23,18 @@ async def construction_info (session: CommandSession):
         info = await al_query_name(time_key)
     else:
         info = await al_query_time(key.upper())
-    await session.finish("{}".format(info), at_sender=True)
+    if len(info) >= 4500:
+        info = info.split("\n")
+        num = len(info)//100
+        await session.send("每页至多100条，共计{}页".format(num+1), at_sender=True)
+        for i in range(0,num):
+            k = "\n".join(info[i*100:(i+1)*100])
+            await session.send("{}".format(k))
+        else:
+            k = "\n".join(info[num*100:])
+            await session.finish("{}".format(k))
+    else:
+        await session.finish("{}".format(info), at_sender=True)
 
 
 @construction_info.args_parser
