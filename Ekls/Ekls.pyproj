@@ -64,6 +64,10 @@
     <Compile Include="plugins\construction_time\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\Daemon\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\Daemon\phantom.py" />
     <Compile Include="plugins\icarus.py">
       <SubType>Code</SubType>
     </Compile>
@@ -180,6 +184,7 @@
     <Folder Include="plugins\boat_name\" />
     <Folder Include="plugins\commission_function\" />
     <Folder Include="plugins\construction_time\" />
+    <Folder Include="plugins\Daemon\" />
     <Folder Include="plugins\img2url\" />
     <Folder Include="plugins\liquidation_time\" />
     <Folder Include="plugins\MurphyisLaw\" />

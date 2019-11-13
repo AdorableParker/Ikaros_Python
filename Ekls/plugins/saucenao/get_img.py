@@ -18,7 +18,8 @@ async def get_img(url):
         response = requests.get('https://saucenao.com/search.php', headers=headers, params=params)
         root_soup = BeautifulSoup(response.text, features="lxml")
         soup = root_soup.select_one('div[class="result"]')
-
+        if not soup and "your IP has exceeded the unregistered user's daily limit of 100 searches." in root_soup.text:
+            return False, "查询IP次数超限"
         resultmiscinfo = soup.select_one('div[class="resultmiscinfo"]') # 尝试获取关联链接
         related_links = resultmiscinfo.find_all("a")
 
@@ -28,6 +29,8 @@ async def get_img(url):
         return False, "未找到相似度达标结果"
     except ConnectionError:
         return False, "\nConnectionError\n连接错误\n访问被拒绝，请联系管理员"
+    except:
+        return False, "\n异常，原因不明\n git_ing == 32行"
     
     j = [text for text in soup.stripped_strings]
     if float(j[0].rstrip("%")) < 60:

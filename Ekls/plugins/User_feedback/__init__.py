@@ -30,9 +30,9 @@ __plugin_usage__ = """------feedback------
 另外如果希望提供有趣的想法，或是希望添加某些需求
 这很欢迎，但请注意：
 If the implementation is hard to explain, it's a bad idea.
-如果 这个 想法 是 难以 解释，它是 一个 坏 主意
+如果 这个 想法 难以 解释，它是 一个 坏 主意
 If the implementation is easy to explain, it may be a good idea.
-如果 这个 想法 是 容易 解释，它是 一个 好 点子
+如果 这个 想法 容易 解释，它是 一个 好 点子
 
 请尽量准确清晰的描述你的想法或需求
 并且开发将将有可能直接联系你以询问更多细节
@@ -49,7 +49,7 @@ async def feedback(session: CommandSession):
         if not stripped_arg:
             await session.pause("欢迎您的反馈，建议先通过 help命令 阅读反馈命令说明。\n现在已经进入反馈录入模式，您接下来的文字信息将会被上传至数据库\n输入“取消反馈”将退出反馈录入并结束此次对话", at_sender = True)
         else:
-            await submit_feedback(stripped_arg, session.ctx["user_id"])
+            await submit_feedback(stripped_arg, session.ctx["user_id"], session.ctx["group_id"])
             await session.finish("反馈已经提交，感谢您的支持", at_sender = True)
     elif not stripped_arg:
         session.pause('空值不予录入哦，请输入需反馈信息\n输入“取消反馈”将退出反馈录入并结束此次对话')
