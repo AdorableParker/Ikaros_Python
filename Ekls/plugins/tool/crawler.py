@@ -64,6 +64,8 @@ def get_upper(oid):
     #print(content)
     text = ujson.loads(content)
     text = text["data"]["top"]["upper"]
+    if not text:
+        text = {"content":{"message":'⚠没有找到置顶评论，请自行移步原帖'},"replies":{}}
     return text
 
 
@@ -146,5 +148,5 @@ async def update2out(uid, cards=0):
 if __name__ == '__main__':
     #AX = get_top()
     #AXX = get_trend('300123440')
-    AXX = get_trend("24430990")
+    AXX = get_trend("161775300")
     print(AXX)
