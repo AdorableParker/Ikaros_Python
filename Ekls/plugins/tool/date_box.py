@@ -22,11 +22,11 @@ def sql_read(library_name, table_name, field_name="",
     pointer = conn.cursor()
     out = []
     if in_where:  # 是否启用 where 语句
-
-        cursor = pointer.execute("SELECT {} FROM {} WHERE {} {} '{}';".format(
-                field, table_name, field_name, link, field_key))
+        a = '''SELECT {} FROM {} WHERE "{}" {} "{}";'''.format(
+                field, table_name, field_name, link, field_key)
+        cursor = pointer.execute(a)
     else:
-        cursor = pointer.execute("SELECT {} FROM {} table_name ;"
+        cursor = pointer.execute('''SELECT {} FROM {} table_name ;'''
                                  .format(field, table_name))
     for para in cursor:  # 逐个打包
         out.append(para)
@@ -52,7 +52,7 @@ def sql_rewrite(library_name, table_name, field_name, field_key, field_name_to,
     try:
         conn = sqlite3.connect(library_name)
         pointer = conn.cursor()
-        pointer.execute('UPDATE {} SET {} = "{}" WHERE {} = "{}";'.format(
+        pointer.execute('''UPDATE {} SET {} = "{}" WHERE {} = "{}";'''.format(
             table_name, field_name_to, field_key_to, field_name, field_key))
         conn.commit()
         returninfo = True
@@ -78,7 +78,7 @@ def sql_write(library_name, table_name, info): # 添加行
         conn = sqlite3.connect(library_name)
         pointer = conn.cursor()
 
-        pointer.execute("INSERT INTO {} VALUES {};".format(table_name, info))
+        pointer.execute('''INSERT INTO {} VALUES {};'''.format(table_name, info))
 
         conn.commit()
     finally:
@@ -99,7 +99,7 @@ def sql_delete(library_name, table_name, condition): # 删除行
         conn = sqlite3.connect(library_name)
         pointer = conn.cursor()
 
-        pointer.execute("DELETE FROM {} WHERE {};".format(table_name, condition))
+        pointer.execute('''DELETE FROM {} WHERE {};'''.format(table_name, condition))
 
         conn.commit()
     finally:
@@ -118,7 +118,7 @@ def look(librar_name, table_name):
     conn = sqlite3.connect(librar_name)
     pointer = conn.cursor()
 
-    pointer.execute("SELECT * FROM {};".format(table_name))
+    pointer.execute('''SELECT * FROM {};'''.format(table_name))
     returninfo = pointer.fetchall()
     conn.commit()
     conn.close()

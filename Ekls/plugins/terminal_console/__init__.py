@@ -125,7 +125,7 @@ async def Daily_remind_alter(session: CommandSession):
     await session.finish("每日提醒_舰B版功能原状态为 {}\n现状态已改为 {}".format(intent, echo))
 
 
-@on_command('Daily_remind_alter', aliases=("改变每日提醒_FGO版功能状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
-async def Daily_remind_alter(session: CommandSession):
+@on_command('Daily_remind_alter_FGO', aliases=("改变每日提醒_FGO版功能状态",), only_to_me=False, permission=SUPERUSER|GROUP_ADMIN)
+async def Daily_remind_alter_FGO(session: CommandSession):
     intent, echo, group_id = await ce(session, "Daily_remind_FGO", True)
     await session.finish("每日提醒_FGO版功能原状态为 {}\n现状态已改为 {}".format(intent, echo))

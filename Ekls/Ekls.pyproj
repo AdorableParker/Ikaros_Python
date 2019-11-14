@@ -60,7 +60,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="plugins\construction_time\al_producetime_query.py" />
-    <Compile Include="plugins\construction_time\reto.py" />
+    <Compile Include="plugins\ship_map\positioning_coordinates.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\tool\reto.py" />
     <Compile Include="plugins\construction_time\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -117,6 +120,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="plugins\saucenao\get_img.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\ship_map\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="plugins\terminal_console\miscellaneous_function.py">
@@ -193,6 +199,7 @@
     <Folder Include="plugins\activity_calculation\" />
     <Folder Include="plugins\rendering\" />
     <Folder Include="plugins\run_code\" />
+    <Folder Include="plugins\ship_map\" />
     <Folder Include="plugins\terminal_console\" />
     <Folder Include="plugins\tool\" />
     <Folder Include="plugins\trace_moe\" />
