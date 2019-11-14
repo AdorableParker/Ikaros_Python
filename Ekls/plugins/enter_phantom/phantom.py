@@ -1,8 +1,15 @@
+import requests
+import ujson
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 from PIL import Image
 import numpy as np
+from io import BytesIO
 
-def phantom():
-    imgA, imgB = Image.open("A.jpg"), Image.open("B.jpg")
+async def phantom(img_A, img_B):
+
+    imgA = Image.open(BytesIO(img_A))
+    imgB = Image.open(BytesIO(img_B))
+
     imgA_array, imgB_array = np.array(imgA), np.array(imgB)
     A_Bsize = np.array([imgA_array.shape, imgB_array.shape])
     
@@ -28,14 +35,6 @@ def phantom():
     aRGB = (255 - Outmin) / 255 * aRGB + Outmin
     bRGB = Outmax / 255 * bRGB
     
-    def CheckRange(array):
-    
-        array = np.around(array)
-        array[array > 255] = 255
-        array[array < 0] = 0
-    
-        return array
-    
     aRGB, bRGB = CheckRange(aRGB), CheckRange(bRGB)
     
     alpha = CheckRange(255 - aRGB + bRGB)
@@ -45,7 +44,43 @@ def phantom():
     RGBA = np.uint8(np.hstack((imgArray, imgArray, imgArray, alpha)))
     outimgarray = RGBA.reshape(min_W, min_H, 4)
     outimg = Image.fromarray(outimgarray)
-    return outimg
+    imgByteArr = BytesIO()
+    outimg.save(imgByteArr, 'png')
+    return imgByteArr.getvalue()
+
+
+async def up_img(file):
+    headers = {}
+    files = {
+    	'smfile':file
+    }
+    result = requests.post("https://sm.ms/api/v2/upload",files=files,headers=headers)
+    result = ujson.loads(result.text)
+    if result['success']:
+        return result['data']['url']
+    else:
+        if "Image upload repeated limit" in result['message']:
+            return result['message'].split(":", 1)[1].strip()
+        return "图片上传失败\n" + result['message']
+
+
+async def getimg(url):
+    try:
+        response = requests.get(url)
+
+    except:
+        return False
+    if response.status_code == 404:
+        return False
+    return response.content
+
+def CheckRange(array):
+    
+    array = np.around(array)
+    array[array > 255] = 255
+    array[array < 0] = 0
+    
+    return array
 
 
 if __name__ == "__main__":
