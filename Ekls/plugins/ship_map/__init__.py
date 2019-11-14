@@ -20,7 +20,7 @@ __plugin_usage__ = """------ship_map------
 @on_command('ship_map', aliases=("打捞定位",), only_to_me=False)
 async def ship_map (session: CommandSession):
     key = session.get('key', prompt='请输入索引信息', arg_filters=[extract_text, not_empty('索引不能为空哦')])
-    time_key = reto.r2n(key, [r"\d*?\:\d"])
+    time_key = reto.r2n(key, [r"\d*?\-\d"])
     if time_key:
         info = await al_query_name(time_key)
     else:
@@ -29,7 +29,7 @@ async def ship_map (session: CommandSession):
     await session.finish(info, at_sender=True)
 
 
-@construction_info.args_parser
+@ship_map.args_parser
 async def _(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
     if session.is_first_run:

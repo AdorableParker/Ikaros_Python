@@ -15,7 +15,7 @@ MapID = ('原名', '和谐名',
          '12-1', '12-2', '12-3', '12-4', 
          '13-1', '13-2', '13-3', '13-4')
 
-def al_query_coordinate(key_name):
+async def al_query_coordinate(key_name):
     '''
     # 根据船名找地图
     '''
@@ -27,22 +27,23 @@ def al_query_coordinate(key_name):
     if resultlist:
         output = ""
         for name in resultlist:
-            output += "原名：{0[0]}\t和谐名：{0[1]}\t可在以下地点打捞\n".format(name)
+            output += "\n原名：{0[0]}\t和谐名：{0[1]}\t可在以下地点打捞\n".format(name)
             for i, j in enumerate(name[2:], 2):
                 if j:
-                    output += MapID[i] + "\n"
+                    output += MapID[i] + "\t"
     else:
         output = "该船名未收录或无法打捞"
     return output
 
 
-def al_query_name(key_time):
+async def al_query_name(key_time):
     '''
     # 根据地图名找船
     '''
     result = sql_read("User.db", "ship_map", key_time, 1, "Usedname")
     if result:
-        name_list = "\n %s 可以的打捞的舰船有：" % key_time
+        name_list = "\n在地图 %s 可以的打捞的舰船有：" % key_time
+        result.sort(key=lambda elem: len(elem[0]))
         for name in result:
             name_list += "\n" + name[0]
     else:
