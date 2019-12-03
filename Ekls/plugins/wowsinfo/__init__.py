@@ -17,14 +17,17 @@ wowsinfo <账号名>#<游戏模式>
 "单人剧情"  "组队剧情"  "组队困难剧情"
 
 # 查询游戏服务器很卡，所以理解一下
+# 目前只支持亚服账号
+# 新项目上线bug多是正常的
 ########################"""
 
 
 @on_command('wowsinfo', aliases=("wowsinfo",), only_to_me=False)
 async def wowsinfo(session: CommandSession):
-    name = session.get('name', prompt='输入需查询账号名')
-    mods = session.get('mods', prompt='输入需查询游戏模式')
+    name = session.get('name', prompt='输入需查询账号名<目前只支持亚服>')
+    mods = session.get('mods', prompt='输入需查询游戏模式<"人机" “匹配” "军团" "单排" "双排" "三排" "单人剧情" "组队剧情" "组队困难剧情">')
 
+    await session.send("正在查询服务器")
     outinfo, err = await infoInquire(name, mods)
 
     if err:

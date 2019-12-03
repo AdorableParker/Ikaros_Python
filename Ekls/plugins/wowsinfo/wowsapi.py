@@ -13,7 +13,8 @@ error_info = {
     "APPLICATION_IS_BLOCKED":"申请被主管部门阻止",
     "METHOD_NOT_FOUND":"方法无效",
     "METHOD_DISABLED":"方法被禁用",
-    "NOT_ENOUGH_SEARCH_LENGTH":"参数长度不足"
+    "NOT_ENOUGH_SEARCH_LENGTH":"参数长度不足",
+    "INVALID_LANGUAGE": "返回语言无效"
 }
 
 extra = {
@@ -84,7 +85,6 @@ device_detail_count = {
 
 params = {
     'application_id': '2363bdcf3dbbff93212c59286f0849e1',
-    'language': 'zh-tw' #'zh-cn'
     }
 
 
@@ -99,8 +99,9 @@ async def getid(name):
     
     useridlist = ujson.loads(response.text)
 
-    if useridlist['status'] is "error":
+    if useridlist['status'] == "error":
         return error_info[useridlist['error']['message']], False
+    print(useridlist)
     if not useridlist['data']:
         return "没有找到名为{}的账号".format(name), False
     return useridlist['data'][0], True
@@ -173,9 +174,9 @@ async def shipName(ship_id):
 
     session = FuturesSession()
     response = session.get('https://api.worldofwarships.ru/wows/encyclopedia/ships/', params=params).result()
-    
-    params['ship_id'] =  'zh-tw'
-    del params['fields']
+
+    del params['fields']   
+    del params['language']
     del params['ship_id']
 
     return ujson.loads(response.text)['data'][str(ship_id)]['name']
