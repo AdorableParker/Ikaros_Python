@@ -3,14 +3,17 @@ import base64
 import ujson
 
 
-def fan_search(url):
+async def fan_search(url):
     response = requests.get(url[0])
     base64_data = base64.b64encode(response.content)
     img_stream = base64_data.decode()
     data = {
         'image': 'data:image/jpeg;base64,{}'.format(img_stream)
         }
-    response = requests.post('https://trace.moe/api/search', data=data)
+    try:
+        response = requests.post('https://trace.moe/api/search', data=data,timeout=10)
+    except requests.exceptions.Timeout:
+        return False, "搜索引擎服务器连接超时，请稍后再试"
     code = response.status_code
     if code == 400:
         return False, "图片上传失败"

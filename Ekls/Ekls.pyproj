@@ -179,6 +179,10 @@
     <Compile Include="plugins\User_feedback\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\wowsinfo\wowsapi.py" />
+    <Compile Include="plugins\wowsinfo\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\YutO\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -211,6 +215,7 @@
     <Folder Include="plugins\time_broadcast\time_txt\" />
     <Folder Include="plugins\update_check\" />
     <Folder Include="plugins\User_feedback\" />
+    <Folder Include="plugins\wowsinfo\" />
     <Folder Include="plugins\YutO\" />
   </ItemGroup>
   <ItemGroup>

@@ -36,7 +36,7 @@ async def trace_moe (session: CommandSession):
     # 获取信息
     await session.send("开始搜索咯，稍等哦", at_sender=True)
     try:
-        success, Fan_drama_info = fan_search(url)
+        success, Fan_drama_info = await fan_search(url)
     except Exception:
         print("/////////////////////////\n{}\n/////////////////////////".format(traceback.format_exc()))
         await session.send("搜索过程出现问题，错误报告已打印", at_sender=True)
