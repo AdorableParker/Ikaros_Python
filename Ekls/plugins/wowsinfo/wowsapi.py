@@ -136,35 +136,40 @@ async def infoTranslate(info, mods):
     if not 'damage_dealt' in info:
         return "无相关记录信息", False
 
-
     for key in translate:
         if key in info:
             outinfo[translate[key]] = info[key]
     for key in device_detail:
         device = info.get(key, "")
+        if 'shots' in device and device['shots'] == 0:
+            continue
+        outinfo["{}数据".format(device_detail[key])] = "— — — — — — — —"
         for keys in device_detail_count:
             if keys in device:
                 if keys == "max_frags_ship_id":
                     device[keys] = await shipName(device[keys])
                 outinfo["{} {}".format(device_detail[key], device_detail_count[keys])] = device[keys]
                 
+    if "当前信息所属船只" in outinfo:
+        outinfo["历史记录"] = "— — — — — — — —"
+        for key in ship_id:
+            if key in info:
+                outinfo[ship_id[key]] = await shipName(info[key])
 
-    for key in ship_id:
-        if key in info:
-            outinfo[ship_id[key]] = await shipName(info[key])
 
-    if outinfo['战斗次数'] <= 0:
-        return outinfo, True
-    outinfo["胜率"] = "{:.2%}".format(outinfo['胜场']/outinfo['战斗次数'])  
     if mods.split("_")[0] == "oper":
         for key in info["wins_by_tasks"]:
             outinfo["{}星取胜场数".format(key)] = info["wins_by_tasks"][key]
     else:
+        outinfo["评分数据"] = "— — — — — — — —"
+        if outinfo['战斗次数'] <= 0:
+            return outinfo, True
+        outinfo["胜率"] = "{:.2%}".format(outinfo['胜场']/outinfo['战斗次数'])  
         if outinfo['战斗次数'] > 0:
             outinfo["场均伤害"] = "{:.2f}".format(outinfo['总计造成伤害']/outinfo['战斗次数'])
-        if outinfo['主炮 射击总数'] > 0:
+        if '主炮 射击总数' in outinfo:
             outinfo["主炮命中率"] = "{:.2%}".format(outinfo['主炮 命中数']/outinfo['主炮 射击总数'])
-        if outinfo['鱼雷 射击总数'] > 0:
+        if '鱼雷 射击总数' in outinfo:
             outinfo["鱼雷命中率"] = "{:.2%}".format(outinfo['鱼雷 命中数']/outinfo['鱼雷 射击总数'])
 
     return outinfo, True
@@ -197,15 +202,20 @@ async def shipID(ship_name):
         output = ''
         for result in resultlist:
             output += "{},".format(result[0])
-    return output
+        return output, True
+    else:
+        return "未收录此船名", False
+
 
 
 async def getshipinfo(name, ship_name, mods):
 
     info, err = await getid(name)
-    ship_id = await shipID(ship_name)
     if not err:
-        return (info), True
+        return info, True
+    ship_id, err = await shipID(ship_name)
+    if not err:
+        return ship_id, True 
     params = {
         'application_id': '2363bdcf3dbbff93212c59286f0849e1',
         'account_id': info["account_id"],
@@ -217,9 +227,10 @@ async def getshipinfo(name, ship_name, mods):
     response = session.get('https://api.worldofwarships.asia/wows/ships/stats/', params=params).result()
 
     data = ujson.loads(response.text)['data'][str(info["account_id"])]
+    if not data:
+        return "无相关记录信息", True
     outinfo = []
     for info in data:
-
         i = await infoTranslate(info, extralist.get(mods,"pvp"))
         outinfo.append(i[0])
     return outinfo, False
