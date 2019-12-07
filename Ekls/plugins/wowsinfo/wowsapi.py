@@ -1,6 +1,6 @@
 from requests_futures.sessions import FuturesSession
+from plugins.tool.date_box import sql_read
 import ujson
-
 
 error_info = {
     "INVALID_SEARCH":"无效搜索",
@@ -17,15 +17,14 @@ error_info = {
     "INVALID_LANGUAGE": "返回语言无效"
 }
 
-extra = {
-    "军团":"statistics.club",
-    "单人剧情":"statistics.oper_solo",
-    "组队剧情":"statistics.oper_div",
-    "组队困难剧情":"statistics.oper_div_hard",
-    "人机":"statistics.pve",
-    "单排":"statistics.rank_solo",
-    "双排":"statistics.rank_div2",
-    "三排":"statistics.rank_div3",
+extralist = {
+    "军团":"club",
+    "单人剧情":"oper_solo",
+    "组队剧情":"oper_div",
+    "组队困难剧情":"oper_div_hard",
+    "人机":"pve",
+    "单排":"rank_solo",
+    "双排":"rank_div2",
 }
 
 translate = {
@@ -56,7 +55,7 @@ translate = {
 
 ship_id = {
     "max_frags_ship_id": "单局最多击杀数的船",
-    "max_planes_killed_ship_id": "单局使用舰载机最多击杀数的船",
+    "max_planes_killed_ship_id": "单局舰载机击落数最多的船",
     "max_damage_dealt_ship_id": "单局造成伤害最多的船",
     "max_scouting_damage_ship_id": "单局造成侦察伤害最多的船",
     "max_total_agro_ship_id": "单局受到潜在伤害最多的船",
@@ -81,60 +80,63 @@ device_detail_count = {
     "shots": "射击总数"
 }
 
-
-
-params = {
-    'application_id': '2363bdcf3dbbff93212c59286f0849e1',
-    }
-
-
 async def getid(name):
 
-    params['search'] = name
-    params['type'] = 'exact'
+    params = {
+        'application_id': '2363bdcf3dbbff93212c59286f0849e1',
+        'search': name,
+        'type': 'exact'
+    }
     session = FuturesSession()
     response = session.get('https://api.worldofwarships.asia/wows/account/list/', params=params).result()
-    del params['search']
-    del params['type']
     
     useridlist = ujson.loads(response.text)
 
     if useridlist['status'] == "error":
         return error_info[useridlist['error']['message']], False
-    print(useridlist)
     if not useridlist['data']:
         return "没有找到名为{}的账号".format(name), False
     return useridlist['data'][0], True
 
-async def infoInquire(name, mode):
+async def infoInquire(name, mods):
 
     info, err = await getid(name)
     if not err:
         return info, False
-
-    params['account_id'] = info["account_id"]
-    params['extra'] = extra.get(mode,"")
-    params['fields'] = extra.get(mode,"statistics.pvp")
+    if mods in extralist:
+       extra = "statistics.{}".format(extralist[mods])
+       fields = extra
+    else:
+       extra = ""
+       fields = "statistics.pvp"
+    params = {
+        'application_id': '2363bdcf3dbbff93212c59286f0849e1',
+        'account_id':info["account_id"],
+        'extra': extra,
+        'fields':fields
+    }
 
     session = FuturesSession()
     response = session.get('https://api.worldofwarships.asia/wows/account/info/', params=params).result()
-    
-    del params['extra']
-    del params['fields']
-    
+        
     data = ujson.loads(response.text)['data'][str(info["account_id"])]
     
-    return await infoTranslate(data, extra.get(mode,"statistics.pvp"))
+    return await infoTranslate(data['statistics'], extralist.get(mods,"pvp"))
     
     
-async def infoTranslate(info, mode):
-    mode = mode.split(".")[-1]
-    info = info['statistics'][mode]
+async def infoTranslate(info, mods):
+
+    outinfo = {}
+
+    if "ship_id" in info:
+        outinfo["当前信息所属船只"] = await shipName(info["ship_id"])
+
+    info = info[mods]
     
     if not 'damage_dealt' in info:
         return "无相关记录信息", False
 
-    outinfo = {}
+
     for key in translate:
         if key in info:
             outinfo[translate[key]] = info[key]
@@ -151,14 +153,19 @@ async def infoTranslate(info, mode):
         if key in info:
             outinfo[ship_id[key]] = await shipName(info[key])
 
-    outinfo["胜率"] = "{:.2%}".format(outinfo['胜场']/outinfo['战斗次数'])
-    if mode.split("_")[0] == "oper":
+    if outinfo['战斗次数'] <= 0:
+        return outinfo, True
+    outinfo["胜率"] = "{:.2%}".format(outinfo['胜场']/outinfo['战斗次数'])  
+    if mods.split("_")[0] == "oper":
         for key in info["wins_by_tasks"]:
             outinfo["{}星取胜场数".format(key)] = info["wins_by_tasks"][key]
     else:
-        outinfo["场均伤害"] = "{:.2f}".format(outinfo['总计造成伤害']/outinfo['战斗次数'])
-        outinfo["主炮命中率"] = "{:.2%}".format(outinfo['主炮 命中数']/outinfo['主炮 射击总数'])
-        outinfo["鱼雷命中率"] = "{:.2%}".format(outinfo['鱼雷 命中数']/outinfo['鱼雷 射击总数'])
+        if outinfo['战斗次数'] > 0:
+            outinfo["场均伤害"] = "{:.2f}".format(outinfo['总计造成伤害']/outinfo['战斗次数'])
+        if outinfo['主炮 射击总数'] > 0:
+            outinfo["主炮命中率"] = "{:.2%}".format(outinfo['主炮 命中数']/outinfo['主炮 射击总数'])
+        if outinfo['鱼雷 射击总数'] > 0:
+            outinfo["鱼雷命中率"] = "{:.2%}".format(outinfo['鱼雷 命中数']/outinfo['鱼雷 射击总数'])
 
     return outinfo, True
     
@@ -167,16 +174,52 @@ async def shipName(ship_id):
     
     if not ship_id:
         return "无"
-    params["fields"] = "name"
-    params['language'] = 'zh-cn'
-    params['ship_id'] = ship_id
+    result = sql_read("User.db", "wows_shipID", "ShipID", ship_id, field = "Name")
+    if result:
+        return result[0][0]
+    else:
+        return "未收录的ship_id:{}".format(ship_id)
+
+async def shipID(ship_name):
+    """
+    # 以名字为索引,查询ID
+    # 参数：
+    # ship_name*    索引名
+    # 返回格式(str)：
+    # "name"
+    """
+    if not ship_name:
+        return "无"
+
+    resultlist = sql_read("User.db", "wows_shipID",
+                      "Name", "*{}*".format(ship_name),field = "ShipID",link = "GLOB")
+    if resultlist:
+        output = ''
+        for result in resultlist:
+            output += "{},".format(result[0])
+    return output
 
 
+async def getshipinfo(name, ship_name, mods):
+
+    info, err = await getid(name)
+    ship_id = await shipID(ship_name)
+    if not err:
+        return (info), True
+    params = {
+        'application_id': '2363bdcf3dbbff93212c59286f0849e1',
+        'account_id': info["account_id"],
+        'ship_id': ship_id,
+        'extra': extralist.get(mods,""),
+        'fields': "ship_id," + extralist.get(mods,"pvp")
+    }
     session = FuturesSession()
-    response = session.get('https://api.worldofwarships.ru/wows/encyclopedia/ships/', params=params).result()
+    response = session.get('https://api.worldofwarships.asia/wows/ships/stats/', params=params).result()
 
-    del params['fields']   
-    del params['language']
-    del params['ship_id']
+    data = ujson.loads(response.text)['data'][str(info["account_id"])]
+    outinfo = []
+    for info in data:
 
-    return ujson.loads(response.text)['data'][str(ship_id)]['name']
+        i = await infoTranslate(info, extralist.get(mods,"pvp"))
+        outinfo.append(i[0])
+    return outinfo, False
