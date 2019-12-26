@@ -15,7 +15,7 @@ def typesetting(gap, progress, mapid):
     # 排版
     """
     
-    if gap:  # 如果剩余时间存在
+    if gap > 0:  # 如果剩余时间存在
         time_gap = int(gap // 86400)  # 计算剩余天数
         if progress >= 100 and time_gap > 7:
             text_gap = "距离活动结束还差{}天就完成目标\n你太强了".format(time_gap)
@@ -98,7 +98,7 @@ def activites(completed, user_defined):
 
     shop = user_defined if user_defined else int(shop)
 
-#    获取时间
+    # 获取时间
     gap = time.mktime(time.strptime(stoptime, "%Y-%m-%d %H:%M"))
     gap -= time.time()
 
