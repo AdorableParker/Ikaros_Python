@@ -60,6 +60,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="plugins\construction_time\al_producetime_query.py" />
+    <Compile Include="plugins\icarus\AiBot.py" />
+    <Compile Include="plugins\icarus\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\ship_map\positioning_coordinates.py">
       <SubType>Code</SubType>
     </Compile>
@@ -195,6 +199,7 @@
     <Folder Include="plugins\commission_function\" />
     <Folder Include="plugins\construction_time\" />
     <Folder Include="plugins\enter_phantom\" />
+    <Folder Include="plugins\icarus\" />
     <Folder Include="plugins\img2url\" />
     <Folder Include="plugins\liquidation_time\" />
     <Folder Include="plugins\MurphyisLaw\" />
@@ -220,6 +225,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config.ini" />
+    <Content Include="plugins\icarus\database.db" />
+    <Content Include="plugins\icarus\sentence_tokenizer.pickle" />
     <Content Include="plugins\time_broadcast\time_txt\Z1.txt" />
     <Content Include="plugins\time_broadcast\time_txt\三隈.txt" />
     <Content Include="plugins\time_broadcast\time_txt\伊19.txt" />
