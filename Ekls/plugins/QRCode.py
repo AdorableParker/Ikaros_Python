@@ -6,6 +6,16 @@ from nonebot.command.argfilter.validators import not_empty
 import requests
 from bs4 import BeautifulSoup
 
+__plugin_name__ = "二维码识别"
+__plugin_usage__ = """------help------
+命令关键字："二维码识别", "二维码扫描"
+命令输入格式：
+
+二维码识别 <二维码图片>
+
+效果：识别输入图片中的二维码，返回读取到的信息
+
+########################"""
 
 
 
