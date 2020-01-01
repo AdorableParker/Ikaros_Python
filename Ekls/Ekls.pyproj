@@ -13,6 +13,8 @@
     <RootNamespace>Ekls</RootNamespace>
     <IsWindowsApplication>False</IsWindowsApplication>
     <InterpreterId>Global|ContinuumAnalytics|Anaconda37-64</InterpreterId>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,6 +63,9 @@
     </Compile>
     <Compile Include="plugins\construction_time\al_producetime_query.py" />
     <Compile Include="plugins\icarus\AiBot.py" />
+    <Compile Include="plugins\icarus\My_comparator.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\icarus\__init__.py">
       <SubType>Code</SubType>
     </Compile>

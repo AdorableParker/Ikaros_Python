@@ -25,6 +25,10 @@ $ 多和她聊聊，她会和你的对话中学习如何尬聊
 训练 <问题>#<回答>
 
 $ 伊卡洛斯会完全信任你教给她的所有知识，她把你教给她的所有知识视作珍宝并会很认真的将其牢牢记住..所以请不要让她学坏哦！
+$ 关于好感度系统
+$ 好感度达到 熟悉 时可以设定一条专属回答
+$ 好感度达到 喜欢 时可以设定两条专属回答
+$ 好感度达到 爱 时可以设定三条专属回答
 
 ########################"""
 
@@ -48,11 +52,12 @@ async def tuling(session: CommandSession):
 
 
     # reply = await call_tuling_api(session, message)
-    reply = await ai(message)
-    if reply:
-        await session.finish(reply)
+    reply, rating = await ai(message, session.ctx['user_id'])
+    if rating:
+        await session.send(reply)
+        await session.finish(rating)
     else:
-        pass
+        await session.finish(reply)
 
 
 @on_natural_language(keywords={""})
@@ -68,10 +73,8 @@ async def training_Ai(session: CommandSession):
     question = session.get('question', prompt='问题不能为空呢')
     answer = session.get('answer', prompt='想让我回答什么呢')
 
-    mysic_report = await training(question, answer)
-
-    await session.finish("这样的吗，我大概记住了")
-
+    report = await training(question, answer,session.ctx['user_id'])
+    await session.finish(report)
 
 # 命令解析器用于将用户输入的参数解析成命令真正需要的数据
 @training_Ai.args_parser
@@ -96,28 +99,51 @@ async def _(session: CommandSession):
             session.pause('问题不能为空呢，请重新输入')
         if not session.state.get('music_name'):
             session.pause('想让我回答什么呢，请重新输入')
-    # 如果当前正在向用户询问更多信息（例如本例中的要点播的歌曲），且用户输入有效，则放入会话状态
+    # 如果当前正在向用户询问更多信息，且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
 
 
+@on_natural_language(keywords={""})
+async def _(session: NLPSession):
+    # 以置信度 60.0 返回 tuling 命令
+    # 确保任何消息都在且仅在其它自然语言处理器无法理解的时候使用 tuling 命令
+    return IntentCommand(80.0, 'tuling', args={'message': session.msg_text})
 
 
 
+@on_command('training_Ai_only', aliases=("只对我说",), only_to_me=False)
+async def training_Ai_only(session: CommandSession):
+    question = session.get('question', prompt='问题不能为空呢')
+    answer = session.get('answer', prompt='想让我回答什么呢')
 
+    report = await training(question, answer, Qid=session.ctx['user_id'], only_to_me=True)
+    await session.finish(report)
 
+# 命令解析器用于将用户输入的参数解析成命令真正需要的数据
+@training_Ai_only.args_parser
+async def _(session: CommandSession):
+    # 去掉消息首尾的空白符
+    stripped_arg = session.current_arg_text.strip()
+    if session.is_first_run:
+        # 该命令第一次运行（第一次进入命令会话）
+        if stripped_arg:
+            stripped_arg_list = stripped_arg.split("#",1)
+            if len(stripped_arg_list) > 1:
+                session.state['question'] = stripped_arg_list[0]
+                session.state['answer'] = stripped_arg_list[1]
+            else:
+                session.state['question'] = stripped_arg
+        return
 
-
-
-
-
-
-
-
-
-
-
-
-
+    if not stripped_arg:
+        # 用户没有发送有效的歌曲名称（而是发送了空白字符），则提示重新输入
+        # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
+        if not session.state.get('music_name'):
+            session.pause('问题不能为空呢，请重新输入')
+        if not session.state.get('music_name'):
+            session.pause('想让我回答什么呢，请重新输入')
+    # 如果当前正在向用户询问更多信息，且用户输入有效，则放入会话状态
+    session.state[session.current_key] = stripped_arg
 
 # 弃用第三方ai
 

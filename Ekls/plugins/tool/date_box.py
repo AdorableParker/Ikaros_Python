@@ -57,8 +57,7 @@ def sql_rewrite(library_name, table_name, field_name, field_key, field_name_to,
         conn.commit()
         returninfo = True
     except Exception:
-        print("/////////////////////////\n{}\n/////////////////////////".format(traceback.format_exc()))
-        rereturninfo = False
+        returninfo = False
     finally:
         conn.close()
         return returninfo
