@@ -38,7 +38,7 @@ async def _(session: CommandSession):
         return
     try:
         result_dic = ujson.loads(response.text)
-    except ujson.decoder.JSONDecodeError:
+    except:
         await session.finish('服务提供商出现问题')
     sites =[
         ('bilibili', '哔哩哔哩'),

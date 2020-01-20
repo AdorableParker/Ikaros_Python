@@ -14,6 +14,9 @@ __plugin_usage__ = """------enter_phantom------
 
 Everything is a phantom
 
+$ 原理在这里：
+$ https://www.bilibili.com/video/av75403051/
+$ 看看能不能带动一波播放量2333
 ########################"""
 
 

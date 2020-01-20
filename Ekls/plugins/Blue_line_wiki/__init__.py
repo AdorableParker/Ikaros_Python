@@ -4,7 +4,7 @@
 """
 
 from nonebot import on_command, CommandSession
-from .get_ranking import get_equipment_list, get_srength_list, get_pixiv_list
+from .get_ranking import get_and_parse
 
 
 __plugin_name__ = "wiki榜单"
@@ -32,7 +32,7 @@ __plugin_usage__ = """------equipment_ranking------
 @on_command('equipment_ranking', aliases=("装备榜单", "装备榜", "装备排行榜"), only_to_me=False)
 async def equipment_ranking(session: CommandSession):
     # 获取B博信息
-    url, info = await get_equipment_list()
+    url, info = await get_and_parse('https://wiki.biligame.com/blhx/装备一图榜')
     # 向用户发送信息
     # print(update_bilibili)
     await session.finish("装备榜单：\n{}\n{}".format(url, info))
@@ -41,7 +41,7 @@ async def equipment_ranking(session: CommandSession):
 @on_command('srength_ranking', aliases=("强度榜单", "强度榜", "舰娘强度榜", "舰娘排行榜"), only_to_me=False)
 async def srength_ranking(session: CommandSession):
     # 获取B博信息
-    url, info = await get_srength_list()
+    url, info = await get_and_parse('https://wiki.biligame.com/blhx/PVE用舰船综合性能强度榜')
     # 向用户发送信息
     # print(update_bilibili)
     await session.finish("强度榜单：\n{}\n{}".format(url, info))
@@ -50,7 +50,7 @@ async def srength_ranking(session: CommandSession):
 @on_command('pixiv_ranking', aliases=("社保榜", "射爆榜", "P站榜"), only_to_me=False)
 async def pixiv_ranking(session: CommandSession):
     # 获取B博信息
-    url, info = await get_pixiv_list()
+    url, info = await get_and_parse('https://wiki.biligame.com/blhx/P站搜索结果一览榜（社保榜）')
     # 向用户发送信息
     # print(update_bilibili)
     await session.finish("P站搜索排行榜：\n{}\n{}".format(url, info))

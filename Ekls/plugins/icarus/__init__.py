@@ -49,15 +49,14 @@ async def tuling(session: CommandSession):
     # 通过封装的函数获取图灵机器人的回复
     # 不调用时默认返回
     # reply = "o_o（伊卡洛斯已经不再能听懂了）"
-
-
-    # reply = await call_tuling_api(session, message)
-    reply, rating = await ai(message, session.ctx['user_id'])
-    if rating:
-        await session.send(reply)
-        await session.finish(rating)
-    else:
-        await session.finish(reply)
+    if message:
+        # reply = await call_tuling_api(session, message)
+        reply, rating = await ai(message, session.ctx['user_id'])
+        if rating:
+            await session.send(reply)
+            await session.finish(rating)
+        else:
+            await session.finish(reply)
 
 
 @on_natural_language(keywords={""})
@@ -201,7 +200,7 @@ async def _(session: CommandSession):
 
 #    url = 'http://api.qingyunke.com/api.php?key=free&msg=text{}'.format(text)
 
-#    # 构造请求数据		
+#    # 构造请求数据       
 
 # #   response = requests.get(url, params=params)
 # #   if not json.loads(response.text)["result"]:
