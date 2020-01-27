@@ -1,6 +1,5 @@
 import requests
 import ujson
-from requests_toolbelt.multipart.encoder import MultipartEncoder
 from PIL import Image
 import numpy as np
 from io import BytesIO
@@ -45,7 +44,7 @@ async def phantom(img_A, img_B):
     outimgarray = RGBA.reshape(min_W, min_H, 4)
     outimg = Image.fromarray(outimgarray)
     imgByteArr = BytesIO()
-    outimg.save(imgByteArr, 'png')
+    outimg.save(imgByteArr, 'jpeg')
     return imgByteArr.getvalue()
 
 
