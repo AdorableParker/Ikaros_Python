@@ -45,7 +45,7 @@ EXPR_DONT_UNDERSTAND = (
 @on_command('tuling', aliases=("伊卡洛斯"))
 async def tuling(session: CommandSession):
     # 获取可选参数，这里如果没有 message 参数，命令不会被中断，message 变量会是 None
-    message = session.state.get('message')
+    message = session.state.get('message').strip()
     # 通过封装的函数获取图灵机器人的回复
     # 不调用时默认返回
     # reply = "o_o（伊卡洛斯已经不再能听懂了）"
@@ -85,8 +85,8 @@ async def _(session: CommandSession):
         if stripped_arg:
             stripped_arg_list = stripped_arg.split("#",1)
             if len(stripped_arg_list) > 1:
-                session.state['question'] = stripped_arg_list[0]
-                session.state['answer'] = stripped_arg_list[1]
+                session.state['question'] = stripped_arg_list[0].strip()
+                session.state['answer'] = stripped_arg_list[1].strip()
             else:
                 session.state['question'] = stripped_arg
         return

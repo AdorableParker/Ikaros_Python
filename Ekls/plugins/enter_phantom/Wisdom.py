@@ -34,7 +34,13 @@ async def Wisdom(img, zh_content):
     write = ImageDraw.Draw(background)
     write.text(zh_font_xy, zh_content, (255, 0, 0), font=zh_font)
     write.text(jp_font_xy, jp_content, (255, 255, 255), font=jp_font)
-    # 转化为数据流并返回
+    # 转化为数据流
     imgByteArr = BytesIO()
     background.save(imgByteArr, 'jpeg')
-    return imgByteArr.getvalue()
+    imgBytes = imgByteArr.getvalue() 
+    
+    # 提交给图床 Air版本
+    return imgBytes
+
+    # 转化为Base64并返回 Pro版本
+    return base64.b64encode(imgBytes)

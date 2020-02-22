@@ -66,7 +66,6 @@ async def up_img(file):
 async def getimg(url):
     try:
         response = requests.get(url)
-
     except:
         return False
     if response.status_code == 404:

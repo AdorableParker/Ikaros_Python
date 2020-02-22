@@ -57,7 +57,7 @@ ascii2d引擎搜索结果：
 该作品链接：{1[2]}
 作者名：{1[3]}
 该作者链接：{1[4]}
-预览图：{1[5]}""".format(*info) if info else "所有引擎均未成功匹配"
+预览图：{1[5]}""".format(*info) if info else "\n所有引擎均未成功匹配"
         await session.finish(img_info, at_sender=True)
 
 

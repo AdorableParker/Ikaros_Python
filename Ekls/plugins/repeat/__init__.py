@@ -47,7 +47,6 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
     switch = sql_read("User.db", "group_info", "group_id", session.ctx["group_id"], field = "repeat", in_where = True)  # 权限管理器
     if not switch:  # 如果没有这个群的配置记录，则添加一条，默认全部为False
        sql_write("User.db", "group_info (id, group_id)",'(Null, {})'.format(session.ctx["group_id"]))
-
     elif not switch[0][0]:  # 如果配置记录为关闭，则退出
         pass
     else:
@@ -67,10 +66,7 @@ async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
                 sql_rewrite("User.db", "repeat_info", "groupid", session.ctx["group_id"], "userid", session.ctx["user_id"])  # 记录继位者id
                 await session.finish(text)
             else:
-
-                return None                # 不禁言
-
-                if flag >= 2:
+                if flag >= 2 and False:
                     bot = session.bot
                     try:
                         # 禁言在位者
