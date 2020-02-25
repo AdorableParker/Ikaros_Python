@@ -20,3 +20,6 @@ PORT = 1234
 Baidu_fanyi = {"appid" : '20180811000193438',
                "secretKey" : '3WGh4YP8OYMubp9JOuHa'}
 
+Tencent_visionporn = {'app_id': 2129130731, 
+                      'app_key': 'WyFJNPTC0VatiOBw'}
+

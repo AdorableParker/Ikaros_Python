@@ -34,7 +34,7 @@ async def _(session: NLPSession):
     # 确保任何消息都在且仅在其它自然语言处理器无法理解的时候触发命令
 
     # 以下一些代码为定制功能服务
-    if session.ctx["group_id"] == 578182492:
+    if session.ctx['message_type'] == 'group' and session.ctx["group_id"] == 578182492:
         if sql_read("User.db", "kill_list", "ID", session.ctx["user_id"]):
             sql_delete("User.db", "kill_list", "ID = {}".format(session.ctx["user_id"]))
 

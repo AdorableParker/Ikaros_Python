@@ -29,6 +29,9 @@ $ 看看能不能带动一波播放量2333
 
 A famous saying whose essence is truth itself;
 
+$ 原理在这里：
+$ https://www.bilibili.com/video/av86497034/
+
 ########################"""
 
 

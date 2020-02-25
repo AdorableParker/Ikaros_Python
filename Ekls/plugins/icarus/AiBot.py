@@ -65,6 +65,7 @@ async def ai(user_input, Qid):
         for i in range(1, dedicated_corpus[7]+1):
             corpus.append((dedicated_corpus[i+3],dedicated_corpus[i]))
         max_ratio, response = selection(corpus, max_ratio, response, user_input)
+
         if max_ratio >= 0.7:
             return random.choice(response), text
 
@@ -78,6 +79,7 @@ async def ai(user_input, Qid):
     for i in keys:
         dedicated_corpus = sql_read("plugins/icarus/data.db", "universal_corpus", 'question', '%{}%'.format(i[1]), link="LIKE")
         max_ratio, response = selection(dedicated_corpus, max_ratio, response, user_input)
+
         if max_ratio >= 0.5:
             return random.choice(response), text
     

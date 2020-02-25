@@ -185,6 +185,12 @@
     <Compile Include="plugins\User_feedback\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\vision_porn\vision_img.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\vision_porn\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="plugins\wowsinfo\wowsapi.py" />
     <Compile Include="plugins\wowsinfo\__init__.py">
       <SubType>Code</SubType>
@@ -222,6 +228,7 @@
     <Folder Include="plugins\time_broadcast\time_txt\" />
     <Folder Include="plugins\update_check\" />
     <Folder Include="plugins\User_feedback\" />
+    <Folder Include="plugins\vision_porn\" />
     <Folder Include="plugins\wowsinfo\" />
     <Folder Include="plugins\YutO\" />
   </ItemGroup>
