@@ -21,8 +21,8 @@ __plugin_usage__ = """------vision_porn------
 ########################"""
 
 
-@on_command('img_saucenao', aliases=("图片鉴黄", "鉴黄"), only_to_me=False)
-async def img_saucenao(session: CommandSession):
+@on_command('vision_porn', aliases=("图片鉴黄", "鉴黄"), only_to_me=False)
+async def vision_porn(session: CommandSession):
 
     url = session.get(
         'url', prompt='要鉴定的图片是哪张呢？', 
@@ -40,7 +40,7 @@ async def img_saucenao(session: CommandSession):
 
 # img_saucenao.args_parser 装饰器将函数声明为 img_saucenao 命令的参数解析器
 # 命令解析器用于将用户输入的参数解析成命令真正需要的数据
-@img_saucenao.args_parser
+@vision_porn.args_parser
 async def _(session: CommandSession):
 
     # 获取图片url
