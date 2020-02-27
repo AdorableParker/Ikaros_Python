@@ -52,6 +52,7 @@ def points(Qid, flag=False):
 
 async def ai(user_input, Qid):
     keys = Keyword_extraction(user_input)
+
     text = points(Qid)
 
     max_ratio = 0
@@ -76,8 +77,7 @@ async def ai(user_input, Qid):
             return random.choice(response), text
 
     for i in keys:
-        print(i)
-        dedicated_corpus = sql_read("plugins/icarus/data.db", "universal_corpus", 'question', '%{}%'.format(i), link="LIKE")
+        dedicated_corpus = sql_read("plugins/icarus/data.db", "universal_corpus", 'question', '%{}%'.format(i[1]), link="LIKE")
         max_ratio, response = selection(dedicated_corpus, max_ratio, response, user_input)
 
         if max_ratio >= 0.5:
