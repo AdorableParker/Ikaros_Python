@@ -13,7 +13,7 @@ async def get_img(url):
     params = (
         ('db', '999'),
         ('url', url),
-		('api_key', 'dd7fed4d16e528bffb44a098db5f77a16a43020c')
+		('api_key', 'yourApiKey')
         )
 
     try:
