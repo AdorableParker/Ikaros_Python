@@ -1,6 +1,6 @@
 from nonebot.default_config import *
 
-SUPERUSERS = {1514880969}   # 管理员权限
+SUPERUSERS = {}   # 超级管理员权限账号
 COMMAND_START = {''}    # 命令前缀符
 NICKNAME = ('伊卡洛斯')   # 昵称
 MAX_VALIDATION_FAILURES = 3 # 参数最大错误次数
@@ -17,9 +17,9 @@ SESSION_CANCEL_EXPRESSION = "命令已取消" # 命令会话取消运行时回�
 HOST = '127.0.0.1'
 PORT = 1234
 # TULING_API_KEY = 'd146dcf03ae6438d8f53b2e78aafc694'
-Baidu_fanyi = {"appid" : '20180811000193438',
-               "secretKey" : '3WGh4YP8OYMubp9JOuHa'}
+Baidu_fanyi = {"appid" : 'yourAppID',
+               "secretKey" : 'yourSecretKey'}
 
-Tencent_visionporn = {'app_id': 2129130731, 
-                      'app_key': 'WyFJNPTC0VatiOBw'}
+Tencent_visionporn = {'app_id': yourAppID, 
+                      'app_key': 'yourAppKey'}
 
