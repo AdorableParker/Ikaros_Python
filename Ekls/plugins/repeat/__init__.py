@@ -33,11 +33,6 @@ async def _(session: NLPSession):
     # 以置信度 60.0 返回 tuling 命令
     # 确保任何消息都在且仅在其它自然语言处理器无法理解的时候触发命令
 
-    # 以下一些代码为定制功能服务
-    if session.ctx['message_type'] == 'group' and session.ctx["group_id"] == 578182492:
-        if sql_read("User.db", "kill_list", "ID", session.ctx["user_id"]):
-            sql_delete("User.db", "kill_list", "ID = {}".format(session.ctx["user_id"]))
-
     return IntentCommand(60.0, 'repeat', args={'message': session.msg_text})
 
 async def get_repeat(session: CommandSession, text: str) -> Optional[str]:
